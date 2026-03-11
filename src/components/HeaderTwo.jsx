@@ -4,24 +4,11 @@ import { Link, NavLink } from "react-router-dom";
 const HeaderTwo = ({ category }) => {
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
-    window.onscroll = () => {
-      if (window.pageYOffset < 150) {
-        setScroll(false);
-      } else if (window.pageYOffset > 150) {
-        setScroll(true);
-      }
-      return () => (window.onscroll = null);
-    };
-    const selectElement = query(".js-example-basic-single");
-    selectElement.select2();
-
-    return () => {
-      if (selectElement.data("select2")) {
-        selectElement.select2("destroy");
-      }
-    };
+    const handleScroll = () => setScroll(window.pageYOffset > 150);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  
   // Set the default language
   const [selectedLanguage, setSelectedLanguage] = useState("Eng");
   const handleLanguageChange = (language) => {

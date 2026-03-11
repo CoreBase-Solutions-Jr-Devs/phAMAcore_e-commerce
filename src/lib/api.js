@@ -9,6 +9,6 @@ export const signUpMutationFn = async (data) => {
 };
 
 export const getCurrentUserQueryFn = async () => {
-  const response = await API.get("/auth/current-client");
+  const response = await API.get("/identity/current-client");
   return response.data;
 };
