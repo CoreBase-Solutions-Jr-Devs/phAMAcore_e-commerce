@@ -4,7 +4,7 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const options = {
 	baseURL,
-	withCredentials: true,
+	withCredentials: false,
 	timeout: 10000,
 };
 
@@ -12,7 +12,7 @@ const API = axios.create(options);
 
 API.interceptors.request.use(
 	(config) => {
-		const token = localStorage.getItem('token');
+		const token = localStorage.getItem('accessToken');
 		if (token) {
 			config.headers = config.headers || {};
 			config.headers.Authorization = `Bearer ${token}`;
@@ -49,7 +49,7 @@ API.interceptors.response.use(
 				window.location.href = '/';
 			}
 
-			return Promise.reject({ ...data });
+			return Promise.reject(error.response);
 		}
 
 		return Promise.reject({
