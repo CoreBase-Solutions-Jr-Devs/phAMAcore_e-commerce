@@ -28,6 +28,7 @@ export const getProductByCategoryQueryFn = async (
       pageIndex,
       pageSize,
     },
+    withCredentials: false,
   });
 
   return response.data;
@@ -36,7 +37,9 @@ export const getProductByCategoryQueryFn = async (
 export const getProductByIdQueryFn = async (productId) => {
   if (!productId) throw new Error("Product ID is required");
 
-  const response = await API.get(`/products/${productId}`);
+  const response = await API.get(`/products/${productId}`,{
+    withCredentials: false,
+  });
   return response.data;
 };
 
@@ -49,12 +52,15 @@ export const getProductsWithPaginationQueryFn = async ({
       pageIndex,
       pageSize,
     },
+    withCredentials: false,
   });
 
   return response.data;
 };
 
 export const getCategoriesHierarchyQueryFn = async () => {
-  const response = await API.get("/categories/hierarchy");
+  const response = await API.get("/categories/hierarchy", {
+    withCredentials: false,
+  });
   return response.data;
 };
