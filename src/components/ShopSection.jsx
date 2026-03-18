@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReactSlider from 'react-slider'
@@ -9,25 +11,9 @@ const PAGE_SIZE = 20;
 
 // ── static data ──────────────────────────────────────────────────────────────
 
-const COLORS = [
-    { id: "color1", label: "Black (12)", cls: "checked-black" },
-    { id: "color2", label: "Blue (12)", cls: "checked-primary" },
-    { id: "color3", label: "Gray (12)", cls: "checked-gray" },
-    { id: "color4", label: "Green (12)", cls: "checked-success" },
-    { id: "color5", label: "Red (12)", cls: "checked-danger" },
-    { id: "color6", label: "White (12)", cls: "checked-white" },
-    { id: "color7", label: "Purple (12)", cls: "checked-purple" },
-];
 
 const BRANDS = ["Apple", "Samsung", "Microsoft", "Apple", "HP", "DELL", "Redmi"];
 
-const RATINGS = [
-    { id: "rating5", stars: 5, filled: 5, count: 124, pct: 70 },
-    { id: "rating4", stars: 4, filled: 4, count: 52, pct: 50 },
-    { id: "rating3", stars: 3, filled: 3, count: 12, pct: 35 },
-    { id: "rating2", stars: 2, filled: 2, count: 5, pct: 20 },
-    { id: "rating1", stars: 1, filled: 1, count: 2, pct: 5 },
-];
 
 // ── sub-components ────────────────────────────────────────────────────────────
 
@@ -79,26 +65,6 @@ const ProductCard = ({ id, name, imageUrl, price, badge }) => (
                 Add To Cart <i className="ph ph-shopping-cart" />
             </Link>
         </div>
-    </div>
-);
-
-const RatingRow = ({ id, filled, count, pct }) => (
-    <div className="flex-align gap-8 position-relative mb-20">
-        <label className="position-absolute w-100 h-100 cursor-pointer" htmlFor={id}> </label>
-        <div className="common-check common-radio mb-0">
-            <input className="form-check-input" type="radio" name="flexRadioDefault" id={id} />
-        </div>
-        <div className="progress w-100 bg-gray-100 rounded-pill h-8" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-            <div className="progress-bar bg-main-600 rounded-pill" style={{ width: `${pct}%` }} />
-        </div>
-        <div className="flex-align gap-4">
-            {[...Array(5)].map((_, i) => (
-                <span key={i} className={`text-xs fw-medium d-flex ${i < filled ? "text-warning-600" : "text-gray-400"}`}>
-                    <i className="ph-fill ph-star" />
-                </span>
-            ))}
-        </div>
-        <span className="text-gray-900 flex-shrink-0">{count}</span>
     </div>
 );
 
@@ -180,26 +146,6 @@ const ShopSection = () => {
                                 </div>
                             </div>
 
-                            {/* Rating */}
-                            <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
-                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Rating</h6>
-                                {RATINGS.map(r => <RatingRow key={r.id} {...r} />)}
-                            </div>
-
-                            {/* Color */}
-                            <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
-                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Color</h6>
-                                <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                    {COLORS.map(({ id, label, cls }, i) => (
-                                        <li key={id} className={i === COLORS.length - 1 ? "mb-0" : "mb-24"}>
-                                            <div className={`form-check common-check common-radio ${cls}`}>
-                                                <input className="form-check-input" type="radio" name="color" id={id} />
-                                                <label className="form-check-label" htmlFor={id}>{label}</label>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
 
                             {/* Brand */}
                             <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
@@ -247,7 +193,7 @@ const ShopSection = () => {
                                     </button>
                                 </div>
                                 <div className="position-relative text-gray-500 flex-align gap-4 text-14">
-                                    <label htmlFor="sorting" className="text-inherit flex-shrink-0">Sort by: </label>
+                                    <label htmlFor="sorting" className="text-inherit shrink-0">Sort by: </label>
                                     <select defaultValue={1} className="form-control common-input px-14 py-14 text-inherit rounded-6 w-auto" id="sorting">
                                         {["Popular", "Latest", "Trending", "Matches"].map(opt => (
                                             <option key={opt} value={opt}>{opt}</option>
