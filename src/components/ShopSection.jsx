@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReactSlider from 'react-slider'
 import { useQuery } from '@tanstack/react-query'
-import categoriesData from "../../getCategoriesHierachy.json";
+import { getCategoriesHierarchyQueryFn } from '@/lib/api';
 import { getProductsWithPaginationQueryFn } from '@/lib/api';
 
 const PAGE_SIZE = 20;
@@ -81,6 +81,15 @@ const ShopSection = () => {
         keepPreviousData: true,
     });
 
+    const {
+        data: categoriesData,
+        isLoading: categoriesLoading,
+        isError: categoriesError,
+    } = useQuery({
+        queryKey: ['categories'],
+        queryFn: getCategoriesHierarchyQueryFn,
+    });
+
     const products = data?.products?.data ?? [];
     const total = data?.products?.count ?? 0;
     const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -111,13 +120,27 @@ const ShopSection = () => {
                             <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
                                 <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Product Category</h6>
                                 <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                    {categoriesData.categories.map((cat, i) => (
-                                        <li key={cat.id} className={i === categoriesData.categories.length - 1 ? "mb-0" : "mb-24"}>
-                                            <Link to={`/shop?category=${cat.slug}`} className="text-gray-900 hover-text-main-600">
-                                                {cat.name} ({cat.children?.length ?? 0})
-                                            </Link>
-                                        </li>
-                                    ))}
+                                    {categoriesLoading ? (
+                                        <li>Loading categories...</li>
+                                    ) : categoriesError ? (
+                                        <li className="text-danger">Failed to load categories</li>
+                                    ) : (
+                                        categoriesData?.categories?.map((cat, i) => (
+                                            <li
+                                                key={cat.id}
+                                                className={
+                                                    i === categoriesData.categories.length - 1 ? "mb-0" : "mb-24"
+                                                }
+                                            >
+                                                <Link
+                                                    to={`/shop?category=${cat.slug}`}
+                                                    className="text-gray-900 hover-text-main-600"
+                                                >
+                                                    {cat.name} ({cat.children?.length ?? 0})
+                                                </Link>
+                                            </li>
+                                        ))
+                                    )}
                                 </ul>
                             </div>
 

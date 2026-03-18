@@ -7,7 +7,6 @@ import thumb1 from "../assets/images/thumbs/product-details-two-thumb1.png";
 import thumb2 from "../assets/images/thumbs/product-details-two-thumb2.png";
 import thumb3 from "../assets/images/thumbs/product-details-two-thumb3.png";
 import { getProductByIdQueryFn } from '../lib/api';
-import localProduct from '../../getProductById.json';
 
 // ── Static/fallback data ─────────────────────────────────────────────────────
 const PRODUCT_IMAGES = [thumb1, thumb2, thumb3, thumb1, thumb2];
