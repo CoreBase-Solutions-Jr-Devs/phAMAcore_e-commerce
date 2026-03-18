@@ -114,8 +114,8 @@ const ProductDetailsTwo = () => {
 
     const { data: apiProduct, isLoading } = useProductById(productId);
 
-    // Use API data when a productId is in the URL, otherwise fall back to local JSON
-    const product = productId ? apiProduct : localProduct.product;
+    // Use API data when a productId is in the URL, otherwise don't show any product
+    const product = productId ? apiProduct : null;
 
     const [timeLeft, setTimeLeft] = useState(getCountdown());
     const [quantity, setQuantity] = useState(1);
