@@ -1,0 +1,54 @@
+/* Vitamin Section Product Card */
+.product-card--vitamin {
+    padding: 8px;
+    border-radius: 12px;
+
+    .product-card__thumb {
+        height: 90px;
+
+        img {
+            max-width: 90px;
+        }
+    }
+
+    .product-card__content {
+        margin-top: 8px;
+    }
+
+    h6 {
+        font-size: 14px;
+        margin-top: 6px;
+        margin-bottom: 4px;
+    }
+
+    .flex-align span {
+        font-size: 11px;
+    }
+
+    .product-card__price {
+        margin: 8px 0;
+
+        span {
+            font-size: 13px;
+        }
+    }
+
+    .progress {
+        height: 3px;
+    }
+
+    .product-card__cart {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .slick-slide {
+        padding: 0 6px;
+    }
+
+    .slick-arrow {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+}

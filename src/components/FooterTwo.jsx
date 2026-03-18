@@ -10,7 +10,7 @@ const FooterTwo = () => {
                         <div className="footer-item__logo">
                             <Link to="/">
                                 {" "}
-                                <img src="assets/images/logo/logo-two-black.png" alt="" />
+                                <img src="src/assets/images/logo/logo-two-black.png" alt="" />
                             </Link>
                         </div>
                         <p className="mb-24">
@@ -48,185 +48,129 @@ const FooterTwo = () => {
                             </span>
                         </div>
                     </div>
+                    {/* About Us */}
                     <div className="footer-item">
-                        <h6 className="footer-item__title">About us</h6>
+                        <h6 className="footer-item__title fw-bold underline">About Us</h6>
                         <ul className="footer-menu">
                             <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Company Profile
+                                <Link to="/about" className="text-gray-600 hover-text-main-600">
+                                    About Us
                                 </Link>
                             </li>
                             <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    All Retail Store
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Merchant Center
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Affiliate
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Contact Us
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Feedback
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Huawei Group
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Rules &amp; Policy
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="footer-item">
-                        <h6 className="footer-item__title">Customer Support</h6>
-                        <ul className="footer-menu">
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Help Center
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link
-                                    to="/contact"
-                                    className="text-gray-600 hover-text-main-600"
-                                >
-                                    Contact Us
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Gift Card
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Report Abuse
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Submit and Dispute
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Policies &amp; Rules
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Online Shopping
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Redeem Voucher
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="footer-item">
-                        <h6 className="footer-item__title">My Account</h6>
-                        <ul className="footer-menu">
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    My Account
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Order History
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Shoping Cart
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Compare
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Help Ticket
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/wishlist" className="text-gray-600 hover-text-main-600">
-                                    Wishlist
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Order History
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Product Support
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="footer-item">
-                        <h6 className="footer-item__title">Information</h6>
-                        <ul className="footer-menu">
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Become a Vendor
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Affiliate Program
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
+                                <Link to="/privacy-policy" className="text-gray-600 hover-text-main-600">
                                     Privacy Policy
                                 </Link>
                             </li>
                             <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Our Suppliers
+                                <Link to="/return-policy" className="text-gray-600 hover-text-main-600">
+                                    Return Policy
                                 </Link>
                             </li>
                             <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Extended Plan
+                                <Link to="/terms" className="text-gray-600 hover-text-main-600">
+                                    Terms & Conditions
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/contact" className="text-gray-600 hover-text-main-600">
+                                    Contact Us
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Useful Links */}
+                    <div className="footer-item">
+                        <h6 className="footer-item__title fw-bold underline">Useful Links</h6>
+                        <ul className="footer-menu">
+                            <li className="mb-16">
+                                <Link to="/login" className="text-gray-600 hover-text-main-600">
+                                    Login
                                 </Link>
                             </li>
                             <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Extended Plan
+                                <Link to="/register" className="text-gray-600 hover-text-main-600">
+                                    Register
                                 </Link>
                             </li>
                             <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Community
+                                <Link to="/shipping-policy" className="text-gray-600 hover-text-main-600">
+                                    Shipping Policy
                                 </Link>
                             </li>
                             <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Community
+                                <Link to="/faqs" className="text-gray-600 hover-text-main-600">
+                                    FAQs
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/return-policy" className="text-gray-600 hover-text-main-600">
+                                    Return Policy
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Collections */}
+                    <div className="footer-item">
+                        <h6 className="footer-item__title fw-bold underline">Collections</h6>
+                        <ul className="footer-menu">
+                            <li className="mb-16">
+                                <Link to="/offers" className="text-gray-600 hover-text-main-600">
+                                    Offers
+                                </Link>
+                            </li>
+                            <li className="mb-16">
+                                <Link to="/trending" className="text-gray-600 hover-text-main-600">
+                                    Trending
+                                </Link>
+                            </li>
+                            <li className="mb-16">
+                                <Link to="/best-sellers" className="text-gray-600 hover-text-main-600">
+                                    Best Sellers
+                                </Link>
+                            </li>
+                            <li className="mb-16">
+                                <Link to="/new-arrivals" className="text-gray-600 hover-text-main-600">
+                                    New Arrivals
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/promotions" className="text-gray-600 hover-text-main-600">
+                                    Promotions
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Quick Links */}
+                    <div className="footer-item">
+                        <h6 className="footer-item__title fw-bold underline">Quick Links</h6>
+                        <ul className="footer-menu">
+                            <li className="mb-16">
+                                <Link to="/account" className="text-gray-600 hover-text-main-600">
+                                    Account
+                                </Link>
+                            </li>
+                            <li className="mb-16">
+                                <Link to="/cart" className="text-gray-600 hover-text-main-600">
+                                    View Cart
+                                </Link>
+                            </li>
+                            <li className="mb-16">
+                                <Link to="/wishlist" className="text-gray-600 hover-text-main-600">
+                                    My Wishlist
+                                </Link>
+                            </li>
+                            <li className="mb-16">
+                                <Link to="/compare" className="text-gray-600 hover-text-main-600">
+                                    Compare Products
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/prescriptions" className="text-gray-600 hover-text-main-600">
+                                    Prescription Medicines
                                 </Link>
                             </li>
                         </ul>
@@ -236,10 +180,10 @@ const FooterTwo = () => {
                         <p className="mb-16">Marketpro App is available. Get it now</p>
                         <div className="flex-align gap-8 my-32">
                             <Link to="/https://www.apple.com/store" className="">
-                                <img src="assets/images/thumbs/store-img1.png" alt="" />
+                                <img src="src/assets/images/thumbs/store-img1.png" alt="Apple App Store" />
                             </Link>
                             <Link to="/https://play.google.com/store/apps?hl=en" className="">
-                                <img src="assets/images/thumbs/store-img2.png" alt="" />
+                                <img src="src/assets/images/thumbs/store-img2.png" alt="Google Play Store" />
                             </Link>
                         </div>
                         <ul className="flex-align gap-16">

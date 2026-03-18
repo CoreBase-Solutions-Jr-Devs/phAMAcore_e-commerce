@@ -1,0 +1,11 @@
+{
+    "product": {
+        "id": "12f66918-736c-4b4f-94e5-ea00c81433eb",
+        "name": "Paracetamol 120mg/5ml Syrup",
+        "categoryId": "d732c1c1-411d-42d1-bca6-16f142e70cc2",
+        "categoryName": "Analgesic Syrups",
+        "description": "Paracetamol syrup 120mg per 5ml used to reduce fever and relieve mild to moderate pain in children.",
+        "imageUrl": "https://phamacore-storage.blob.core.windows.net/products/paracetamol-syrup-120mg.jpg",
+        "price": 650.00
+    }
+}

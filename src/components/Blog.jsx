@@ -14,7 +14,7 @@ const Blog = () => {
                                     className="w-100 h-100 rounded-16 overflow-hidden"
                                 >
                                     <img
-                                        src="assets/images/thumbs/blog-img1.png"
+                                        src="src/assets/images/thumbs/blog-img1.png"
                                         alt=""
                                         className="cover-img"
                                     />
@@ -70,7 +70,7 @@ const Blog = () => {
                                     className="w-100 h-100 rounded-16 overflow-hidden"
                                 >
                                     <img
-                                        src="assets/images/thumbs/blog-img2.png"
+                                        src="src/assets/images/thumbs/blog-img2.png"
                                         alt=""
                                         className="cover-img"
                                     />
@@ -126,7 +126,7 @@ const Blog = () => {
                                     className="w-100 h-100 rounded-16 overflow-hidden"
                                 >
                                     <img
-                                        src="assets/images/thumbs/blog-img3.png"
+                                        src="src/assets/images/thumbs/blog-img3.png"
                                         alt=""
                                         className="cover-img"
                                     />
@@ -269,7 +269,7 @@ const Blog = () => {
                                     />
                                     <button
                                         type="submit"
-                                        className="btn btn-main text-2xl h-56 w-56 flex-center text-2xl input-group-text"
+                                        className="btn btn-main text-2xl h-56 w-56 flex-center input-group-text"
                                     >
                                         <i className="ph ph-magnifying-glass" />
                                     </button>
@@ -285,15 +285,15 @@ const Blog = () => {
                             <div className="d-flex align-items-center flex-sm-nowrap flex-wrap gap-24 mb-16">
                                 <Link
                                     to="/blog-details"
-                                    className="w-100 h-100 rounded-4 overflow-hidden w-120 h-120 flex-shrink-0"
+                                    className="rounded-4 overflow-hidden shrink-0"
                                 >
                                     <img
-                                        src="assets/images/thumbs/recent-post1.png"
+                                        src="src/assets/images/thumbs/recent-post1.png"
                                         alt=""
                                         className="cover-img"
                                     />
                                 </Link>
-                                <div className="flex-grow-1">
+                                <div className="grow">
                                     <h6 className="text-lg">
                                         <Link to="/blog-details" className="text-line-3">
                                             Once determined you need to come up with a name
@@ -317,15 +317,15 @@ const Blog = () => {
                             <div className="d-flex align-items-center flex-sm-nowrap flex-wrap gap-24 mb-16">
                                 <Link
                                     to="/blog-details"
-                                    className="w-100 h-100 rounded-4 overflow-hidden w-120 h-120 flex-shrink-0"
+                                    className="rounded-4 overflow-hidden shrink-0"
                                 >
                                     <img
-                                        src="assets/images/thumbs/recent-post2.png"
+                                        src="src/assets/images/thumbs/recent-post2.png"
                                         alt=""
                                         className="cover-img"
                                     />
                                 </Link>
-                                <div className="flex-grow-1">
+                                <div className="grow">
                                     <h6 className="text-lg">
                                         <Link to="/blog-details" className="text-line-3">
                                             Once determined you need to come up with a name
@@ -349,15 +349,15 @@ const Blog = () => {
                             <div className="d-flex align-items-center flex-sm-nowrap flex-wrap gap-24 mb-16">
                                 <Link
                                     to="/blog-details"
-                                    className="w-100 h-100 rounded-4 overflow-hidden w-120 h-120 flex-shrink-0"
+                                    className="rounded-4 overflow-hidden shrink-0"
                                 >
                                     <img
-                                        src="assets/images/thumbs/recent-post3.png"
+                                        src="src/assets/images/thumbs/recent-post3.png"
                                         alt=""
                                         className="cover-img"
                                     />
                                 </Link>
-                                <div className="flex-grow-1">
+                                <div className="grow">
                                     <h6 className="text-lg">
                                         <Link to="/blog-details" className="text-line-3">
                                             Once determined you need to come up with a name
@@ -381,15 +381,15 @@ const Blog = () => {
                             <div className="d-flex align-items-center flex-sm-nowrap flex-wrap gap-24 mb-0">
                                 <Link
                                     to="/blog-details"
-                                    className="w-100 h-100 rounded-4 overflow-hidden w-120 h-120 flex-shrink-0"
+                                    className="rounded-4 overflow-hidden shrink-0"
                                 >
                                     <img
-                                        src="assets/images/thumbs/recent-post4.png"
+                                        src="src/assets/images/thumbs/recent-post4.png"
                                         alt=""
                                         className="cover-img"
                                     />
                                 </Link>
-                                <div className="flex-grow-1">
+                                <div className="grow">
                                     <h6 className="text-lg">
                                         <Link to="/blog-details" className="text-line-3">
                                             Once determined you need to come up with a name
