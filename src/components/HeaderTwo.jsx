@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import categoriesData from "../../getCategoriesHierachy.json";
+import { useQuery } from "@tanstack/react-query";
+import { getCategoriesHierarchyQueryFn } from "@/lib/api";
 
 const LANGUAGES = [
   { label: "English", flag: "flag1.png" },
@@ -129,6 +130,15 @@ const HeaderTwo = ({ category }) => {
   const handleMenuToggle = () => setMenuActive(v => !v);
   const handleCatClick = (i) => setActiveIndexCat(activeIndexCat === i ? null : i);
   const handleCategoryToggle = () => setActiveCategory(v => !v);
+
+  const {
+    data: categoriesData,
+    isLoading: categoriesLoading,
+    isError: categoriesError,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategoriesHierarchyQueryFn,
+  });
 
   return (
     <>
@@ -358,29 +368,44 @@ const HeaderTwo = ({ category }) => {
                     <Link to="/"><img src="src/assets/images/logo/logo.png" alt="Logo" /></Link>
                   </div>
                   <ul className="scroll-sm p-0 py-8 overflow-y-auto">
-                    {categoriesData.categories.map((cat, index) => (
-                      <li
-                        key={cat.id}
-                        onClick={() => handleCatClick(index)}
-                        className={`has-submenus-submenu ${activeIndexCat === index ? "active" : ""}`}
-                      >
-                        <Link to="#" className="text-gray-500 text-15 py-12 px-16 flex-align gap-8 rounded-0">
-                          <span>{cat.name}</span>
-                          <span className="icon text-md d-flex ms-auto"><i className="ph ph-caret-right" /></span>
-                        </Link>
-                        <div className={`submenus-submenu py-16 ${activeIndexCat === index ? "open" : ""}`}>
-                          <h6 className="text-lg px-16 submenus-submenu__title">{cat.name}</h6>
-                          <ul className="submenus-submenu__list max-h-300 overflow-y-auto scroll-sm">
-                            {cat.children?.length > 0
-                              ? cat.children.map(child => (
-                                <li key={child.id}><Link to={`/shop?category=${child.slug}`}>{child.name}</Link></li>
-                              ))
-                              : <li><Link to={`/shop?category=${cat.slug}`}>View All</Link></li>
-                            }
-                          </ul>
-                        </div>
-                      </li>
-                    ))}
+                    {categoriesLoading ? (
+                      <li className="px-16 py-12">Loading categories...</li>
+                    ) : categoriesError ? (
+                      <li className="px-16 py-12 text-danger">Failed to load</li>
+                    ) : (
+                      categoriesData?.categories?.map((cat, index) => (
+                        <li
+                          key={cat.id}
+                          onClick={() => handleCatClick(index)}
+                          className={`has-submenus-submenu ${activeIndexCat === index ? "active" : ""}`}
+                        >
+                          <Link to="#" className="text-gray-500 text-15 py-12 px-16 flex-align gap-8 rounded-0">
+                            <span>{cat.name}</span>
+                            <span className="icon text-md d-flex ms-auto">
+                              <i className="ph ph-caret-right" />
+                            </span>
+                          </Link>
+
+                          <div className={`submenus-submenu py-16 ${activeIndexCat === index ? "open" : ""}`}>
+                            <h6 className="text-lg px-16 submenus-submenu__title">{cat.name}</h6>
+
+                            <ul className="submenus-submenu__list max-h-300 overflow-y-auto scroll-sm">
+                              {cat.children?.length > 0 ? (
+                                cat.children.map(child => (
+                                  <li key={child.id}>
+                                    <Link to={`/shop?category=${child.slug}`}>{child.name}</Link>
+                                  </li>
+                                ))
+                              ) : (
+                                <li>
+                                  <Link to={`/shop?category=${cat.slug}`}>View All</Link>
+                                </li>
+                              )}
+                            </ul>
+                          </div>
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </div>
               </div>
@@ -396,26 +421,43 @@ const HeaderTwo = ({ category }) => {
                     <Link to="/"><img src="assets/images/logo/logo.png" alt="Logo" /></Link>
                   </div>
                   <ul className="scroll-sm p-0 py-8 w-300 max-h-400 overflow-y-auto">
-                    {categoriesData.categories.map(cat => (
-                      <li key={cat.id} className="has-submenus-submenu">
-                        <Link to="#" className="text-gray-500 text-15 py-12 px-16 flex-align gap-8 rounded-0">
-                          <span className="text-xl d-flex"><i className="ph ph-brandy" /></span>
-                          <span>{cat.name}</span>
-                          <span className="icon text-md d-flex ms-auto"><i className="ph ph-caret-right" /></span>
-                        </Link>
-                        <div className="submenus-submenu py-16">
-                          <h6 className="text-lg px-16 submenus-submenu__title">{cat.name}</h6>
-                          <ul className="submenus-submenu__list max-h-300 overflow-y-auto scroll-sm">
-                            {cat.children?.length > 0
-                              ? cat.children.map(child => (
-                                <li key={child.id}><Link to={`/shop?category=${child.slug}`}>{child.name}</Link></li>
-                              ))
-                              : <li><Link to={`/shop?category=${cat.slug}`}>View All</Link></li>
-                            }
-                          </ul>
-                        </div>
-                      </li>
-                    ))}
+                    {categoriesLoading ? (
+                      <li className="px-16 py-12">Loading...</li>
+                    ) : categoriesError ? (
+                      <li className="px-16 py-12 text-danger">Error loading</li>
+                    ) : (
+                      categoriesData?.categories?.map(cat => (
+                        <li key={cat.id} className="has-submenus-submenu">
+                          <Link to="#" className="text-gray-500 text-15 py-12 px-16 flex-align gap-8 rounded-0">
+                            <span className="text-xl d-flex">
+                              <i className="ph ph-brandy" />
+                            </span>
+                            <span>{cat.name}</span>
+                            <span className="icon text-md d-flex ms-auto">
+                              <i className="ph ph-caret-right" />
+                            </span>
+                          </Link>
+
+                          <div className="submenus-submenu py-16">
+                            <h6 className="text-lg px-16 submenus-submenu__title">{cat.name}</h6>
+
+                            <ul className="submenus-submenu__list max-h-300 overflow-y-auto scroll-sm">
+                              {cat.children?.length > 0 ? (
+                                cat.children.map(child => (
+                                  <li key={child.id}>
+                                    <Link to={`/shop?category=${child.slug}`}>{child.name}</Link>
+                                  </li>
+                                ))
+                              ) : (
+                                <li>
+                                  <Link to={`/shop?category=${cat.slug}`}>View All</Link>
+                                </li>
+                              )}
+                            </ul>
+                          </div>
+                        </li>
+                      ))
+                    )}
                   </ul>
                 </div>
               </div>
