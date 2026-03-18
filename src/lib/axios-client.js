@@ -4,7 +4,7 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const options = {
 	baseURL,
-	withCredentials: false,
+	withCredentials: true,
 	timeout: 10000,
 };
 
@@ -49,7 +49,7 @@ API.interceptors.response.use(
 				window.location.href = '/';
 			}
 
-			return Promise.reject(error.response);
+			return Promise.reject({ ...data });
 		}
 
 		return Promise.reject({
