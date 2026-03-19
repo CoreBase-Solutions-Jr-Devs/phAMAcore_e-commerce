@@ -382,7 +382,7 @@ const ProductDetailsTwo = () => {
                         <div className="product-dContent__header border-bottom border-gray-100 flex-between flex-wrap gap-16">
                             <ul className="nav common-tab nav-pills mb-3" id="pills-tab" role="tablist">
                                 {[
-                                    { id: "description", label: "Description" },
+                                    // { id: "description", label: "Description" },
                                     { id: "reviews", label: "Reviews" },
                                 ].map(({ id, label }, i) => (
                                     <li key={id} className="nav-item" role="presentation">
