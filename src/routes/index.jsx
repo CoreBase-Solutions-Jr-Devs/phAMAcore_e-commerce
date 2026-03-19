@@ -16,6 +16,7 @@ import VendorTwoPage from "../pages/VendorTwoPage";
 // import VendorTwoDetailsPage from "../pages/VendorTwoDetailsPage";
 import BecomeSellerPage from "../pages/BecomeSellerPage";
 import WishlistPage from "../pages/WishlistPage";
+import MyProfilePage from "@/pages/Myprofilepage";
 
 const AppRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const AppRoutes = () => {
       <Route path="/become-seller" element={<BecomeSellerPage />} />
       <Route path="/wishlist" element={<WishlistPage />} />
       <Route path="/account" element={<AccountPage />} />
+      <Route path="/profile" element={<MyProfilePage />} />
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog-details" element={<BlogDetailsPage />} />
       <Route path="/contact" element={<ContactPage />} />
