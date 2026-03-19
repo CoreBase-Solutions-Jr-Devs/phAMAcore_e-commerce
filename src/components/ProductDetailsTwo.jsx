@@ -327,7 +327,7 @@ const ProductDetailsTwo = () => {
                                 </div>
                             </div>
 
-                            <Link to="#" className="btn btn-main flex-center gap-8 rounded-8 py-16 fw-normal mt-48">
+                            <Link to="#" className="btn btn-main flex-center gap-8 rounded-8 py-16 fw-normal mt-48 w-100">
                                 <i className="ph ph-shopping-cart-simple text-lg" /> Add To Cart
                             </Link>
                             <Link to="#" className="btn btn-outline-main rounded-8 py-16 fw-normal mt-16 w-100">Buy Now</Link>
@@ -405,7 +405,7 @@ const ProductDetailsTwo = () => {
                             <div className="tab-content" id="pills-tabContent">
 
                                 {/* Description tab */}
-                                <div className="tab-pane fade show active" id="pills-description" role="tabpanel" tabIndex={0}>
+                                {/* <div className="tab-pane fade show active" id="pills-description" role="tabpanel" tabIndex={0}>
                                     <div className="mb-40">
                                         <h6 className="mb-24">Product Description</h6>
                                         <p>{productDescription}</p>
@@ -439,10 +439,10 @@ const ProductDetailsTwo = () => {
                                             ))}
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* Reviews tab */}
-                                <div className="tab-pane fade" id="pills-reviews" role="tabpanel" tabIndex={0}>
+                                <div className="tab-pane fade show active" id="pills-reviews" role="tabpanel" tabIndex={0}>
                                     <div className="row g-4">
                                         <div className="col-lg-6">
                                             <h6 className="mb-24">Product Description</h6>
