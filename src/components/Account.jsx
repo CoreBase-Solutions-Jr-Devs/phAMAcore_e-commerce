@@ -1,164 +1,223 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
+import { useMutation } from '@tanstack/react-query';
+import { signInMutationFn, signUpMutationFn } from '@/lib/api';
 
 const Account = () => {
+    const { toast } = useToast();
+    const navigate = useNavigate();
+
+    const [identifier, setIdentifier] = useState("");
+    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
+
+    const loginMutation = useMutation({
+        mutationFn: signInMutationFn,
+        onSuccess: (data) => {
+            if (data.isSuccess) {
+                localStorage.setItem("accessToken", data.accessToken);
+                localStorage.setItem("refreshToken", data.refreshToken);
+
+                toast({
+                    title: "Login Successful",
+                    description: "Redirecting to your cart...",
+                    variant: "success",
+                });
+
+                setTimeout(() => {
+                    navigate("/cart");
+                }, 3000);
+
+            } else {
+                toast({
+                    title: "Login Failed",
+                    description: "Check your credentials and try again.",
+                    variant: "destructive",
+                });
+            }
+        },
+        onError: (error) => {
+            const message = error?.response?.data?.message;
+
+            toast({
+                title: "Login Failed",
+                description:
+                    message === "Email not confirmed"
+                        ? "Please verify your email before logging in."
+                        : message || "An unexpected error occurred.",
+                variant: "destructive",
+            });
+        },
+    });
+
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
+        loginMutation.mutate({
+            user: { identifier, password },
+        });
+    };
+
+    const registerMutation = useMutation({
+        mutationFn: signUpMutationFn,
+        onSuccess: () => {
+            toast({
+                title: "Registration Successful",
+                description:
+                    "Check your email to verify your account before logging in.",
+                variant: "success",
+            });
+
+            setUsername("");
+            setEmail("");
+            setRegisterPassword("");
+        },
+        onError: (error) => {
+            toast({
+                title: "Registration Failed",
+                description:
+                    error?.response?.data?.message || "Something went wrong.",
+                variant: "destructive",
+            });
+        },
+    });
+
+    const handleRegisterSubmit = (e) => {
+        e.preventDefault();
+
+        registerMutation.mutate({
+            user: {
+                username,
+                email,
+                phone: "",
+                password: registerPassword,
+            },
+        });
+    };
+
     return (
         <section className="account py-80">
             <div className="container container-lg">
-                <form action="#">
-                    <div className="row gy-4">
-                        {/* Login Card Start */}
-                        <div className="col-xl-6 pe-xl-5">
+                <div className="row gy-4">
+
+                    <div className="col-xl-6 pe-xl-5">
+                        <form onSubmit={handleLoginSubmit}>
                             <div className="border border-gray-100 hover-border-main-600 transition-1 rounded-16 px-24 py-40 h-100">
                                 <h6 className="text-xl mb-32">Login</h6>
+
                                 <div className="mb-24">
-                                    <label
-                                        htmlFor="username"
-                                        className="text-neutral-900 text-lg mb-8 fw-medium"
-                                    >
-                                        Username or email address <span className="text-danger">*</span>{" "}
+                                    <label className="text-neutral-900 text-lg mb-8 fw-medium">
+                                        Username / Email Address <span className="text-danger">*</span>
                                     </label>
                                     <input
                                         type="text"
                                         className="common-input"
-                                        id="username"
-                                        placeholder="First Name"
+                                        placeholder="Username or Email"
+                                        value={identifier}
+                                        onChange={(e) => setIdentifier(e.target.value)}
                                     />
                                 </div>
+
                                 <div className="mb-24">
-                                    <label
-                                        htmlFor="password"
-                                        className="text-neutral-900 text-lg mb-8 fw-medium"
-                                    >
+                                    <label className="text-neutral-900 text-lg mb-8 fw-medium">
                                         Password
                                     </label>
-                                    <div className="position-relative">
-                                        <input
-                                            type="password"
-                                            className="common-input"
-                                            id="password"
-                                            placeholder="Enter Password"
-                                            defaultValue="password"
-                                        />
-                                        <span
-                                            className="toggle-password position-absolute top-50 inset-inline-end-0 me-16 translate-middle-y cursor-pointer ph ph-eye-slash"
-                                            id="#password"
-                                        />
-                                    </div>
+                                    <input
+                                        type="password"
+                                        className="common-input"
+                                        placeholder="Enter Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
                                 </div>
+
                                 <div className="mb-24 mt-48">
-                                    <div className="flex-align gap-48 flex-wrap">
-                                        <button type="submit" className="btn btn-main py-18 px-40">
-                                            Log in
-                                        </button>
-                                        <div className="form-check common-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                defaultValue=""
-                                                id="remember"
-                                            />
-                                            <label
-                                                className="form-check-label flex-grow-1"
-                                                htmlFor="remember"
-                                            >
-                                                Remember me
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-main py-18 px-40"
+                                        disabled={loginMutation.isPending}
+                                    >
+                                        {loginMutation.isPending ? "Logging in..." : "Log in"}
+                                    </button>
                                 </div>
-                                <div className="mt-48">
+
+                                <div className="mt-24">
                                     <Link
                                         to="#"
-                                        className="text-danger-600 text-sm fw-semibold hover-text-decoration-underline"
+                                        className="text-danger-600 text-sm fw-semibold"
                                     >
                                         Forgot your password?
                                     </Link>
                                 </div>
                             </div>
-                        </div>
-                        {/* Login Card End */}
-                        {/* Register Card Start */}
-                        <div className="col-xl-6">
-                            <div className="border border-gray-100 hover-border-main-600 transition-1 rounded-16 px-24 py-40">
+                        </form>
+                    </div>
+
+                    <div className="col-xl-6">
+                        <form onSubmit={handleRegisterSubmit}>
+                            <div className="border border-gray-100 hover-border-main-600 transition-1 rounded-16 px-24 py-40 h-100">
                                 <h6 className="text-xl mb-32">Register</h6>
+
                                 <div className="mb-24">
-                                    <label
-                                        htmlFor="usernameTwo"
-                                        className="text-neutral-900 text-lg mb-8 fw-medium"
-                                    >
-                                        Username <span className="text-danger">*</span>{" "}
+                                    <label className="text-neutral-900 text-lg mb-8 fw-medium">
+                                        Username <span className="text-danger">*</span>
                                     </label>
                                     <input
                                         type="text"
                                         className="common-input"
-                                        id="usernameTwo"
                                         placeholder="Write a username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
                                     />
                                 </div>
+
                                 <div className="mb-24">
-                                    <label
-                                        htmlFor="emailTwo"
-                                        className="text-neutral-900 text-lg mb-8 fw-medium"
-                                    >
-                                        Email address
-                                        <span className="text-danger">*</span>{" "}
+                                    <label className="text-neutral-900 text-lg mb-8 fw-medium">
+                                        Email address <span className="text-danger">*</span>
                                     </label>
                                     <input
                                         type="email"
                                         className="common-input"
-                                        id="emailTwo"
                                         placeholder="Enter Email Address"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </div>
+
                                 <div className="mb-24">
-                                    <label
-                                        htmlFor="enter-password"
-                                        className="text-neutral-900 text-lg mb-8 fw-medium"
-                                    >
-                                        Password
-                                        <span className="text-danger">*</span>
+                                    <label className="text-neutral-900 text-lg mb-8 fw-medium">
+                                        Password <span className="text-danger">*</span>
                                     </label>
-                                    <div className="position-relative">
-                                        <input
-                                            type="password"
-                                            className="common-input"
-                                            id="enter-password"
-                                            placeholder="Enter Password"
-                                            defaultValue="password"
-                                        />
-                                        <span
-                                            className="toggle-password position-absolute top-50 inset-inline-end-0 me-16 translate-middle-y cursor-pointer ph ph-eye-slash"
-                                            id="#enter-password"
-                                        />
-                                    </div>
+                                    <input
+                                        type="password"
+                                        className="common-input"
+                                        placeholder="Enter Password"
+                                        value={registerPassword}
+                                        onChange={(e) => setRegisterPassword(e.target.value)}
+                                    />
                                 </div>
-                                <div className="my-48">
-                                    <p className="text-gray-500">
-                                        Your personal data will be used to process your order, support
-                                        your experience throughout this website, and for other purposes
-                                        described in our
-                                        <Link to="#" className="text-main-600 text-decoration-underline">
-                                            {" "}
-                                            privacy policy
-                                        </Link>
-                                        .
-                                    </p>
-                                </div>
+
                                 <div className="mt-48">
-                                    <button type="submit" className="btn btn-main py-18 px-40">
-                                        Register
+                                    <button
+                                        type="submit"
+                                        className="btn btn-main py-18 px-40"
+                                        disabled={registerMutation.isPending}
+                                    >
+                                        {registerMutation.isPending
+                                            ? "Registering..."
+                                            : "Register"}
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        {/* Register Card End */}
+                        </form>
                     </div>
-                </form>
+
+                </div>
             </div>
         </section>
+    );
+};
 
-    )
-}
-
-export default Account
+export default Account;
