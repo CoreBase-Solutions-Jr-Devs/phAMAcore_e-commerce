@@ -30,12 +30,12 @@ const Account = () => {
 
                 toast({
                     title: "Login Successful",
-                    description: "Redirecting to your cart...",
+                    description: "Redirecting to your profile...",
                     variant: "success",
                 });
 
                 setTimeout(() => {
-                    navigate("/cart");
+                    navigate("/profile");
                 }, 3000);
 
             } else {
@@ -43,6 +43,7 @@ const Account = () => {
                     title: "Login Failed",
                     description: "Check your credentials and try again.",
                     variant: "destructive",
+                    className: "text-white [&_*]:text-white",
                 });
             }
         },
@@ -56,6 +57,7 @@ const Account = () => {
                         ? "Please verify your email before logging in."
                         : message || "An unexpected error occurred.",
                 variant: "destructive",
+                className: "text-white [&_*]:text-white",
             });
         },
     });
@@ -87,6 +89,7 @@ const Account = () => {
                 description:
                     error?.response?.data?.message || "Something went wrong.",
                 variant: "destructive",
+                className: "text-white [&_*]:text-white",
             });
         },
     });
