@@ -34,7 +34,7 @@ export const getCurrentUserQueryFn = async () => {
 
 export const getProductByCategoryQueryFn = async (
   pageIndex = 0,
-  pageSize = 10
+  pageSize = 20
 ) => {
 
   const response = await API.get(`/products/category`, {
@@ -78,3 +78,10 @@ export const getCategoriesHierarchyQueryFn = async () => {
   });
   return response.data;
 };
+
+export const getCategoriesFlatQueryFn = async () => {
+  const response = await API.get("/categories", {
+    withCredentials: false,
+  });
+  return response.data;
+}
