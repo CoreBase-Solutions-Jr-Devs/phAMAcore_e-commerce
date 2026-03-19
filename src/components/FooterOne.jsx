@@ -1,93 +1,97 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const FooterTwo = () => {
+const FooterOne = () => {
     return (
-        <footer className="footer py-80">
+        <footer className="footer py-120">
+            <img
+                src="assets/images/bg/body-bottom-bg.png"
+                alt="BG"
+                className="body-bottom-bg"
+            />
             <div className="container container-lg">
-                <div className="footer-item-two-wrapper d-flex align-items-start flex-wrap">
-                    <div className="footer-item max-w-275">
+                <div className="footer-item-wrapper d-flex align-items-start flex-wrap">
+                    <div className="footer-item">
                         <div className="footer-item__logo">
                             <Link to="/">
                                 {" "}
-                                <img src="assets/images/logo/logo-two-black.png" alt="" />
+                                <img src="assets/images/logo/logo.png" alt="" />
                             </Link>
                         </div>
                         <p className="mb-24">
-                            phAMAcore is an online pharmacy and healthcare marketplace for ordering medications, managing prescriptions, and accessing trusted health products.
+                            We're Grocery Shop, an innovative team of food supliers.
                         </p>
                         <div className="flex-align gap-16 mb-16">
-                            <span className="w-32 h-32 flex-center rounded-circle border border-gray-100 text-main-two-600 text-md flex-shrink-0">
-                                <i className="ph-fill ph-phone-call" />
+                            <span className="w-32 h-32 flex-center rounded-circle bg-main-600 text-white text-md flex-shrink-0">
+                                <i className="ph-fill ph-map-pin" />
                             </span>
-                            <Link
-                                to="/tel:+00123456789"
-                                className="text-md text-gray-900 hover-text-main-600"
-                            >
-                                +254 743 899 936
-                            </Link>
+                            <span className="text-md text-gray-900 ">
+                                789 Inner Lane, Biyes park, California, USA
+                            </span>
                         </div>
                         <div className="flex-align gap-16 mb-16">
-                            <span className="w-32 h-32 flex-center rounded-circle border border-gray-100 text-main-two-600 text-md flex-shrink-0">
+                            <span className="w-32 h-32 flex-center rounded-circle bg-main-600 text-white text-md flex-shrink-0">
+                                <i className="ph-fill ph-phone-call" />
+                            </span>
+                            <div className="flex-align gap-16 flex-wrap">
+                                <Link
+                                    to="/tel:+00123456789"
+                                    className="text-md text-gray-900 hover-text-main-600"
+                                >
+                                    +00 123 456 789
+                                </Link>
+                                <span className="text-md text-main-600 ">or</span>
+                                <Link
+                                    to="/tel:+00987654012"
+                                    className="text-md text-gray-900 hover-text-main-600"
+                                >
+                                    +00 987 654 012
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="flex-align gap-16 mb-16">
+                            <span className="w-32 h-32 flex-center rounded-circle bg-main-600 text-white text-md flex-shrink-0">
                                 <i className="ph-fill ph-envelope" />
                             </span>
                             <Link
                                 to="/mailto:support24@marketpro.com"
                                 className="text-md text-gray-900 hover-text-main-600"
                             >
-                                sales@corebase.co.ke
+                                support24@marketpro.com
                             </Link>
-                        </div>
-                        <div className="flex-align gap-16 mb-16">
-                            <span className="w-32 h-32 flex-center rounded-circle border border-gray-100 text-main-two-600 text-md flex-shrink-0">
-                                <i className="ph-fill ph-map-pin" />
-                            </span>
-                            <span className="text-md text-gray-900 ">
-                                Mapera Court, Suite B2, Nairobi
-                            </span>
                         </div>
                     </div>
                     <div className="footer-item">
-                        <h6 className="footer-item__title">About us</h6>
+                        <h6 className="footer-item__title">Information</h6>
                         <ul className="footer-menu">
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Company Profile
+                                    Become a Vendor
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    All Retail Store
+                                    Affiliate Program
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Merchant Center
+                                    Privacy Policy
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Affiliate
+                                    Our Suppliers
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Contact Us
+                                    Extended Plan
                                 </Link>
                             </li>
-                            <li className="mb-16">
+                            <li className="">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Feedback
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Huawei Group
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Rules &amp; Policy
+                                    Community
                                 </Link>
                             </li>
                         </ul>
@@ -110,11 +114,6 @@ const FooterTwo = () => {
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Gift Card
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
                                     Report Abuse
                                 </Link>
                             </li>
@@ -128,14 +127,9 @@ const FooterTwo = () => {
                                     Policies &amp; Rules
                                 </Link>
                             </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Online Shopping
-                                </Link>
-                            </li>
                             <li className="">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Redeem Voucher
+                                    Online Shopping
                                 </Link>
                             </li>
                         </ul>
@@ -168,71 +162,51 @@ const FooterTwo = () => {
                                     Help Ticket
                                 </Link>
                             </li>
-                            <li className="mb-16">
+                            <li className="">
                                 <Link to="/wishlist" className="text-gray-600 hover-text-main-600">
                                     Wishlist
                                 </Link>
                             </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Order History
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Product Support
-                                </Link>
-                            </li>
                         </ul>
                     </div>
                     <div className="footer-item">
-                        <h6 className="footer-item__title">Information</h6>
+                        <h6 className="footer-item__title">Daily Groceries</h6>
                         <ul className="footer-menu">
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Become a Vendor
+                                    Dairy &amp; Eggs
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Affiliate Program
+                                    Meat &amp; Seafood
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Privacy Policy
+                                    Breakfast Food
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Our Suppliers
+                                    Household Supplies
                                 </Link>
                             </li>
                             <li className="mb-16">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Extended Plan
+                                    Bread &amp; Bakery
                                 </Link>
                             </li>
-                            <li className="mb-16">
+                            <li className="">
                                 <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Extended Plan
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Community
-                                </Link>
-                            </li>
-                            <li className="mb-16">
-                                <Link to="/shop" className="text-gray-600 hover-text-main-600">
-                                    Community
+                                    Pantry Staples
                                 </Link>
                             </li>
                         </ul>
                     </div>
                     <div className="footer-item">
-                        <h6 className="">phAMACore E-Commerce</h6>
-                        <p className="mb-16">phAMACore E-Commerce is available. Get it now</p>
+                        <h6 className="">Shop on The Go</h6>
+                        <p className="mb-16">Marketpro App is available. Get it now</p>
                         <div className="flex-align gap-8 my-32">
                             <Link to="/https://www.apple.com/store" className="">
                                 <img src="assets/images/thumbs/store-img1.png" alt="" />
@@ -245,7 +219,7 @@ const FooterTwo = () => {
                             <li>
                                 <Link
                                     to="/https://www.facebook.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
+                                    className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
                                 >
                                     <i className="ph-fill ph-facebook-logo" />
                                 </Link>
@@ -253,7 +227,7 @@ const FooterTwo = () => {
                             <li>
                                 <Link
                                     to="/https://www.twitter.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
+                                    className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
                                 >
                                     <i className="ph-fill ph-twitter-logo" />
                                 </Link>
@@ -261,7 +235,7 @@ const FooterTwo = () => {
                             <li>
                                 <Link
                                     to="/https://www.linkedin.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
+                                    className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
                                 >
                                     <i className="ph-fill ph-instagram-logo" />
                                 </Link>
@@ -269,7 +243,7 @@ const FooterTwo = () => {
                             <li>
                                 <Link
                                     to="/https://www.pinterest.com"
-                                    className="w-44 h-44 flex-center bg-main-two-50 text-main-two-600 text-xl rounded-8 hover-bg-main-two-600 hover-text-white"
+                                    className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
                                 >
                                     <i className="ph-fill ph-linkedin-logo" />
                                 </Link>
@@ -283,4 +257,4 @@ const FooterTwo = () => {
     )
 }
 
-export default FooterTwo
+export default FooterOne

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import query from "jquery";
 import { Link, NavLink } from "react-router-dom";
-const HeaderTwo = ({ category }) => {
+
+const HeaderThree = () => {
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     const handleScroll = () => setScroll(window.pageYOffset > 150);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   // Set the default language
-  const [selectedLanguage, setSelectedLanguage] = useState("Eng");
+  const [selectedLanguage, setSelectedLanguage] = useState("EngLish");
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
   };
@@ -49,12 +50,16 @@ const HeaderTwo = ({ category }) => {
 
   return (
     <>
+      {/*==================== Overlay Start ====================*/}
       <div className='overlay' />
+      {/*==================== Overlay End ====================*/}
+      {/*==================== Sidebar Overlay End ====================*/}
       <div
         className={`side-overlay ${(menuActive || activeCategory) && "show"}`}
       />
-      {/* ==================== Search Box Start Here ==================== */}
+      {/*==================== Sidebar Overlay End ====================*/}
 
+      {/* ==================== Search Box Start Here ==================== */}
       <form action='#' className={`search-box ${activeSearch && "active"}`}>
         <button
           onClick={handleSearchToggle}
@@ -80,7 +85,7 @@ const HeaderTwo = ({ category }) => {
         </div>
       </form>
       {/* ==================== Search Box End Here ==================== */}
-      {/* ==================== Mobile Menu Start Here ==================== */}
+      {/* ==================== Mobile Menu Start Here  ==================== done */}
       <div
         className={`mobile-menu scroll-sm d-lg-none d-block ${
           menuActive && "active"
@@ -123,7 +128,6 @@ const HeaderTwo = ({ category }) => {
                       to='/'
                       className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
                     >
-                      {" "}
                       Home Grocery
                     </Link>
                   </li>
@@ -143,7 +147,6 @@ const HeaderTwo = ({ category }) => {
                       to='/index-three'
                       className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
                     >
-                      {" "}
                       Home Fashion
                     </Link>
                   </li>
@@ -283,7 +286,7 @@ const HeaderTwo = ({ category }) => {
                       to='/vendor'
                       className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
                     >
-                      Vendors
+                      Vendor
                     </Link>
                   </li>
                   <li className='common-dropdown__item nav-submenu__item'>
@@ -379,7 +382,6 @@ const HeaderTwo = ({ category }) => {
                 {/* Dropdown Select Start */}
                 <ul className='header-top__right style-two flex-align flex-wrap'>
                   <li className='on-hover-item border-right-item border-right-item-sm-space has-submenu arrow-white'>
-                    {/* Display the selected language */}
                     <Link
                       to='#'
                       className='selected-text text-heading text-sm py-8'
@@ -395,7 +397,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag1.png'
-                            alt='English'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           English
@@ -409,7 +411,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag2.png'
-                            alt='Japan'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Japan
@@ -423,7 +425,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag3.png'
-                            alt='French'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           French
@@ -437,7 +439,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag4.png'
-                            alt='Germany'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Germany
@@ -451,7 +453,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag6.png'
-                            alt='Bangladesh'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Bangladesh
@@ -465,7 +467,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag5.png'
-                            alt='South Korea'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           South Korea
@@ -474,7 +476,6 @@ const HeaderTwo = ({ category }) => {
                     </ul>
                   </li>
                   <li className='on-hover-item border-right-item border-right-item-sm-space has-submenu arrow-white'>
-                    {/* Display the selected currency */}
                     <Link
                       to='#'
                       className='selected-text text-heading text-sm py-8'
@@ -490,7 +491,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag1.png'
-                            alt='USD'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           USD
@@ -504,7 +505,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag2.png'
-                            alt='Yen'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Yen
@@ -518,7 +519,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag3.png'
-                            alt='Franc'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Franc
@@ -532,7 +533,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag4.png'
-                            alt='EURO'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           EURO
@@ -546,7 +547,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag6.png'
-                            alt='BDT'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           BDT
@@ -560,7 +561,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag5.png'
-                            alt='WON'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           WON
@@ -577,11 +578,12 @@ const HeaderTwo = ({ category }) => {
               >
                 <div className='search-category style-two d-flex h-48 search-form d-sm-flex d-none'>
                   <select
-                    defaultValue={1}
                     className='js-example-basic-single border border-gray-200 border-end-0 rounded-0 border-0'
                     name='state'
                   >
-                    <option value={1}>All Categories</option>
+                    <option defaultValue={1}>
+                      All Categories
+                    </option>
                     <option value={1}>Grocery</option>
                     <option value={1}>Breakfast &amp; Dairy</option>
                     <option value={1}>Vegetables</option>
@@ -609,28 +611,71 @@ const HeaderTwo = ({ category }) => {
                 </div>
               </form>
             </div>
-
-            {/* Desktop middle-header icons */}
-            <div className="header-right flex-align d-lg-block d-none">
-              <div className="header-two-activities flex-align flex-wrap gap-32">
-                {[
-                  { to: "/account", icon: "ph ph-user", badge: null, label: "Profile" },
-                  { to: "/wishlist", icon: "ph ph-heart", badge: "2", label: "Wishlist" },
-                  // { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
-                  { to: "/cart", icon: "ph ph-shopping-cart-simple", badge: "2", label: "Cart" },
-                ].map(({ to, icon, badge, label }) => (
-                  <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
-                    <span className="text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text">
-                      <i className={icon} />
-                      {badge && (
-                        <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4">
-                          {badge}
-                        </span>
-                      )}
+            {/* form Category start */}
+            {/* Header Middle Right start */}
+            <div className='header-right flex-align d-lg-block d-none'>
+              <div className='header-two-activities flex-align flex-wrap gap-32'>
+                <button
+                  type='button'
+                  className='flex-align search-icon d-lg-none d-flex gap-4 item-hover-two'
+                >
+                  <span className='text-2xl text-white d-flex position-relative item-hover__text'>
+                    <i className='ph ph-magnifying-glass' />
+                  </span>
+                </button>
+                <Link
+                  to='/account'
+                  className='flex-align flex-column gap-8 item-hover-two'
+                >
+                  <span className='text-2xl text-white d-flex position-relative item-hover__text'>
+                    <i className='ph ph-user' />
+                  </span>
+                  <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                    Profile
+                  </span>
+                </Link>
+                <Link
+                  to='/wishlist'
+                  className='flex-align flex-column gap-8 item-hover-two'
+                >
+                  <span className='text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text'>
+                    <i className='ph ph-heart' />
+                    <span className='w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4'>
+                      2
                     </span>
-                    <span className="text-md text-white item-hover__text d-none d-lg-flex">{label}</span>
-                  </Link>
-                ))}
+                  </span>
+                  <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                    Wishlist
+                  </span>
+                </Link>
+                <Link
+                  to='/cart'
+                  className='flex-align flex-column gap-8 item-hover-two'
+                >
+                  <span className='text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text'>
+                    <i className='ph-fill ph-shuffle' />
+                    <span className='w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4'>
+                      2
+                    </span>
+                  </span>
+                  <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                    Compare
+                  </span>
+                </Link>
+                <Link
+                  to='/cart'
+                  className='flex-align flex-column gap-8 item-hover-two'
+                >
+                  <span className='text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text'>
+                    <i className='ph ph-shopping-cart-simple' />
+                    <span className='w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4'>
+                      2
+                    </span>
+                  </span>
+                  <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                    Cart
+                  </span>
+                </Link>
               </div>
             </div>
             {/* Header Middle Right End  */}
@@ -648,11 +693,7 @@ const HeaderTwo = ({ category }) => {
           <nav className='header-inner d-flex justify-content-between gap-8'>
             <div className='flex-align menu-category-wrapper'>
               {/* Category Dropdown Start */}
-              <div
-                className={`category-two ${
-                  category === false ? "d-block" : "d-none"
-                } `}
-              >
+              <div className='category-two d-none'>
                 <button
                   onClick={handleCategoryToggle}
                   type='button'
@@ -686,7 +727,7 @@ const HeaderTwo = ({ category }) => {
                       <img src='assets/images/logo/logo.png' alt='Logo' />
                     </Link>
                   </div>
-                  <ul className='scroll-sm p-0 py-8 overflow-y-auto'>
+                  <ul className='scroll-sm p-0 py-8 w-300 max-h-400 overflow-y-auto'>
                     <li
                       onClick={() => handleCatClick(0)}
                       className={`has-submenus-submenu ${
@@ -1322,11 +1363,7 @@ const HeaderTwo = ({ category }) => {
                   </ul>
                 </div>
               </div>
-              <div
-                className={`category main  on-hover-item bg-main-600 text-white ${
-                  category === true ? "d-block" : "d-none"
-                }`}
-              >
+              <div className='category d-none d-lg-block on-hover-item bg-main-600 text-white'>
                 <button
                   type='button'
                   className='category__button flex-align gap-8 fw-medium p-16 border-end border-start border-gray-100 text-white'
@@ -1633,14 +1670,15 @@ const HeaderTwo = ({ category }) => {
               <div className='header-menu d-lg-block d-none'>
                 {/* Nav Menu Start */}
                 <ul className='nav-menu flex-align '>
-                  <li className='on-hover-item nav-menu__item has-submenu'>
+                  <li className='on-hover-item nav-menu__item has-submenu activePage'>
                     <Link to='#' className='nav-menu__link'>
                       Home
                     </Link>
                     <ul className='on-hover-dropdown common-dropdown nav-submenu scroll-sm'>
                       <li className='common-dropdown__item nav-submenu__item'>
                         <NavLink
-                          to='/'
+                          to='/index'
+                          //   className='common-dropdown__link nav-submenu__link hover-bg-neutral-100'
                           className={(navData) =>
                             navData.isActive
                               ? "common-dropdown__link nav-submenu__link hover-bg-neutral-100 activePage"
@@ -1664,7 +1702,7 @@ const HeaderTwo = ({ category }) => {
                           Home Electronics
                         </NavLink>
                       </li>
-                      <li className='common-dropdown__item nav-submenu__item'>
+                      <li className='common-dropdown__item nav-submenu__item '>
                         <NavLink
                           to='/index-three'
                           className={(navData) =>
@@ -1765,7 +1803,7 @@ const HeaderTwo = ({ category }) => {
                               : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
                           }
                         >
-                          Checkout
+                          Checkout{" "}
                         </NavLink>
                       </li>
                       <li className='common-dropdown__item nav-submenu__item'>
@@ -1777,6 +1815,7 @@ const HeaderTwo = ({ category }) => {
                               : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
                           }
                         >
+                          {" "}
                           Become Seller
                         </NavLink>
                       </li>
@@ -1811,7 +1850,7 @@ const HeaderTwo = ({ category }) => {
                               : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
                           }
                         >
-                          Vendor
+                          Vendors{" "}
                         </NavLink>
                       </li>
                       <li className='common-dropdown__item nav-submenu__item'>
@@ -1823,7 +1862,8 @@ const HeaderTwo = ({ category }) => {
                               : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
                           }
                         >
-                          Vendor Details
+                          {" "}
+                          Vendor Details{" "}
                         </NavLink>
                       </li>
                       <li className='common-dropdown__item nav-submenu__item'>
@@ -1835,7 +1875,7 @@ const HeaderTwo = ({ category }) => {
                               : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
                           }
                         >
-                          Vendor Two
+                          Vendors Two
                         </NavLink>
                       </li>
                       <li className='common-dropdown__item nav-submenu__item'>
@@ -1847,7 +1887,7 @@ const HeaderTwo = ({ category }) => {
                               : "common-dropdown__link nav-submenu__link hover-bg-neutral-100"
                           }
                         >
-                          Vendor Two Details
+                          Vendors Two Details
                         </NavLink>
                       </li>
                     </ul>
@@ -1885,14 +1925,7 @@ const HeaderTwo = ({ category }) => {
                     </ul>
                   </li>
                   <li className='nav-menu__item'>
-                    <NavLink
-                      to='/contact'
-                      className={(navData) =>
-                        navData.isActive
-                          ? "nav-menu__link activePage"
-                          : "nav-menu__link"
-                      }
-                    >
+                    <NavLink to='/contact' className='nav-menu__link'>
                       Contact Us
                     </NavLink>
                   </li>
@@ -1907,7 +1940,6 @@ const HeaderTwo = ({ category }) => {
                 {/* Dropdown Select Start */}
                 <ul className='header-top__right style-two flex-align flex-wrap'>
                   <li className='on-hover-item border-right-item border-right-item-sm-space has-submenu arrow-white'>
-                    {/* Display the selected language */}
                     <Link
                       to='#'
                       className='selected-text text-heading text-sm py-8'
@@ -1923,7 +1955,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag1.png'
-                            alt='English'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           English
@@ -1937,7 +1969,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag2.png'
-                            alt='Japan'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Japan
@@ -1951,7 +1983,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag3.png'
-                            alt='French'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           French
@@ -1965,7 +1997,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag4.png'
-                            alt='Germany'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Germany
@@ -1979,7 +2011,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag6.png'
-                            alt='Bangladesh'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Bangladesh
@@ -1993,7 +2025,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag5.png'
-                            alt='South Korea'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           South Korea
@@ -2002,7 +2034,6 @@ const HeaderTwo = ({ category }) => {
                     </ul>
                   </li>
                   <li className='on-hover-item border-right-item border-right-item-sm-space has-submenu arrow-white'>
-                    {/* Display the selected currency */}
                     <Link
                       to='#'
                       className='selected-text text-heading text-sm py-8'
@@ -2018,7 +2049,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag1.png'
-                            alt='USD'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           USD
@@ -2032,7 +2063,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag2.png'
-                            alt='Yen'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Yen
@@ -2046,7 +2077,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag3.png'
-                            alt='Franc'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           Franc
@@ -2060,7 +2091,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag4.png'
-                            alt='EURO'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           EURO
@@ -2074,7 +2105,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag6.png'
-                            alt='BDT'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           BDT
@@ -2088,7 +2119,7 @@ const HeaderTwo = ({ category }) => {
                         >
                           <img
                             src='assets/images/thumbs/flag5.png'
-                            alt='WON'
+                            alt=''
                             className='w-16 h-12 rounded-4 border border-gray-100'
                           />
                           WON
@@ -2110,24 +2141,59 @@ const HeaderTwo = ({ category }) => {
                       <i className='ph ph-magnifying-glass' />
                     </span>
                   </button>
-                  {[
-                    { to: "/account", icon: "ph ph-user", badge: null, label: "Profile" },
-                    { to: "/wishlist", icon: "ph ph-heart", badge: "2", label: "Wishlist" },
-                    // { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
-                    { to: "/cart", icon: "ph ph-shopping-cart-simple", badge: "2", label: "Cart" },
-                  ].map(({ to, icon, badge, label }) => (
-                    <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
-                      <span className="text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text">
-                        <i className={icon} />
-                        {badge && (
-                          <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4">
-                            {badge}
-                          </span>
-                        )}
+                  <Link
+                    to='/account'
+                    className='flex-align flex-column gap-8 item-hover-two'
+                  >
+                    <span className='text-2xl text-white d-flex position-relative item-hover__text'>
+                      <i className='ph ph-user' />
+                    </span>
+                    <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                      Profile
+                    </span>
+                  </Link>
+                  <Link
+                    to='/wishlist'
+                    className='flex-align flex-column gap-8 item-hover-two'
+                  >
+                    <span className='text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text'>
+                      <i className='ph ph-heart' />
+                      <span className='w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4'>
+                        2
                       </span>
-                      <span className="text-md text-white item-hover__text d-none d-lg-flex">{label}</span>
-                    </Link>
-                  ))}
+                    </span>
+                    <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                      Wishlist
+                    </span>
+                  </Link>
+                  <Link
+                    to='/cart'
+                    className='flex-align flex-column gap-8 item-hover-two'
+                  >
+                    <span className='text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text'>
+                      <i className='ph-fill ph-shuffle' />
+                      <span className='w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4'>
+                        2
+                      </span>
+                    </span>
+                    <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                      Compare
+                    </span>
+                  </Link>
+                  <Link
+                    to='/cart'
+                    className='flex-align flex-column gap-8 item-hover-two'
+                  >
+                    <span className='text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text'>
+                      <i className='ph ph-shopping-cart-simple' />
+                      <span className='w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4'>
+                        2
+                      </span>
+                    </span>
+                    <span className='text-md text-white item-hover__text d-none d-lg-flex'>
+                      Cart
+                    </span>
+                  </Link>
                 </div>
               </div>
               <button
@@ -2148,4 +2214,4 @@ const HeaderTwo = ({ category }) => {
   );
 };
 
-export default HeaderTwo;
+export default HeaderThree;

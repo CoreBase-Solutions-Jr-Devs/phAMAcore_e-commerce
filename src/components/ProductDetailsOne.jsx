@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { getCountdown } from '../helper/Countdown';
 
-const ProductDetailsTwo = () => {
+const ProductDetailsOne = () => {
     const [timeLeft, setTimeLeft] = useState(getCountdown());
 
     useEffect(() => {
@@ -14,13 +14,11 @@ const ProductDetailsTwo = () => {
         return () => clearInterval(interval);
     }, []);
     const productImages = [
-        "assets/images/thumbs/product-details-two-thumb1.png",
-        "assets/images/thumbs/product-details-two-thumb2.png",
-        "assets/images/thumbs/product-details-two-thumb3.png",
-        "assets/images/thumbs/product-details-two-thumb1.png",
-        "assets/images/thumbs/product-details-two-thumb2.png",
+        "assets/images/thumbs/product-details-thumb1.png",
+        "assets/images/thumbs/product-details-thumb2.png",
+        "assets/images/thumbs/product-details-thumb3.png",
+        "assets/images/thumbs/product-details-thumb2.png",
     ];
-
 
     // increment & decrement
     const [quantity, setQuantity] = useState(1);
@@ -42,7 +40,7 @@ const ProductDetailsTwo = () => {
         <section className="product-details py-80">
             <div className="container container-lg">
                 <div className="row gy-4">
-                    <div className="col-xl-9">
+                    <div className="col-lg-9">
                         <div className="row gy-4">
                             <div className="col-xl-6">
                                 <div className="product-details__left">
@@ -62,45 +60,16 @@ const ProductDetailsTwo = () => {
                                                     </div>
                                                 ))}
                                             </Slider>
+
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-xl-6">
                                 <div className="product-details__content">
-                                    <div className="flex-center mb-24 flex-wrap gap-16 bg-color-one rounded-8 py-16 px-24 position-relative z-1">
-                                        <img
-                                            src="assets/images/bg/details-offer-bg.png"
-                                            alt=""
-                                            className="position-absolute inset-block-start-0 inset-inline-start-0 w-100 h-100 z-n1"
-                                        />
-                                        <div className="flex-align gap-16">
-                                            <span className="text-white text-sm">Special Offer:</span>
-                                        </div>
-                                        <div className="countdown" id="countdown11">
-                                            <ul className="countdown-list flex-align flex-wrap">
-                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
-                                                    {timeLeft.days}<span className="days" />
-                                                </li>
-                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
-                                                    {timeLeft.hours}<span className="hours" />
-                                                </li>
-                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
-                                                    {timeLeft.minutes}<span className="minutes" />
-                                                </li>
-                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
-                                                    {timeLeft.seconds}<span className="seconds" />
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <span className="text-white text-xs">
-                                            Remains untill the end of the offer
-                                        </span>
-                                    </div>
-                                    <h5 className="mb-12">
-                                        HP Chromebook With Intel Celeron, 4GB Memory &amp; 64GB eMMC -
-                                        Modern Gray
-                                    </h5>
+                                    <h5 className="mb-12">Lay's Potato Chips Onion Flavored</h5>
                                     <div className="flex-align flex-wrap gap-12">
                                         <div className="flex-align gap-12 flex-wrap">
                                             <div className="flex-align gap-8">
@@ -135,269 +104,236 @@ const ProductDetailsTwo = () => {
                                     </div>
                                     <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
                                     <p className="text-gray-700">
-                                        Geared up and ready to roll: Get the responsive performance
-                                        you're looking for with an Intel processor and 64 GB eMMC
-                                        storage. Stay productive with compatible apps like Microsoft
-                                        Office, Google Workspace, and more. The Chrome OS gives you a
-                                        fast, simple, and secure online experience with built-in virus
-                                        protection.
+                                        Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus
+                                        malesuada tincidunt. Class aptent taciti sociosqu ad litora
+                                        torquent
                                     </p>
-                                    <div className="my-32 flex-align gap-16 flex-wrap">
+                                    <div className="mt-32 flex-align flex-wrap gap-32">
                                         <div className="flex-align gap-8">
-                                            <div className="flex-align gap-8 text-main-two-600">
-                                                <i className="ph-fill ph-seal-percent text-xl" />
-                                                -10%
-                                            </div>
-                                            <h6 className="mb-0">USD 320.99</h6>
+                                            <h4 className="mb-0">$25.00</h4>
+                                            <span className="text-md text-gray-500">$38.00</span>
                                         </div>
-                                        <div className="flex-align gap-8">
-                                            <span className="text-gray-700">Regular Price</span>
-                                            <h6 className="text-xl text-gray-400 mb-0 fw-medium">
-                                                USD 452.99
+                                        <Link to="#" className="btn btn-main rounded-pill">
+                                            Order on What'sApp
+                                        </Link>
+                                    </div>
+                                    <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
+                                    <div className="flex-align flex-wrap gap-16 bg-color-one rounded-8 py-16 px-24">
+                                        <div className="flex-align gap-16">
+                                            <span className="text-main-600 text-sm">Special Offer:</span>
+                                        </div>
+                                        <div className="countdown" id="countdown11">
+                                            <ul className="countdown-list flex-align flex-wrap">
+                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
+                                                    {timeLeft.days} <span className="days" />
+                                                </li>
+                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
+                                                    {timeLeft.hours}<span className="hours" />
+                                                </li>
+                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
+                                                    {timeLeft.minutes}<span className="minutes" />
+                                                </li>
+                                                <li className="countdown-list__item text-heading flex-align gap-4 text-xs fw-medium w-28 h-28 rounded-4 border border-main-600 p-0 flex-center">
+                                                    {timeLeft.seconds}<span className="seconds" />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <span className="text-gray-900 text-xs">
+                                            Remains untill the end of the offer
+                                        </span>
+                                    </div>
+                                    <div className="mb-24">
+                                        <div className="mt-32 flex-align gap-12 mb-16">
+                                            <span className="w-32 h-32 bg-white flex-center rounded-circle text-main-600 box-shadow-xl">
+                                                <i className="ph-fill ph-lightning" />
+                                            </span>
+                                            <h6 className="text-md mb-0 fw-bold text-gray-900">
+                                                Products are almost sold out
                                             </h6>
                                         </div>
-                                    </div>
-                                    <div className="my-32 flex-align flex-wrap gap-12">
-                                        <Link
-                                            to="#"
-                                            className="px-12 py-8 text-sm rounded-8 flex-align gap-8 text-gray-900 border border-gray-200 hover-border-main-600 hover-text-main-600"
+                                        <div
+                                            className="progress w-100 bg-gray-100 rounded-pill h-8"
+                                            role="progressbar"
+                                            aria-label="Basic example"
+                                            aria-valuenow={32}
+                                            aria-valuemin={0}
+                                            aria-valuemax={100}
                                         >
-                                            Monthyly EMI USD 15.00
-                                            <i className="ph ph-caret-right" />
-                                        </Link>
-                                        <Link
-                                            to="#"
-                                            className="px-12 py-8 text-sm rounded-8 flex-align gap-8 text-gray-900 border border-gray-200 hover-border-main-600 hover-text-main-600"
-                                        >
-                                            Shipping Charge
-                                            <i className="ph ph-caret-right" />
-                                        </Link>
-                                        <Link
-                                            to="#"
-                                            className="px-12 py-8 text-sm rounded-8 flex-align gap-8 text-gray-900 border border-gray-200 hover-border-main-600 hover-text-main-600"
-                                        >
-                                            Security &amp; Privacy
-                                            <i className="ph ph-caret-right" />
-                                        </Link>
-                                    </div>
-                                    <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
-                                    <div className="mt-32">
-                                        <h6 className="mb-16">Quick Overview</h6>
-                                        <div className="flex-between align-items-start flex-wrap gap-16">
-                                            <div>
-                                                <span className="text-gray-900 d-block mb-12">
-                                                    Color:
-                                                    <span className="fw-medium">Mineral Silver</span>
-                                                </span>
-                                                <div className="color-list flex-align gap-8">
-                                                    <button
-                                                        type="button"
-                                                        className="color-list__button w-20 h-20 border border-2 border-gray-50 rounded-circle bg-info-600"
-                                                    />
-                                                    <button
-                                                        type="button"
-                                                        className="color-list__button w-20 h-20 border border-2 border-gray-50 rounded-circle bg-warning-600"
-                                                    />
-                                                    <button
-                                                        type="button"
-                                                        className="color-list__button w-20 h-20 border border-2 border-gray-50 rounded-circle bg-tertiary-600"
-                                                    />
-                                                    <button
-                                                        type="button"
-                                                        className="color-list__button w-20 h-20 border border-2 border-gray-50 rounded-circle bg-main-600"
-                                                    />
-                                                    <button
-                                                        type="button"
-                                                        className="color-list__button w-20 h-20 border border-2 border-gray-50 rounded-circle bg-gray-100"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span className="text-gray-900 d-block mb-12">
-                                                    Pattern Name:
-                                                    <span className="fw-medium">with offer</span>
-                                                </span>
-                                                <div className="flex-align gap-8 flex-wrap">
-                                                    <Link
-                                                        to="#"
-                                                        className="px-12 py-8 text-sm rounded-8 text-gray-900 border border-gray-200 hover-border-main-600 hover-text-main-600"
-                                                    >
-                                                        with offer{" "}
-                                                    </Link>
-                                                    <Link
-                                                        to="#"
-                                                        className="px-12 py-8 text-sm rounded-8 text-gray-900 border border-gray-200 hover-border-main-600 hover-text-main-600"
-                                                    >
-                                                        12th Gen Laptop
-                                                    </Link>
-                                                    <Link
-                                                        to="#"
-                                                        className="px-12 py-8 text-sm rounded-8 text-gray-900 border border-gray-200 hover-border-main-600 hover-text-main-600"
-                                                    >
-                                                        without offer
-                                                    </Link>
-                                                </div>
-                                            </div>
+                                            <div
+                                                className="progress-bar bg-main-two-600 rounded-pill"
+                                                style={{ width: "32%" }}
+                                            />
                                         </div>
-                                    </div>
-                                    <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
-                                    <Link
-                                        to="/https://www.whatsapp.com"
-                                        className="btn btn-black flex-center gap-8 rounded-8 py-16"
-                                    >
-                                        <i className="ph ph-whatsapp-logo text-lg" />
-                                        Request More Information
-                                    </Link>
-                                    <div className="mt-32">
-                                        <span className="fw-medium text-gray-900">
-                                            100% Guarantee Safe Checkout
+                                        <span className="text-sm text-gray-700 mt-8">
+                                            Available only:45
                                         </span>
-                                        <div className="mt-10">
-                                            <img src="assets/images/thumbs/gateway-img.png" alt="" />
+                                    </div>
+                                    <span className="text-gray-900 d-block mb-8">Quantity:</span>
+                                    <div className="flex-between gap-16 flex-wrap">
+                                        <div className="flex-align flex-wrap gap-16">
+                                            <div className="border border-gray-100 rounded-pill py-9 px-16 flex-align">
+                                                <button onClick={decrementQuantity}
+                                                    type="button"
+                                                    className="quantity__minus p-4 text-gray-700 hover-text-main-600 flex-center"
+                                                >
+                                                    <i className="ph ph-minus" />
+                                                </button>
+                                                <input
+                                                    type="number"
+                                                    className="quantity__input border-0 text-center w-32"
+                                                    value={quantity} readOnly
+                                                />
+                                                <button onClick={incrementQuantity}
+                                                    type="button"
+                                                    className="quantity__plus p-4 text-gray-700 hover-text-main-600 flex-center"
+                                                >
+                                                    <i className="ph ph-plus" />
+                                                </button>
+                                            </div>
+                                            <Link
+                                                to="#"
+                                                className="btn btn-main rounded-pill flex-align d-inline-flex gap-8 px-48"
+                                            >
+                                                {" "}
+                                                <i className="ph ph-shopping-cart" /> Add To Cart
+                                            </Link>
+                                        </div>
+                                        <div className="flex-align gap-12">
+                                            <Link
+                                                to="#"
+                                                className="w-52 h-52 bg-main-50 text-main-600 text-xl hover-bg-main-600 hover-text-white flex-center rounded-circle"
+                                            >
+                                                <i className="ph ph-heart" />
+                                            </Link>
+                                            <Link
+                                                to="#"
+                                                className="w-52 h-52 bg-main-50 text-main-600 text-xl hover-bg-main-600 hover-text-white flex-center rounded-circle"
+                                            >
+                                                <i className="ph ph-shuffle" />
+                                            </Link>
+                                            <Link
+                                                to="#"
+                                                className="w-52 h-52 bg-main-50 text-main-600 text-xl hover-bg-main-600 hover-text-white flex-center rounded-circle"
+                                            >
+                                                <i className="ph ph-share-network" />
+                                            </Link>
                                         </div>
                                     </div>
+                                    <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
+                                    <div className="flex-between gap-16 p-12 border border-main-two-600 border-dashed rounded-8 mb-16">
+                                        <div className="flex-align gap-12">
+                                            <button
+                                                type="button"
+                                                className="w-18 h-18 flex-center border border-gray-900 text-xs rounded-circle hover-bg-gray-100"
+                                            >
+                                                <i className="ph ph-plus" />
+                                            </button>
+                                            <span className="text-gray-900 fw-medium text-xs">
+                                                Mfr. coupon. $3.00 off 5
+                                            </span>
+                                        </div>
+                                        <Link
+                                            to="/cart"
+                                            className="text-xs fw-semibold text-main-two-600 text-decoration-underline hover-text-main-two-700"
+                                        >
+                                            View Details
+                                        </Link>
+                                    </div>
+                                    <ul className="list-inside ms-12">
+                                        <li className="text-gray-900 text-sm mb-8">
+                                            Buy 1, Get 1 FREE
+                                        </li>
+                                        <li className="text-gray-900 text-sm mb-0">
+                                            Buy 1, Get 1 FREE
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-xl-3">
-                        <div className="product-details__sidebar py-40 px-32 border border-gray-100 rounded-16">
-                            <div className="mb-32">
-                                <label
-                                    htmlFor="delivery"
-                                    className="h6 activePage mb-8 text-heading fw-semibold d-block"
-                                >
-                                    Delivery
-                                </label>
-                                <div className="flex-align border border-gray-100 rounded-4 px-16">
-                                    <span className="text-xl d-flex text-main-600">
-                                        <i className="ph ph-map-pin" />
-                                    </span>
-                                    <select defaultValue={1}
-                                        className="common-input border-0 px-8 rounded-4"
-                                        id="delivery"
-                                    >
-                                        <option value={1}>Maymansign</option>
-                                        <option value={1}>Khulna</option>
-                                        <option value={1}>Rajshahi</option>
-                                        <option value={1}>Rangpur</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="mb-32">
-                                <label
-                                    htmlFor="stock"
-                                    className="text-lg mb-8 text-heading fw-semibold d-block"
-                                >
-                                    Total Stock: 21
-                                </label>
-                                <span className="text-xl d-flex">
-                                    <i className="ph ph-location" />
-                                </span>
-                                <div className="d-flex rounded-4 overflow-hidden">
-                                    <button onClick={decrementQuantity}
-                                        type="button"
-                                        className="quantity__minus flex-shrink-0 h-48 w-48 text-neutral-600 bg-gray-50 flex-center hover-bg-main-600 hover-text-white"
-                                    >
-                                        <i className="ph ph-minus" />
-                                    </button>
-                                    <input
-                                        type="number"
-                                        className="quantity__input flex-grow-1 border border-gray-100 border-start-0 border-end-0 text-center w-32 px-16"
-                                        id="stock"
-                                        value={
-                                            quantity
-                                        } readOnly
-
-                                    />
-                                    <button onClick={incrementQuantity}
-                                        type="button"
-                                        className="quantity__plus flex-shrink-0 h-48 w-48 text-neutral-600 bg-gray-50 flex-center hover-bg-main-600 hover-text-white"
-                                    >
-                                        <i className="ph ph-plus" />
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="mb-32">
-                                <div className="flex-between flex-wrap gap-8 border-bottom border-gray-100 pb-16 mb-16">
-                                    <span className="text-gray-500">Price</span>
-                                    <h6 className="text-lg mb-0">$150.00</h6>
-                                </div>
-                                <div className="flex-between flex-wrap gap-8">
-                                    <span className="text-gray-500">Shipping</span>
-                                    <h6 className="text-lg mb-0">From $10.00</h6>
-                                </div>
-                            </div>
-
-                            <Link to="#" className="btn btn-main flex-center gap-8 rounded-8 py-16 fw-normal mt-48">
-                                <i className="ph ph-shopping-cart-simple text-lg" /> Add To Cart
-                            </Link>
-                            <div className="mt-32">
-                                <div className="px-16 py-8 bg-main-50 rounded-8 flex-between gap-24 mb-14">
-                                    <span className="w-32 h-32 bg-white text-main-600 rounded-circle flex-center text-xl flex-shrink-0">
-                                        <i className="ph-fill ph-truck" />
-                                    </span>
-                                    <span className="text-sm text-neutral-600">
-                                        Ship from <span className="fw-semibold">MarketPro</span>{" "}
-                                    </span>
-                                </div>
-                                <div className="px-16 py-8 bg-main-50 rounded-8 flex-between gap-24 mb-0">
-                                    <span className="w-32 h-32 bg-white text-main-600 rounded-circle flex-center text-xl flex-shrink-0">
-                                        <i className="ph-fill ph-storefront" />
-                                    </span>
-                                    <span className="text-sm text-neutral-600">
-                                        Sold by:{" "}
-                                        <span className="fw-semibold">MR Distribution LLC</span>{" "}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="mt-32">
-                                <div className="px-32 py-16 rounded-8 border border-gray-100 flex-between gap-8">
-                                    <Link to="#" className="d-flex text-main-600 text-28">
-                                        <i className="ph-fill ph-chats-teardrop" />
-                                    </Link>
-                                    <span className="h-26 border border-gray-100" />
-                                    <div className="dropdown on-hover-item">
-                                        <button className="d-flex text-main-600 text-28" type="button">
-                                            <i className="ph-fill ph-share-network" />
-                                        </button>
-                                        <div className="on-hover-dropdown common-dropdown border-0 inset-inline-start-auto inset-inline-end-0">
-                                            <ul className="flex-align gap-16">
-                                                <li>
-                                                    <Link
-                                                        to="/https://www.facebook.com"
-                                                        className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
-                                                    >
-                                                        <i className="ph-fill ph-facebook-logo" />
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/https://www.twitter.com"
-                                                        className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
-                                                    >
-                                                        <i className="ph-fill ph-twitter-logo" />
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/https://www.linkedin.com"
-                                                        className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
-                                                    >
-                                                        <i className="ph-fill ph-instagram-logo" />
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/https://www.pinterest.com"
-                                                        className="w-44 h-44 flex-center bg-main-100 text-main-600 text-xl rounded-circle hover-bg-main-600 hover-text-white"
-                                                    >
-                                                        <i className="ph-fill ph-linkedin-logo" />
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
+                    <div className="col-lg-3">
+                        <div className="product-details__sidebar border border-gray-100 rounded-16 overflow-hidden">
+                            <div className="p-24">
+                                <div className="flex-between bg-main-600 rounded-pill p-8">
+                                    <div className="flex-align gap-8">
+                                        <span className="w-44 h-44 bg-white rounded-circle flex-center text-2xl">
+                                            <i className="ph ph-storefront" />
+                                        </span>
+                                        <span className="text-white">by Marketpro</span>
                                     </div>
+                                    <Link
+                                        to="/shop"
+                                        className="btn btn-white rounded-pill text-uppercase"
+                                    >
+                                        View Store
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="p-24 bg-color-one d-flex align-items-start gap-24 border-bottom border-gray-100">
+                                <span className="w-44 h-44 bg-white text-main-600 rounded-circle flex-center text-2xl flex-shrink-0">
+                                    <i className="ph-fill ph-truck" />
+                                </span>
+                                <div className="">
+                                    <h6 className="text-sm mb-8">Fast Delivery</h6>
+                                    <p className="text-gray-700">
+                                        Lightning-fast shipping, guaranteed.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="p-24 bg-color-one d-flex align-items-start gap-24 border-bottom border-gray-100">
+                                <span className="w-44 h-44 bg-white text-main-600 rounded-circle flex-center text-2xl flex-shrink-0">
+                                    <i className="ph-fill ph-arrow-u-up-left" />
+                                </span>
+                                <div className="">
+                                    <h6 className="text-sm mb-8">Free 90-day returns</h6>
+                                    <p className="text-gray-700">Shop risk-free with easy returns.</p>
+                                </div>
+                            </div>
+                            <div className="p-24 bg-color-one d-flex align-items-start gap-24 border-bottom border-gray-100">
+                                <span className="w-44 h-44 bg-white text-main-600 rounded-circle flex-center text-2xl flex-shrink-0">
+                                    <i className="ph-fill ph-check-circle" />
+                                </span>
+                                <div className="">
+                                    <h6 className="text-sm mb-8">
+                                        Pickup available at Shop location
+                                    </h6>
+                                    <p className="text-gray-700">Usually ready in 24 hours</p>
+                                </div>
+                            </div>
+                            <div className="p-24 bg-color-one d-flex align-items-start gap-24 border-bottom border-gray-100">
+                                <span className="w-44 h-44 bg-white text-main-600 rounded-circle flex-center text-2xl flex-shrink-0">
+                                    <i className="ph-fill ph-credit-card" />
+                                </span>
+                                <div className="">
+                                    <h6 className="text-sm mb-8">Payment</h6>
+                                    <p className="text-gray-700">
+                                        Payment upon receipt of goods, Payment by card in the
+                                        department, Google Pay, Online card.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="p-24 bg-color-one d-flex align-items-start gap-24 border-bottom border-gray-100">
+                                <span className="w-44 h-44 bg-white text-main-600 rounded-circle flex-center text-2xl flex-shrink-0">
+                                    <i className="ph-fill ph-check-circle" />
+                                </span>
+                                <div className="">
+                                    <h6 className="text-sm mb-8">Warranty</h6>
+                                    <p className="text-gray-700">
+                                        The Consumer Protection Act does not provide for the return of
+                                        this product of proper quality.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="p-24 bg-color-one d-flex align-items-start gap-24 border-bottom border-gray-100">
+                                <span className="w-44 h-44 bg-white text-main-600 rounded-circle flex-center text-2xl flex-shrink-0">
+                                    <i className="ph-fill ph-package" />
+                                </span>
+                                <div className="">
+                                    <h6 className="text-sm mb-8">Packaging</h6>
+                                    <p className="text-gray-700">
+                                        Research &amp; development value proposition graphical user
+                                        interface investor.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -406,20 +342,39 @@ const ProductDetailsTwo = () => {
                 <div className="pt-80">
                     <div className="product-dContent border rounded-24">
                         <div className="product-dContent__header border-bottom border-gray-100 flex-between flex-wrap gap-16">
-                            <ul className="nav common-tab nav-pills mb-3" id="pills-tab" role="tablist">
-                                {[
-                                    { id: "description", label: "Description" },
-                                    { id: "reviews", label: "Reviews" },
-                                ].map(({ id, label }, i) => (
-                                    <li key={id} className="nav-item" role="presentation">
-                                        <button className={`nav-link ${i === 0 ? "active" : ""}`}
-                                            id={`pills-${id}-tab`} data-bs-toggle="pill"
-                                            data-bs-target={`#pills-${id}`} type="button" role="tab"
-                                            aria-controls={`pills-${id}`} aria-selected={i === 0}>
-                                            {label}
-                                        </button>
-                                    </li>
-                                ))}
+                            <ul
+                                className="nav common-tab nav-pills mb-3"
+                                id="pills-tab"
+                                role="tablist"
+                            >
+                                <li className="nav-item" role="presentation">
+                                    <button
+                                        className="nav-link active"
+                                        id="pills-description-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-description"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pills-description"
+                                        aria-selected="true"
+                                    >
+                                        Description
+                                    </button>
+                                </li>
+                                <li className="nav-item" role="presentation">
+                                    <button
+                                        className="nav-link"
+                                        id="pills-reviews-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-reviews"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pills-reviews"
+                                        aria-selected="false"
+                                    >
+                                        Reviews
+                                    </button>
+                                </li>
                             </ul>
                             <Link
                                 to="#"
@@ -431,9 +386,13 @@ const ProductDetailsTwo = () => {
                         </div>
                         <div className="product-dContent__box">
                             <div className="tab-content" id="pills-tabContent">
-
-                                {/* Description tab */}
-                                <div className="tab-pane fade show active" id="pills-description" role="tabpanel" tabIndex={0}>
+                                <div
+                                    className="tab-pane fade show active"
+                                    id="pills-description"
+                                    role="tabpanel"
+                                    aria-labelledby="pills-description-tab"
+                                    tabIndex={0}
+                                >
                                     <div className="mb-40">
                                         <h6 className="mb-24">Product Description</h6>
                                         <p>
@@ -634,9 +593,13 @@ const ProductDetailsTwo = () => {
                                         </ul>
                                     </div>
                                 </div>
-
-                                {/* Reviews tab */}
-                                <div className="tab-pane fade" id="pills-reviews" role="tabpanel" tabIndex={0}>
+                                <div
+                                    className="tab-pane fade"
+                                    id="pills-reviews"
+                                    role="tabpanel"
+                                    aria-labelledby="pills-reviews-tab"
+                                    tabIndex={0}
+                                >
                                     <div className="row g-4">
                                         <div className="col-lg-6">
                                             <h6 className="mb-24">Product Description</h6>
@@ -903,7 +866,7 @@ const ProductDetailsTwo = () => {
                                                                 <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
                                                             </div>
@@ -936,10 +899,10 @@ const ProductDetailsTwo = () => {
                                                                 <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
                                                             </div>
@@ -969,13 +932,13 @@ const ProductDetailsTwo = () => {
                                                                 <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
                                                             </div>
@@ -1000,16 +963,16 @@ const ProductDetailsTwo = () => {
                                                                 <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
-                                                                <span className="text-xs fw-medium text-gray-400 d-flex">
+                                                                <span className="text-xs fw-medium text-warning-600 d-flex">
                                                                     <i className="ph-fill ph-star" />
                                                                 </span>
                                                             </div>
@@ -1031,4 +994,4 @@ const ProductDetailsTwo = () => {
     )
 }
 
-export default ProductDetailsTwo
+export default ProductDetailsOne
