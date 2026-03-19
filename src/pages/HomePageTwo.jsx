@@ -2,25 +2,16 @@ import React from "react";
 import Preloader from "../helper/Preloader";
 import HeaderTwo from "../components/HeaderTwo";
 import BannerTwo from "../components/BannerTwo";
-import PromotionalTwo from "../components/PromotionalTwo";
-import DealsOne from "../components/DealsOne";
-import TopSellingOne from "../components/TopSellingOne";
-import TrendingOne from "../components/TrendingOne";
-import DiscountOne from "../components/DiscountOne";
-import FeaturedOne from "../components/FeaturedOne";
-import BigDealOne from "../components/BigDealOne";
-import TopSellingTwo from "../components/TopSellingTwo";
-import PopularProductsOne from "../components/PopularProductsOne";
-import TopVendorsTwo from "../components/TopVendorsTwo";
-import DaySaleOne from "../components/DaySaleOne";
-import RecentlyViewedOne from "../components/RecentlyViewedOne";
-import BrandTwo from "../components/BrandTwo";
-import ShippingTwo from "../components/ShippingTwo";
 import NewsletterTwo from "../components/NewsletterTwo";
 import FooterTwo from "../components/FooterTwo";
 import BottomFooter from "../components/BottomFooter";
 import ColorInit from "../helper/ColorInit";
 import ScrollToTop from "react-scroll-to-top";
+import BeautyOne from "../components/BeautyOne";
+import VitaminOne from "@/components/VitaminOne";
+import BlogHome from "@/components/BlogHome";
+import Slogan from "@/components/Slogan";
+import FaqSection from "@/components/FaqSection";
 
 const HomePageTwo = () => {
 
@@ -43,47 +34,20 @@ const HomePageTwo = () => {
       {/* BannerTwo */}
       <BannerTwo />
 
-      {/* PromotionalTwo */}
-      <PromotionalTwo />
+      {/* Beauty Products */}
+      <BeautyOne />
 
-      {/* DealsOne */}
-      <DealsOne />
+      {/* Vitamins & Supplements */}
+      <VitaminOne />
 
-      {/* TopSellingOne */}
-      <TopSellingOne />
+      {/* Blog */}
+      <BlogHome />
 
-      {/* TrendingOne */}
-      <TrendingOne />
+      {/* Slogan */}
+      <Slogan />
 
-      {/* DiscountOne */}
-      <DiscountOne />
-
-      {/* FeaturedOne */}
-      <FeaturedOne />
-
-      {/* BigDealOne */}
-      <BigDealOne />
-
-      {/* TopSellingTwo */}
-      <TopSellingTwo />
-
-      {/* PopularProductsOne */}
-      <PopularProductsOne />
-
-      {/* TopVendorsTwo */}
-      <TopVendorsTwo />
-
-      {/* DaySaleOne */}
-      <DaySaleOne />
-
-      {/* RecentlyViewedOne */}
-      <RecentlyViewedOne />
-
-      {/* BrandTwo */}
-      <BrandTwo />
-
-      {/* ShippingTwo */}
-      <ShippingTwo />
+      {/* FAQs */}
+      <FaqSection />
 
       {/* NewsletterTwo */}
       <NewsletterTwo />
