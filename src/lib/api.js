@@ -9,7 +9,21 @@ export const signUpMutationFn = async (data) => {
 };
 
 export const signInMutationFn = async (data) => {
-  const response = await API.post("/identity/sign-in", data);
+  const response = await API.post("/identity/sign-in", data, {
+    withCredentials: false,
+  });
+  return response.data;
+};
+
+export const signOutMutationFn = async (data) => {
+  const response = await API.post("/identity/sign-out", data);
+  return response.data;
+};
+
+export const refreshTokenMutationFn = async (data) => {
+  const response = await API.post("/identity/refresh-token", data, {
+    withCredentials: false,
+  });
   return response.data;
 };
 
