@@ -9,10 +9,17 @@ const Account = () => {
     const navigate = useNavigate();
 
     const [identifier, setIdentifier] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+    const [showPasswordHints, setShowPasswordHints] = useState(false);
+    const passwordChecks = {
+        length: registerPassword.length >= 6,
+        uppercase: /[A-Z]/.test(registerPassword),
+        lowercase: /[a-z]/.test(registerPassword),
+        digit: /[0-9]/.test(registerPassword),
+    };
 
     const loginMutation = useMutation({
         mutationFn: signInMutationFn,
@@ -56,7 +63,7 @@ const Account = () => {
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         loginMutation.mutate({
-            user: { identifier, password },
+            user: { identifier, password: loginPassword },
         });
     };
 
@@ -128,9 +135,30 @@ const Account = () => {
                                         type="password"
                                         className="common-input"
                                         placeholder="Enter Password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={loginPassword}
+                                        onChange={(e) => setLoginPassword(e.target.value)}
+                                        onFocus={() => setShowPasswordHints(true)}
+                                        onBlur={() => setShowPasswordHints(false)}
                                     />
+                                    {showPasswordHints && (
+                                        <div className="mt-12 p-16 border rounded-8 bg-light">
+                                            <h6 className="mb-8">Password Requirements</h6>
+                                            <ul className="text-sm mb-0">
+                                                <li className={passwordChecks.length ? "text-success" : "text-muted"}>
+                                                    At least 6 characters
+                                                </li>
+                                                <li className={passwordChecks.uppercase ? "text-success" : "text-muted"}>
+                                                    At least one uppercase letter (A–Z)
+                                                </li>
+                                                <li className={passwordChecks.lowercase ? "text-success" : "text-muted"}>
+                                                    At least one lowercase letter (a–z)
+                                                </li>
+                                                <li className={passwordChecks.digit ? "text-success" : "text-muted"}>
+                                                    At least one number (0–9)
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="mb-24 mt-48">
