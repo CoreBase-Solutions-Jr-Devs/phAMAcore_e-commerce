@@ -14,8 +14,7 @@ const FooterTwo = () => {
                             </Link>
                         </div>
                         <p className="mb-24">
-                            Marketpro become the largest computer parts, gaming pc parts, and
-                            other IT related products.
+                            phAMAcore is an online pharmacy and healthcare marketplace for ordering medications, managing prescriptions, and accessing trusted health products.
                         </p>
                         <div className="flex-align gap-16 mb-16">
                             <span className="w-32 h-32 flex-center rounded-circle border border-gray-100 text-main-two-600 text-md flex-shrink-0">
@@ -25,7 +24,7 @@ const FooterTwo = () => {
                                 to="/tel:+00123456789"
                                 className="text-md text-gray-900 hover-text-main-600"
                             >
-                                +00 123 456 789
+                                +254 743 899 936
                             </Link>
                         </div>
                         <div className="flex-align gap-16 mb-16">
@@ -36,7 +35,7 @@ const FooterTwo = () => {
                                 to="/mailto:support24@marketpro.com"
                                 className="text-md text-gray-900 hover-text-main-600"
                             >
-                                support24@marketpro.com
+                                sales@corebase.co.ke
                             </Link>
                         </div>
                         <div className="flex-align gap-16 mb-16">
@@ -44,7 +43,7 @@ const FooterTwo = () => {
                                 <i className="ph-fill ph-map-pin" />
                             </span>
                             <span className="text-md text-gray-900 ">
-                                789 Inner Lane, California, USA
+                                Mapera Court, Suite B2, Nairobi
                             </span>
                         </div>
                     </div>
@@ -232,8 +231,8 @@ const FooterTwo = () => {
                         </ul>
                     </div>
                     <div className="footer-item">
-                        <h6 className="">Shop on The Go</h6>
-                        <p className="mb-16">Marketpro App is available. Get it now</p>
+                        <h6 className="">phAMACore E-Commerce</h6>
+                        <p className="mb-16">phAMACore E-Commerce is available. Get it now</p>
                         <div className="flex-align gap-8 my-32">
                             <Link to="/https://www.apple.com/store" className="">
                                 <img src="assets/images/thumbs/store-img1.png" alt="" />

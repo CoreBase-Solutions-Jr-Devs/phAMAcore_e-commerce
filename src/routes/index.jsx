@@ -19,6 +19,7 @@ import VendorTwoPage from "../pages/VendorTwoPage";
 import VendorTwoDetailsPage from "../pages/VendorTwoDetailsPage";
 import BecomeSellerPage from "../pages/BecomeSellerPage";
 import WishlistPage from "../pages/WishlistPage";
+import MyProfilePage from "@/pages/Myprofilepage";
 
 const AppRoutes = () => {
   return (
@@ -29,11 +30,13 @@ const AppRoutes = () => {
       <Route path="/shop" element={<ShopPage />} />
       <Route path="/product-details" element={<ProductDetailsPageOne />} />
       <Route path="/product-details-two" element={<ProductDetailsPageTwo />} />
+      <Route path="/product-details-two/:productId" element={<ProductDetailsPageTwo />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/become-seller" element={<BecomeSellerPage />} />
       <Route path="/wishlist" element={<WishlistPage />} />
       <Route path="/account" element={<AccountPage />} />
+      <Route path="/profile" element={<MyProfilePage />} />
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog-details" element={<BlogDetailsPage />} />
       <Route path="/contact" element={<ContactPage />} />
