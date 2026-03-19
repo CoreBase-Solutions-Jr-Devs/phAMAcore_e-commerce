@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -46,7 +47,7 @@ const BLOG_NAV = [
   { to: "/blog-details", label: "Blog Details" },
 ];
 
-// ── Sub-components ────────────────────────────────────────────────────────────
+
 
 /** Reusable dropdown list for language / currency selectors */
 const SelectorDropdown = ({ selected, options, onChange }) => (
@@ -318,7 +319,7 @@ const HeaderTwo = ({ category }) => {
                 {[
                   { to: "/account", icon: "ph ph-user", badge: null, label: "Profile" },
                   { to: "/wishlist", icon: "ph ph-heart", badge: "2", label: "Wishlist" },
-                  { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
+                  // { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
                   { to: "/cart", icon: "ph ph-shopping-cart-simple", badge: "2", label: "Cart" },
                 ].map(({ to, icon, badge, label }) => (
                   <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
@@ -513,7 +514,7 @@ const HeaderTwo = ({ category }) => {
                   {[
                     { to: "/account", icon: "ph ph-user", badge: null, label: "Profile" },
                     { to: "/wishlist", icon: "ph ph-heart", badge: "2", label: "Wishlist" },
-                    { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
+                    // { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
                     { to: "/cart", icon: "ph ph-shopping-cart-simple", badge: "2", label: "Cart" },
                   ].map(({ to, icon, badge, label }) => (
                     <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">

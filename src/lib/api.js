@@ -9,7 +9,21 @@ export const signUpMutationFn = async (data) => {
 };
 
 export const signInMutationFn = async (data) => {
-  const response = await API.post("/identity/sign-in", data);
+  const response = await API.post("/identity/sign-in", data, {
+    withCredentials: false,
+  });
+  return response.data;
+};
+
+export const signOutMutationFn = async (data) => {
+  const response = await API.post("/identity/sign-out", data);
+  return response.data;
+};
+
+export const refreshTokenMutationFn = async (data) => {
+  const response = await API.post("/identity/refresh-token", data, {
+    withCredentials: false,
+  });
   return response.data;
 };
 
@@ -50,7 +64,7 @@ export const getCurrentUserQueryFn = async () => {
 
 export const getProductByCategoryQueryFn = async (
   pageIndex = 0,
-  pageSize = 10
+  pageSize = 20
 ) => {
 
   const response = await API.get(`/products/category`, {
@@ -94,6 +108,13 @@ export const getCategoriesHierarchyQueryFn = async () => {
   });
   return response.data;
 };
+
+export const getCategoriesFlatQueryFn = async () => {
+  const response = await API.get("/categories", {
+    withCredentials: false,
+  });
+  return response.data;
+}
 export const DeleteBasketMutationFn = async (data) => {
   const response = await API.delete("/basket", data);
   return response.data;

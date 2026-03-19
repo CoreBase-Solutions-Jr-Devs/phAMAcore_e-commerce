@@ -8,30 +8,7 @@ import thumb2 from "../assets/images/thumbs/product-details-two-thumb2.png";
 import thumb3 from "../assets/images/thumbs/product-details-two-thumb3.png";
 import { getProductByIdQueryFn } from '../lib/api';
 
-// ── Static/fallback data ─────────────────────────────────────────────────────
 const PRODUCT_IMAGES = [thumb1, thumb2, thumb3, thumb1, thumb2];
-
-const SPECS = [
-    { label: "Product Type", value: "Chips & Dips" },
-    { label: "Product Name", value: "Potato Chips Classic" },
-    { label: "Brand", value: "Lay's" },
-    { label: "FSA Eligible", value: "No" },
-    { label: "Size/Count", value: "8.0oz" },
-    { label: "Item Code", value: "331539" },
-    { label: "Ingredients", value: "Potatoes, Vegetable Oil, and Salt." },
-];
-
-const NUTRITION = [
-    "Total Fat 10g 13%", "Saturated Fat 1.5g 7%",
-    "Cholesterol 0mg 0%", "Sodium 170mg 7%", "Potassium 350mg 6%",
-];
-
-const MORE_DETAILS = [
-    "Lunarlon midsole delivers ultra-plush responsiveness",
-    "Encapsulated Air-Sole heel unit for lightweight cushioning",
-    "Colour Shown: Ale Brown/Black/Goldtone/Ale Brown",
-    "Style: 805899-202",
-];
 
 const SOCIAL_LINKS = [
     { href: "/https://www.facebook.com", icon: "ph-fill ph-facebook-logo" },
@@ -53,7 +30,6 @@ const SLIDER_SETTINGS = {
     slidesToShow: 4, slidesToScroll: 1, focusOnSelect: true,
 };
 
-// ── TanStack Query hook ───────────────────────────────────────────────────────
 const useProductById = (productId) =>
     useQuery({
         queryKey: ['product', productId],
@@ -62,7 +38,6 @@ const useProductById = (productId) =>
         select: (data) => data.product,
     });
 
-// ── Sub-components ───────────────────────────────────────────────────────────
 const Stars = ({ count = 5, size = "text-15", dimAfter }) =>
     Array.from({ length: 5 }, (_, i) => (
         <span key={i} className={`${size} fw-medium d-flex ${i < (dimAfter ?? count) ? "text-warning-600" : "text-gray-400"}`}>
@@ -108,7 +83,7 @@ const ReviewCard = () => (
     </div>
 );
 
-// ── Main component ───────────────────────────────────────────────────────────
+
 const ProductDetailsTwo = () => {
     const { productId } = useParams();
 
@@ -327,7 +302,7 @@ const ProductDetailsTwo = () => {
                                 </div>
                             </div>
 
-                            <Link to="#" className="btn btn-main flex-center gap-8 rounded-8 py-16 fw-normal mt-48">
+                            <Link to="#" className="btn btn-main flex-center gap-8 rounded-8 py-16 fw-normal mt-48 w-100">
                                 <i className="ph ph-shopping-cart-simple text-lg" /> Add To Cart
                             </Link>
                             <Link to="#" className="btn btn-outline-main rounded-8 py-16 fw-normal mt-16 w-100">Buy Now</Link>
@@ -382,7 +357,7 @@ const ProductDetailsTwo = () => {
                         <div className="product-dContent__header border-bottom border-gray-100 flex-between flex-wrap gap-16">
                             <ul className="nav common-tab nav-pills mb-3" id="pills-tab" role="tablist">
                                 {[
-                                    { id: "description", label: "Description" },
+                                    // { id: "description", label: "Description" },
                                     { id: "reviews", label: "Reviews" },
                                 ].map(({ id, label }, i) => (
                                     <li key={id} className="nav-item" role="presentation">
@@ -405,7 +380,7 @@ const ProductDetailsTwo = () => {
                             <div className="tab-content" id="pills-tabContent">
 
                                 {/* Description tab */}
-                                <div className="tab-pane fade show active" id="pills-description" role="tabpanel" tabIndex={0}>
+                                {/* <div className="tab-pane fade show active" id="pills-description" role="tabpanel" tabIndex={0}>
                                     <div className="mb-40">
                                         <h6 className="mb-24">Product Description</h6>
                                         <p>{productDescription}</p>
@@ -439,10 +414,10 @@ const ProductDetailsTwo = () => {
                                             ))}
                                         </ul>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* Reviews tab */}
-                                <div className="tab-pane fade" id="pills-reviews" role="tabpanel" tabIndex={0}>
+                                <div className="tab-pane fade show active" id="pills-reviews" role="tabpanel" tabIndex={0}>
                                     <div className="row g-4">
                                         <div className="col-lg-6">
                                             <h6 className="mb-24">Product Description</h6>

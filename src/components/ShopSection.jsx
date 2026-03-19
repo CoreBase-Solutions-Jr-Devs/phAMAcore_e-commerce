@@ -1,21 +1,14 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReactSlider from 'react-slider'
 import { useQuery } from '@tanstack/react-query'
-import { getCategoriesHierarchyQueryFn } from '@/lib/api';
+import { getCategoriesHierarchyQueryFn, getCategoriesFlatQueryFn } from '@/lib/api';
 import { getProductsWithPaginationQueryFn } from '@/lib/api';
 
 const PAGE_SIZE = 20;
 
-// ── static data ──────────────────────────────────────────────────────────────
-
-
-const BRANDS = ["Apple", "Samsung", "Microsoft", "Apple", "HP", "DELL", "Redmi"];
-
-
-// ── sub-components ────────────────────────────────────────────────────────────
 
 const ProductCard = ({ id, name, imageUrl, price, badge }) => (
     <div className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
@@ -68,7 +61,6 @@ const ProductCard = ({ id, name, imageUrl, price, badge }) => (
     </div>
 );
 
-// ── main component ────────────────────────────────────────────────────────────
 
 const ShopSection = () => {
     const [grid, setGrid] = useState(false);
@@ -90,9 +82,15 @@ const ShopSection = () => {
         queryFn: getCategoriesHierarchyQueryFn,
     });
 
+    const { data: flatCategoriesData, isLoading: flatCategoriesLoading, isError: flatCategoriesError } = useQuery({
+        queryKey: ['categories-flat'],
+        queryFn: getCategoriesFlatQueryFn,
+    });
+
     const products = data?.products?.data ?? [];
     const total = data?.products?.count ?? 0;
     const totalPages = Math.ceil(total / PAGE_SIZE);
+    const flatCategories = flatCategoriesData?.categories ?? [];
 
     const sidebarController = () => setActive(v => !v);
 
@@ -169,19 +167,31 @@ const ShopSection = () => {
                                 </div>
                             </div>
 
-
-                            {/* Brand */}
+                            {/* Prescription */}
                             <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
-                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Brand</h6>
+                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Prescription</h6>
                                 <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                    {BRANDS.map((brand, i) => (
-                                        <li key={`${brand}-${i}`} className={i === BRANDS.length - 1 ? "mb-0" : "mb-24"}>
-                                            <div className="form-check common-check common-radio">
-                                                <input className="form-check-input" type="radio" name="brand" id={`brand-${i}`} />
-                                                <label className="form-check-label" htmlFor={`brand-${i}`}>{brand}</label>
-                                            </div>
-                                        </li>
-                                    ))}
+                                    {flatCategoriesLoading ? (
+                                        <li>Loading...</li>
+                                    ) : flatCategoriesError ? (
+                                        <li className="text-danger">Failed to load prescriptions</li>
+                                    ) : (
+                                        flatCategories.map((category, i) => (
+                                            <li key={category.id} className={i === flatCategories.length - 1 ? "mb-0" : "mb-24"}>
+                                                <div className="form-check common-check common-radio">
+                                                    <input
+                                                        className="form-check-input"
+                                                        type="radio"
+                                                        name="prescription"
+                                                        id={`prescription-${category.id}`}
+                                                    />
+                                                    <label className="form-check-label" htmlFor={`prescription-${category.id}`}>
+                                                        {category.name}
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        ))
+                                    )}
                                 </ul>
                             </div>
 
