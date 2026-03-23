@@ -10,16 +10,23 @@ const Account = () => {
 
     const [identifier, setIdentifier] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+    const [showLoginPassword, setShowLoginPassword] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+    const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+    const [showRegisterPasswordHints, setShowRegisterPasswordHints] = useState(false);
     const [showPasswordHints, setShowPasswordHints] = useState(false);
     const passwordChecks = {
         length: registerPassword.length >= 6,
         uppercase: /[A-Z]/.test(registerPassword),
         lowercase: /[a-z]/.test(registerPassword),
         digit: /[0-9]/.test(registerPassword),
+        special: /[!@#$%^&*(),.?":{}|<>]/.test(registerPassword),
     };
+    const phoneRegex = /^(?:\+254|254|0)?(7\d{8}|1\d{8})$/;
+    const isPhoneValid = phoneRegex.test(phone);
 
     const loginMutation = useMutation({
         mutationFn: signInMutationFn,
@@ -81,6 +88,7 @@ const Account = () => {
 
             setUsername("");
             setEmail("");
+            setPhone("");
             setRegisterPassword("");
         },
         onError: (error) => {
@@ -97,11 +105,31 @@ const Account = () => {
     const handleRegisterSubmit = (e) => {
         e.preventDefault();
 
+        if (!isPhoneValid) {
+            toast({
+                title: "Invalid Phone Number",
+                description: "Please enter a valid phone number.",
+                variant: "destructive",
+                className: "text-white [&_*]:text-white",
+            });
+            return;
+        }
+
+        if (!Object.values(passwordChecks).every(Boolean)) {
+            toast({
+                title: "Weak Password",
+                description: "Please meet all password requirements.",
+                variant: "destructive",
+                className: "text-white [&_*]:text-white",
+            });
+            return;
+        }
+
         registerMutation.mutate({
             user: {
                 username,
                 email,
-                phone: "",
+                phone,
                 password: registerPassword,
             },
         });
@@ -134,15 +162,28 @@ const Account = () => {
                                     <label className="text-neutral-900 text-lg mb-8 fw-medium">
                                         Password
                                     </label>
-                                    <input
-                                        type="password"
-                                        className="common-input"
-                                        placeholder="Enter Password"
-                                        value={loginPassword}
-                                        onChange={(e) => setLoginPassword(e.target.value)}
-                                        onFocus={() => setShowPasswordHints(true)}
-                                        onBlur={() => setShowPasswordHints(false)}
-                                    />
+
+                                    <div className="position-relative">
+                                        <input
+                                            type={showLoginPassword ? "text" : "password"}
+                                            className="common-input pe-48"
+                                            placeholder="Enter Password"
+                                            value={loginPassword}
+                                            onChange={(e) => setLoginPassword(e.target.value)}
+                                            onFocus={() => setShowPasswordHints(true)}
+                                            onBlur={() => setShowPasswordHints(false)}
+                                        />
+
+                                        {/* Visibility Toggle */}
+                                        <span
+                                            onClick={() => setShowLoginPassword((prev) => !prev)}
+                                            className="position-absolute top-50 inset-e-0 translate-middle-y me-16 text-xl"
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            <i className={showLoginPassword ? "ph ph-eye-slash" : "ph ph-eye"} />
+                                        </span>
+                                    </div>
+
                                     {showPasswordHints && (
                                         <div className="mt-12 p-16 border rounded-8 bg-light">
                                             <h6 className="mb-8">Password Requirements</h6>
@@ -158,6 +199,9 @@ const Account = () => {
                                                 </li>
                                                 <li className={passwordChecks.digit ? "text-success" : "text-muted"}>
                                                     At least one number (0–9)
+                                                </li>
+                                                <li className={passwordChecks.special ? "text-success" : "text-muted"}>
+                                                    At least one special character (!@#$...)
                                                 </li>
                                             </ul>
                                         </div>
@@ -219,15 +263,71 @@ const Account = () => {
 
                                 <div className="mb-24">
                                     <label className="text-neutral-900 text-lg mb-8 fw-medium">
-                                        Password <span className="text-danger">*</span>
+                                        Phone Number <span className="text-danger">*</span>
                                     </label>
                                     <input
-                                        type="password"
+                                        type="tel"
                                         className="common-input"
-                                        placeholder="Enter Password"
-                                        value={registerPassword}
-                                        onChange={(e) => setRegisterPassword(e.target.value)}
+                                        placeholder="e.g. 0712345678 or +254712345678"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
                                     />
+                                    {!isPhoneValid && phone.length > 0 && (
+                                        <small className="text-danger">
+                                            Enter a valid phone number (e.g. 0712345678 or +254712345678)
+                                        </small>
+                                    )}
+                                </div>
+
+                                <div className="mb-24">
+                                    <label className="text-neutral-900 text-lg mb-8 fw-medium">
+                                        Password <span className="text-danger">*</span>
+                                    </label>
+
+                                    <div className="position-relative">
+                                        <input
+                                            type={showRegisterPassword ? "text" : "password"}
+                                            className="common-input pe-48"
+                                            placeholder="Enter Password"
+                                            value={registerPassword}
+                                            onChange={(e) => setRegisterPassword(e.target.value)}
+                                            onFocus={() => setShowRegisterPasswordHints(true)}
+                                            onBlur={() => setShowRegisterPasswordHints(false)}
+                                        />
+
+                                        {/* Visibility Toggle */}
+                                        <span
+                                            onClick={() => setShowRegisterPassword((prev) => !prev)}
+                                            className="position-absolute top-50 inset-e-0 translate-middle-y me-16 cursor-pointer text-xl"
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            <i className={showRegisterPassword ? "ph ph-eye-slash" : "ph ph-eye"} />
+                                        </span>
+                                    </div>
+
+                                    {/* Password Requirements */}
+                                    {showRegisterPasswordHints && (
+                                        <div className="mt-12 p-16 border rounded-8 bg-light">
+                                            <h6 className="mb-8">Password Requirements</h6>
+                                            <ul className="text-sm mb-0">
+                                                <li className={passwordChecks.length ? "text-success" : "text-muted"}>
+                                                    At least 6 characters
+                                                </li>
+                                                <li className={passwordChecks.uppercase ? "text-success" : "text-muted"}>
+                                                    At least one uppercase letter (A–Z)
+                                                </li>
+                                                <li className={passwordChecks.lowercase ? "text-success" : "text-muted"}>
+                                                    At least one lowercase letter (a–z)
+                                                </li>
+                                                <li className={passwordChecks.digit ? "text-success" : "text-muted"}>
+                                                    At least one number (0–9)
+                                                </li>
+                                                <li className={passwordChecks.special ? "text-success" : "text-muted"}>
+                                                    At least one special character (!@#$...)
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="mt-48">
