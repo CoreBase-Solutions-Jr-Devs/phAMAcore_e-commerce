@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import HomePageTwo from "../pages/HomePageTwo";
 import ShopPage from "../pages/ShopPage";
@@ -17,8 +18,9 @@ import MyProfilePage from "@/pages/Myprofilepage";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePageTwo />} />
+      <Route path="/" element={<Navigate to="/shop" replace />} />
       <Route path="/shop" element={<ShopPage />} />
+      <Route path="/home" element={<HomePageTwo />} />
       <Route path="/product-details-two" element={<ProductDetailsPageTwo />} />
       <Route path="/product-details-two/:productId" element={<ProductDetailsPageTwo />} />
       <Route path="/cart" element={<CartPage />} />
