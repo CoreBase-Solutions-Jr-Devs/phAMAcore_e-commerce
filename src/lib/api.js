@@ -63,16 +63,12 @@ export const getCurrentUserQueryFn = async () => {
 };
 
 export const getProductByCategoryQueryFn = async (
+  categoryName,
   pageIndex = 0,
   pageSize = 20
 ) => {
-
-  const response = await API.get(`/products/category`, {
-    params: {
-      pageIndex,
-      pageSize,
-    },
-    withCredentials: false,
+  const response = await API.get(`/products/category/${categoryName}`, {
+    params: { pageIndex, pageSize },
   });
 
   return response.data;

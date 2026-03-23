@@ -24,7 +24,7 @@ const CURRENCIES = [
 
 const SHOP_NAV = [
   { to: "/shop", label: "Shop" },
-  { to: "/product-details-two", label: "Item Details" },
+  // { to: "/product-details-two", label: "Item Details" },
 ];
 
 const PAGES_NAV = [
@@ -182,7 +182,7 @@ const HeaderTwo = ({ category }) => {
           <i className="ph ph-x" />
         </button>
         <div className="mobile-menu__inner">
-          <Link to="/" className="mobile-menu__logo">
+          <Link to="/home" className="mobile-menu__logo">
             <img src="assets/images/logo/logo.png" alt="Logo" />
           </Link>
           <div className="mobile-menu__menu">
@@ -190,26 +190,16 @@ const HeaderTwo = ({ category }) => {
 
               {/* Home — no dropdown, direct link */}
               <li className="nav-menu__item">
-                <Link to="/" className="nav-menu__link" onClick={() => setActiveIndex(null)}>
+                <Link to="/home" className="nav-menu__link" onClick={() => setActiveIndex(null)}>
                   Home
                 </Link>
               </li>
 
               {/* Shop */}
-              <li
-                onClick={() => handleMenuClick(1)}
-                className={`on-hover-item nav-menu__item has-submenu ${activeIndex === 1 ? "d-block" : ""}`}
-              >
-                <Link to="#" className="nav-menu__link">Shop</Link>
-                <ul className={`on-hover-dropdown common-dropdown nav-submenu scroll-sm ${activeIndex === 1 ? "open" : ""}`}>
-                  {SHOP_NAV.map(({ to, label }) => (
-                    <li key={to} className="common-dropdown__item nav-submenu__item">
-                      <Link onClick={() => setActiveIndex(null)} to={to} className="common-dropdown__link nav-submenu__link hover-bg-neutral-100">
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <li className="nav-menu__item">
+                <NavLink to="/shop" className={({ isActive }) => `nav-menu__link${isActive ? " activePage" : ""}`}>
+                  Shop
+                </NavLink>
               </li>
 
               {/* Pages */}
@@ -278,7 +268,7 @@ const HeaderTwo = ({ category }) => {
         <div className="container container-lg">
           <nav className="header-inner flex-between">
             <div className="logo">
-              <Link to="/" className="link">
+              <Link to="/home" className="link">
                 <img src="assets/images/logo/logo-two.png" alt="Logo" />
               </Link>
             </div>
@@ -294,11 +284,11 @@ const HeaderTwo = ({ category }) => {
 
               <form action="#" className="flex-align flex-wrap form-location-wrapper">
                 <div className="search-category style-two d-flex h-48 search-form d-sm-flex d-none">
-                  <select defaultValue={1} className="js-example-basic-single border border-gray-200 border-end-0 rounded-0 border-0" name="state">
+                  {/* <select defaultValue={1} className="js-example-basic-single border border-gray-200 border-end-0 rounded-0 border-0" name="state">
                     {["All Categories", "Grocery", "Breakfast & Dairy", "Vegetables", "Milks and Dairies", "Pet Foods & Toy", "Breads & Bakery", "Fresh Seafood", "Frozen Foods", "Noodles & Rice", "Ice Cream"].map(opt => (
                       <option key={opt}>{opt}</option>
                     ))}
-                  </select>
+                  </select> */}
                   <div className="search-form__wrapper position-relative">
                     <input
                       type="text"
@@ -366,7 +356,7 @@ const HeaderTwo = ({ category }) => {
                     <i className="ph ph-x" />
                   </button>
                   <div className="logo px-16 d-lg-none d-block">
-                    <Link to="/"><img src="src/assets/images/logo/logo.png" alt="Logo" /></Link>
+                    <Link to="/home"><img src="src/assets/images/logo/logo.png" alt="Logo" /></Link>
                   </div>
                   <ul className="scroll-sm p-0 py-8 overflow-y-auto">
                     {categoriesLoading ? (
@@ -419,7 +409,7 @@ const HeaderTwo = ({ category }) => {
                 </button>
                 <div className="responsive-dropdown on-hover-dropdown common-dropdown nav-submenu p-0 submenus-submenu-wrapper">
                   <div className="logo px-16 d-lg-none d-block">
-                    <Link to="/"><img src="assets/images/logo/logo.png" alt="Logo" /></Link>
+                    <Link to="/home"><img src="assets/images/logo/logo.png" alt="Logo" /></Link>
                   </div>
                   <ul className="scroll-sm p-0 py-8 w-300 max-h-400 overflow-y-auto">
                     {categoriesLoading ? (
@@ -470,14 +460,18 @@ const HeaderTwo = ({ category }) => {
                   {/* Home — plain NavLink, no dropdown */}
                   <li className="nav-menu__item">
                     <NavLink
-                      to="/"
+                      to="/home"
                       className={({ isActive }) => `nav-menu__link${isActive ? " activePage" : ""}`}
                     >
                       Home
                     </NavLink>
                   </li>
 
-                  <DropdownNavItem label="Shop" items={SHOP_NAV} />
+                  <li className="nav-menu__item">
+                    <NavLink to="/shop" className={({ isActive }) => `nav-menu__link${isActive ? " activePage" : ""}`}>
+                      Shop
+                    </NavLink>
+                  </li>
                   <DropdownNavItem label="Pages" items={PAGES_NAV} badge="New" badgeColor="bg-warning-600" />
                   <DropdownNavItem label="Vendors" items={VENDORS_NAV} badge="New" badgeColor="bg-tertiary-600" />
                   <DropdownNavItem label="Blog" items={BLOG_NAV} />

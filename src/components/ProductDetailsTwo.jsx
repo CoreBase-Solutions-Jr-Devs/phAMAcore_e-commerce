@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -164,7 +165,7 @@ const ProductDetailsTwo = () => {
                                 <div className="product-details__content">
 
                                     {/* Countdown banner */}
-                                    <div className="flex-center mb-24 flex-wrap gap-16 bg-color-one rounded-8 py-16 px-24 position-relative z-1">
+                                    {/* <div className="flex-center mb-24 flex-wrap gap-16 bg-color-one rounded-8 py-16 px-24 position-relative z-1">
                                         <img src="src/assets/images/bg/details-offer-bg.png" alt=""
                                             className="position-absolute inset-block-start-0 inset-inline-start-0 w-100 h-100 z-n1" />
                                         <div className="flex-align gap-16">
@@ -178,7 +179,7 @@ const ProductDetailsTwo = () => {
                                             ))}
                                         </ul>
                                         <span className="text-white text-xs">Remains untill the end of the offer</span>
-                                    </div>
+                                    </div> */}
 
                                     {/* Title & rating */}
                                     <h5 className="mb-12">{productName}</h5>
@@ -241,7 +242,7 @@ const ProductDetailsTwo = () => {
                                         </div>
                                     </div>
 
-                                    <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
+                                    {/* <span className="mt-32 pt-32 text-gray-700 border-top border-gray-100 d-block" />
                                     <Link to="/https://www.whatsapp.com" className="btn btn-black flex-center gap-8 rounded-8 py-16">
                                         <i className="ph ph-whatsapp-logo text-lg" /> Request More Information
                                     </Link>
@@ -250,7 +251,7 @@ const ProductDetailsTwo = () => {
                                         <div className="mt-10">
                                             <img src="src/assets/images/thumbs/gateway-img.png" alt="" />
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
