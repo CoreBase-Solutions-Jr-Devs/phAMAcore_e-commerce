@@ -1,75 +1,99 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactSlider from 'react-slider'
 import { useQuery } from '@tanstack/react-query'
 import { getCategoriesHierarchyQueryFn, getCategoriesFlatQueryFn } from '@/lib/api';
 import { getProductsWithPaginationQueryFn } from '@/lib/api';
+import { useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItemToCart } from '@/features/cartSlice';
 
 const PAGE_SIZE = 20;
 
 
-const ProductCard = ({ id, name, imageUrl, price, badge }) => (
-    <div className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2">
-        <Link
-            to={`/product-details-two/${id}`}
-            className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative"
-        >
-            {badge && (
-                <span className={`product-card__badge ${badge.color} px-8 py-4 text-sm text-white position-absolute inset-inline-start-0 inset-block-start-0`}>
-                    {badge.label}
-                </span>
-            )}
-            <img src={imageUrl} alt={name} className="w-auto max-w-unset" />
-        </Link>
-        <div className="product-card__content mt-16">
-            <h6 className="title text-lg fw-semibold mt-12 mb-8">
-                <Link to={`/product-details-two/${id}`} className="link text-line-2" tabIndex={0}>
-                    {name}
-                </Link>
-            </h6>
-            <div className="flex-align mb-20 mt-16 gap-6">
-                <span className="text-xs fw-medium text-gray-500">4.8</span>
-                <span className="text-15 fw-medium text-warning-600 d-flex">
-                    <i className="ph-fill ph-star" />
-                </span>
-                <span className="text-xs fw-medium text-gray-500">(17k)</span>
-            </div>
-            <div className="mt-8">
-                <div className="progress w-100 bg-color-three rounded-pill h-4" role="progressbar" aria-valuenow={35} aria-valuemin={0} aria-valuemax={100}>
-                    <div className="progress-bar bg-main-two-600 rounded-pill" style={{ width: "35%" }} />
+const ProductCard = ({ products = [], handleAddtoCart }) => {
+    return (
+        <>
+            {products.map((product) =>
+                <div className="product-card h-100 p-16 border border-gray-100 hover-border-main-600 rounded-16 position-relative transition-2" key={product.id}>
+                    <Link
+                        to={`/product-details-two/${product.id}`}
+                        className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative"
+                    >
+                        {/* // {product.badge && (
+            //     <span className={`product-card__badge ${badge.color} px-8 py-4 text-sm text-white position-absolute inset-inline-start-0 inset-block-start-0`}>
+            //         {product.badge.label}
+            //     </span>
+            // )} */}
+                        <img src={product.imageUrl} alt={product.name} className="w-auto max-w-unset" />
+                    </Link>
+                    <div className="product-card__content mt-16">
+                        <h6 className="title text-lg fw-semibold mt-12 mb-8">
+                            <Link to={`/product-details-two/${product.id}`} className="link text-line-2" tabIndex={0}>
+                                {product.name}
+                            </Link>
+                        </h6>
+                        <div className="flex-align mb-20 mt-16 gap-6">
+                            <span className="text-xs fw-medium text-gray-500">4.8</span>
+                            <span className="text-15 fw-medium text-warning-600 d-flex">
+                                <i className="ph-fill ph-star" />
+                            </span>
+                            <span className="text-xs fw-medium text-gray-500">(17k)</span>
+                        </div>
+                        <div className="mt-8">
+                            <div className="progress w-100 bg-color-three rounded-pill h-4" role="progressbar" aria-valuenow={35} aria-valuemin={0} aria-valuemax={100}>
+                                <div className="progress-bar bg-main-two-600 rounded-pill" style={{ width: "35%" }} />
+                            </div>
+                            <span className="text-gray-900 text-xs fw-medium mt-8">Sold: 18/35</span>
+                        </div>
+                        <div className="product-card__price my-20">
+                            <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
+                                Ksh{(product.price * 1.2).toFixed(2)}
+                            </span>
+                            <span className="text-heading text-md fw-semibold">
+                                Ksh{product.price.toFixed(2)} <span className="text-gray-500 fw-normal">/Qty</span>
+                            </span>
+                        </div>
+                        <button
+                            className="product-card__cart btn bg-gray-50 text-heading hover-bg-main-600 hover-text-white py-11 px-24 rounded-8 flex-center gap-8 fw-medium"
+                            tabIndex={0}
+                            onClick={() => handleAddtoCart(product)}
+                        >
+                            Add To Cart <i className="ph ph-shopping-cart" />
+                        </button>
+                    </div>
                 </div>
-                <span className="text-gray-900 text-xs fw-medium mt-8">Sold: 18/35</span>
-            </div>
-            <div className="product-card__price my-20">
-                <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
-                    Ksh{(price * 1.2).toFixed(2)}
-                </span>
-                <span className="text-heading text-md fw-semibold">
-                    Ksh{price.toFixed(2)} <span className="text-gray-500 fw-normal">/Qty</span>
-                </span>
-            </div>
-            <Link
-                to="/cart"
-                className="product-card__cart btn bg-gray-50 text-heading hover-bg-main-600 hover-text-white py-11 px-24 rounded-8 flex-center gap-8 fw-medium"
-                tabIndex={0}
-            >
-                Add To Cart <i className="ph ph-shopping-cart" />
-            </Link>
-        </div>
-    </div>
-);
+            )}
+        </>
+    )
+
+};
 
 
 const ShopSection = () => {
+    const dispatch = useDispatch();
+    const {cart} = useSelector(state => state.itemCart);
+
+    console.log(cart);
     const [grid, setGrid] = useState(false);
     const [active, setActive] = useState(false);
     const [pageIndex, setPageIndex] = useState(0);
+    const [searchParams] = useSearchParams();
+    const categorySlug = searchParams.get("category") || null;
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setPageIndex(0);
+    }, [categorySlug]);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["products", pageIndex],
-        queryFn: () => getProductsWithPaginationQueryFn({ pageIndex, pageSize: PAGE_SIZE }),
+        queryFn: () => getProductsWithPaginationQueryFn({
+            pageIndex: categorySlug ? 0 : pageIndex,
+            pageSize: categorySlug ? 1000 : PAGE_SIZE,
+        }),
         keepPreviousData: true,
     });
 
@@ -87,9 +111,54 @@ const ShopSection = () => {
         queryFn: getCategoriesFlatQueryFn,
     });
 
-    const products = data?.products?.data ?? [];
-    const total = data?.products?.count ?? 0;
-    const totalPages = Math.ceil(total / PAGE_SIZE);
+    const getCategoryNameFromSlug = () => {
+        if (!categorySlug || !categoriesData?.categories) return null;
+
+        for (const parent of categoriesData.categories) {
+            for (const child of parent.children || []) {
+                if (child.slug === categorySlug) {
+                    return child.name;
+                }
+            }
+
+            if (parent.slug === categorySlug) {
+                return parent.name;
+            }
+        }
+
+        return null;
+    };
+
+    const selectedCategoryName = getCategoryNameFromSlug();
+
+    const allProducts = data?.products?.data ?? [];
+
+    const filteredProducts = selectedCategoryName
+        ? allProducts.filter(p => p.categoryName === selectedCategoryName)
+        : allProducts;
+
+    let products = [];
+    let total = 0;
+    let totalPages = Math.max(
+        1,
+        selectedCategoryName
+            ? Math.ceil(total / PAGE_SIZE)
+            : Math.ceil(total / PAGE_SIZE)
+    );
+
+    if (selectedCategoryName) {
+        total = filteredProducts.length;
+        totalPages = Math.ceil(total / PAGE_SIZE);
+
+        const start = pageIndex * PAGE_SIZE;
+        const end = start + PAGE_SIZE;
+
+        products = filteredProducts.slice(start, end);
+    } else {
+        products = filteredProducts;
+        total = data?.products?.count ?? 0;
+        totalPages = Math.ceil(total / PAGE_SIZE);
+    }
     const flatCategories = flatCategoriesData?.categories ?? [];
 
     const sidebarController = () => setActive(v => !v);
@@ -98,6 +167,10 @@ const ShopSection = () => {
         if (index < 0 || index >= totalPages) return;
         setPageIndex(index);
         window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    const handleAddtoCart = (item) => {
+        dispatch(addItemToCart({ ...item }));
     };
 
     return (
@@ -115,7 +188,7 @@ const ShopSection = () => {
                             </button>
 
                             {/* Categories */}
-                            <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
+                            {/* <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
                                 <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Product Category</h6>
                                 <ul className="max-h-540 overflow-y-auto scroll-sm">
                                     {categoriesLoading ? (
@@ -140,7 +213,7 @@ const ShopSection = () => {
                                         ))
                                     )}
                                 </ul>
-                            </div>
+                            </div> */}
 
                             {/* Price */}
                             <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
@@ -195,9 +268,9 @@ const ShopSection = () => {
                                 </ul>
                             </div>
 
-                            <div className="shop-sidebar__box rounded-8">
+                            {/* <div className="shop-sidebar__box rounded-8">
                                 <img src="src/assets/images/thumbs/advertise-img1.png" alt="" />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -210,7 +283,7 @@ const ShopSection = () => {
                                     ? "Loading..."
                                     : isError
                                         ? "Failed to load products"
-                                        : `Showing ${products.length} of ${total} results`}
+                                        : `Showing ${Math.min((pageIndex + 1) * PAGE_SIZE, total)} of ${total} results`}
                             </span>
                             <div className="position-relative flex-align gap-16 flex-wrap">
                                 <div className="list-grid-btns flex-align gap-16">
@@ -252,12 +325,12 @@ const ShopSection = () => {
                             </div>
                         ) : (
                             <div className={`list-grid-wrapper ${grid && "list-view"}`}>
-                                {products.map((p) => <ProductCard key={p.id} {...p} />)}
+                                <ProductCard products={products} handleAddtoCart={handleAddtoCart}/>
                             </div>
                         )}
 
                         {/* Pagination */}
-                        {!isLoading && !isError && totalPages > 1 && (
+                        {!isLoading && !isError && (
                             <ul className="pagination flex-center flex-wrap gap-16 mt-40">
                                 <li className={`page-item ${pageIndex === 0 ? "disabled" : ""}`}>
                                     <button
