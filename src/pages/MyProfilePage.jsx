@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import Preloader from "../helper/Preloader";
 import HeaderTwo from "../components/HeaderTwo";

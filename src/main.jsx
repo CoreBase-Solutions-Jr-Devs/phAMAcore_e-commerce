@@ -19,11 +19,15 @@ import "slick-carousel/slick/slick-theme.css";
 
 import reportWebVitals from "./reportWebVitals";
 
+import { Provider } from "react-redux"
+import { store } from "./features/store.js";
+
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
+      <Provider store={store}>
       <QueryProvider>
         <NuqsAdapter>
           <BrowserRouter>
@@ -32,6 +36,7 @@ if (rootElement) {
           </BrowserRouter>
         </NuqsAdapter>
       </QueryProvider>
+      </Provider>
     </StrictMode>
   );
 

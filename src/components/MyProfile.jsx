@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -288,6 +289,7 @@ const SectionOrders = () => {
 const SectionWishlist = () => {
     const [items, setItems] = useState(INITIAL_WISHLIST);
     const remove = (id) => setItems(prev => prev.filter(i => i.id !== id));
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -304,20 +306,27 @@ const SectionWishlist = () => {
                     }
                 />
             ) : (
-                <div className="row g-3">
+                <div>
                     {items.map(item => (
-                        <div className="col-6 col-md-4 col-lg-3" key={item.id}>
-                            <div style={st.wishCard}>
-                                <div style={st.wishImg}>{item.emoji}</div>
-                                <button style={st.wishRemove} onClick={() => remove(item.id)} title="Remove from wishlist">✕</button>
-                                <div style={{ padding: "12px 14px" }}>
-                                    <p style={{ fontWeight: 600, fontSize: 13, color: "#222", marginBottom: 4, lineHeight: 1.3 }}>{item.name}</p>
-                                    <p style={{ fontWeight: 700, color: ORANGE, fontSize: 14, marginBottom: 2 }}>{item.price}</p>
-                                    {item.oldPrice && (
-                                        <p style={{ color: "#bbb", fontSize: 12, textDecoration: "line-through", marginBottom: 8 }}>{item.oldPrice}</p>
-                                    )}
-                                    <button style={{ ...st.btnMain, width: "100%", padding: "8px 0", fontSize: 13 }}>Add to Cart</button>
-                                </div>
+                        <div key={item.id} style={st.orderRow}>
+                            <div style={st.orderImg}>{item.emoji}</div>
+                            <div style={{ flex: 1 }}>
+                                <p style={{ fontWeight: 600, color: "#222", marginBottom: 2, fontSize: 15 }}>{item.name}</p>
+                                <p style={{ fontWeight: 700, color: ORANGE, fontSize: 14, marginBottom: 2 }}>{item.price}</p>
+                                {item.oldPrice && (
+                                    <p style={{ color: "#bbb", fontSize: 12, textDecoration: "line-through" }}>{item.oldPrice}</p>
+                                )}
+                            </div>
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
+                                <button 
+                                    style={{ ...st.btnMain, padding: "6px 14px", fontSize: 12 }} 
+                                    onClick={(navigate('/cart'))}>
+                                        Add to Cart
+                                </button>
+                                <button
+                                    style={{ ...st.btnOutline, padding: "6px 14px", fontSize: 12, color: DARK_RED, borderColor: DARK_RED }}
+                                    onClick={() => remove(item.id)}
+                                >Remove</button>
                             </div>
                         </div>
                     ))}
