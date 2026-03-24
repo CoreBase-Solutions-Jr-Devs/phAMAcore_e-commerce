@@ -9,6 +9,7 @@ import { getProductsWithPaginationQueryFn } from '@/lib/api';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from '@/features/cartSlice';
+import { selectIsAuthenticated, selectCustomerId } from '@/features/authSlice';
 
 const PAGE_SIZE = 20;
 
@@ -75,8 +76,11 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
 const ShopSection = () => {
     const dispatch = useDispatch();
     const {cart} = useSelector(state => state.itemCart);
+    const isAuthenticated = useSelector(selectIsAuthenticated);
+    const customerId = useSelector(selectCustomerId);
 
     console.log(cart);
+    console.log("Login info: ", isAuthenticated, customerId);
     const [grid, setGrid] = useState(false);
     const [active, setActive] = useState(false);
     const [pageIndex, setPageIndex] = useState(0);
@@ -242,7 +246,7 @@ const ShopSection = () => {
 
                             {/* Prescription */}
                             <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
-                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Prescription</h6>
+                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Category</h6>
                                 <ul className="max-h-540 overflow-y-auto scroll-sm">
                                     {flatCategoriesLoading ? (
                                         <li>Loading...</li>
