@@ -177,6 +177,24 @@ const ShopSection = () => {
         dispatch(addItemToCart({ ...item }));
     };
 
+    function getPaginationRange(current, total, siblings = 1) {
+        const range = new Set();
+
+        for (let i = 0; i < Math.min(3, total); i++) range.add(i);
+        for (let i = Math.max(0, total - 1); i < total; i++) range.add(i);
+        for (let i = Math.max(0, current - siblings); i <= Math.min(total - 1, current + siblings); i++) {
+            range.add(i);
+        }
+
+        const sorted = [...range].sort((a, b) => a - b);
+        const result = [];
+        for (let i = 0; i < sorted.length; i++) {
+            if (i > 0 && sorted[i] - sorted[i - 1] > 1) result.push("...");
+            result.push(sorted[i]);
+        }
+        return result;
+    }
+
     return (
         <section className="shop py-80">
             <div className={`side-overlay ${active && "show"}`}></div>
@@ -336,6 +354,7 @@ const ShopSection = () => {
                         {/* Pagination */}
                         {!isLoading && !isError && (
                             <ul className="pagination flex-center flex-wrap gap-16 mt-40">
+                                {/* Prev */}
                                 <li className={`page-item ${pageIndex === 0 ? "disabled" : ""}`}>
                                     <button
                                         className="page-link h-64 w-64 flex-center text-xxl rounded-8 fw-medium text-neutral-600 border border-gray-100"
@@ -345,16 +364,28 @@ const ShopSection = () => {
                                         <i className="ph-bold ph-arrow-left" />
                                     </button>
                                 </li>
-                                {[...Array(totalPages)].map((_, i) => (
-                                    <li key={i} className={`page-item ${pageIndex === i ? "active" : ""}`}>
-                                        <button
-                                            className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-600 border border-gray-100"
-                                            onClick={() => handlePage(i)}
-                                        >
-                                            {String(i + 1).padStart(2, "0")}
-                                        </button>
-                                    </li>
-                                ))}
+
+                                {/* Page number buttons (windowed) */}
+                                {getPaginationRange(pageIndex, totalPages).map((item, idx) =>
+                                    item === "..." ? (
+                                        <li key={`ellipsis-${idx}`} className="page-item disabled">
+                                            <span className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-400 border border-gray-100">
+                                                …
+                                            </span>
+                                        </li>
+                                    ) : (
+                                        <li key={item} className={`page-item ${pageIndex === item ? "active" : ""}`}>
+                                            <button
+                                                className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-600 border border-gray-100"
+                                                onClick={() => handlePage(item)}
+                                            >
+                                                {String(item + 1).padStart(2, "0")}
+                                            </button>
+                                        </li>
+                                    )
+                                )}
+
+                                {/* Next */}
                                 <li className={`page-item ${pageIndex === totalPages - 1 ? "disabled" : ""}`}>
                                     <button
                                         className="page-link h-64 w-64 flex-center text-xxl rounded-8 fw-medium text-neutral-600 border border-gray-100"
