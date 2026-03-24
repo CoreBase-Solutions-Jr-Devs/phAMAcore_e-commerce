@@ -9,6 +9,7 @@ import { getProductsWithPaginationQueryFn } from '@/lib/api';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from '@/features/cartSlice';
+import { selectIsAuthenticated, selectCustomerId } from '@/features/authSlice';
 
 const PAGE_SIZE = 20;
 
@@ -49,9 +50,9 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
                             <span className="text-gray-900 text-xs fw-medium mt-8">Sold: 18/35</span>
                         </div>
                         <div className="product-card__price my-20">
-                            <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
+                            {/* <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
                                 Ksh{(product.price * 1.2).toFixed(2)}
-                            </span>
+                            </span> */}
                             <span className="text-heading text-md fw-semibold">
                                 Ksh{product.price.toFixed(2)} <span className="text-gray-500 fw-normal">/Qty</span>
                             </span>
@@ -75,8 +76,11 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
 const ShopSection = () => {
     const dispatch = useDispatch();
     const {cart} = useSelector(state => state.itemCart);
+    const isAuthenticated = useSelector(selectIsAuthenticated);
+    const customerId = useSelector(selectCustomerId);
 
     console.log(cart);
+    console.log("Login info: ", isAuthenticated, customerId);
     const [grid, setGrid] = useState(false);
     const [active, setActive] = useState(false);
     const [pageIndex, setPageIndex] = useState(0);
@@ -173,6 +177,24 @@ const ShopSection = () => {
         dispatch(addItemToCart({ ...item }));
     };
 
+    function getPaginationRange(current, total, siblings = 1) {
+        const range = new Set();
+
+        for (let i = 0; i < Math.min(3, total); i++) range.add(i);
+        for (let i = Math.max(0, total - 1); i < total; i++) range.add(i);
+        for (let i = Math.max(0, current - siblings); i <= Math.min(total - 1, current + siblings); i++) {
+            range.add(i);
+        }
+
+        const sorted = [...range].sort((a, b) => a - b);
+        const result = [];
+        for (let i = 0; i < sorted.length; i++) {
+            if (i > 0 && sorted[i] - sorted[i - 1] > 1) result.push("...");
+            result.push(sorted[i]);
+        }
+        return result;
+    }
+
     return (
         <section className="shop py-80">
             <div className={`side-overlay ${active && "show"}`}></div>
@@ -242,7 +264,7 @@ const ShopSection = () => {
 
                             {/* Prescription */}
                             <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
-                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Prescription</h6>
+                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Category</h6>
                                 <ul className="max-h-540 overflow-y-auto scroll-sm">
                                     {flatCategoriesLoading ? (
                                         <li>Loading...</li>
@@ -332,6 +354,7 @@ const ShopSection = () => {
                         {/* Pagination */}
                         {!isLoading && !isError && (
                             <ul className="pagination flex-center flex-wrap gap-16 mt-40">
+                                {/* Prev */}
                                 <li className={`page-item ${pageIndex === 0 ? "disabled" : ""}`}>
                                     <button
                                         className="page-link h-64 w-64 flex-center text-xxl rounded-8 fw-medium text-neutral-600 border border-gray-100"
@@ -341,16 +364,28 @@ const ShopSection = () => {
                                         <i className="ph-bold ph-arrow-left" />
                                     </button>
                                 </li>
-                                {[...Array(totalPages)].map((_, i) => (
-                                    <li key={i} className={`page-item ${pageIndex === i ? "active" : ""}`}>
-                                        <button
-                                            className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-600 border border-gray-100"
-                                            onClick={() => handlePage(i)}
-                                        >
-                                            {String(i + 1).padStart(2, "0")}
-                                        </button>
-                                    </li>
-                                ))}
+
+                                {/* Page number buttons (windowed) */}
+                                {getPaginationRange(pageIndex, totalPages).map((item, idx) =>
+                                    item === "..." ? (
+                                        <li key={`ellipsis-${idx}`} className="page-item disabled">
+                                            <span className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-400 border border-gray-100">
+                                                …
+                                            </span>
+                                        </li>
+                                    ) : (
+                                        <li key={item} className={`page-item ${pageIndex === item ? "active" : ""}`}>
+                                            <button
+                                                className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-600 border border-gray-100"
+                                                onClick={() => handlePage(item)}
+                                            >
+                                                {String(item + 1).padStart(2, "0")}
+                                            </button>
+                                        </li>
+                                    )
+                                )}
+
+                                {/* Next */}
                                 <li className={`page-item ${pageIndex === totalPages - 1 ? "disabled" : ""}`}>
                                     <button
                                         className="page-link h-64 w-64 flex-center text-xxl rounded-8 fw-medium text-neutral-600 border border-gray-100"
