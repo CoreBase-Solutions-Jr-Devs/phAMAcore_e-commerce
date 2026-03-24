@@ -50,9 +50,9 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
                             <span className="text-gray-900 text-xs fw-medium mt-8">Sold: 18/35</span>
                         </div>
                         <div className="product-card__price my-20">
-                            <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
+                            {/* <span className="text-gray-400 text-md fw-semibold text-decoration-line-through">
                                 Ksh{(product.price * 1.2).toFixed(2)}
-                            </span>
+                            </span> */}
                             <span className="text-heading text-md fw-semibold">
                                 Ksh{product.price.toFixed(2)} <span className="text-gray-500 fw-normal">/Qty</span>
                             </span>
