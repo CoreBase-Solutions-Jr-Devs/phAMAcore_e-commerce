@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation } from '@tanstack/react-query';
 import { signInMutationFn, signUpMutationFn } from '@/lib/api';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '@/features/authSlice';
 
 const Account = () => {
     const { toast } = useToast();
@@ -27,6 +29,7 @@ const Account = () => {
     };
     const phoneRegex = /^(?:\+254|254|0)?(7\d{8}|1\d{8})$/;
     const isPhoneValid = phoneRegex.test(phone);
+    const dispatch = useDispatch();
 
     const loginMutation = useMutation({
         mutationFn: signInMutationFn,
@@ -34,6 +37,8 @@ const Account = () => {
             if (data.isSuccess) {
                 localStorage.setItem("accessToken", data.accessToken);
                 localStorage.setItem("refreshToken", data.refreshToken);
+                dispatch(setCredentials(data));
+                console.log("Login Data:" , data);
 
                 toast({
                     title: "Login Successful",
