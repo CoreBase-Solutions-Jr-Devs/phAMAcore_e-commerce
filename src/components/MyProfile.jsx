@@ -5,14 +5,52 @@ import { useMutation } from "@tanstack/react-query";
 import { signOutMutationFn } from "@/lib/api";
 
 
-const USER = {
-    name:     "Alex Mwangi",
-    email:    "alex.mwangi@email.com",
-    phone:    "+254 712 345 678",
-    dob:      "14 March 1992",
-    gender:   "Male",
-    initials: "AM",
+const decodeJwt = (token) => {
+    try {
+        const payload = token.split(".")[1];
+        return JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/")));
+    } catch {
+        return null;
+    }
 };
+
+const buildUserFromStorage = () => {
+    let stored = null;
+    try {
+        const raw = localStorage.getItem("user");
+        if (raw) stored = JSON.parse(raw);
+    } catch { /* ignore */ }
+
+    const claim = decodeJwt(localStorage.getItem("accessToken") || "");
+    const email       = stored?.email       ?? claim?.email ?? "";
+    const phone       = stored?.phoneNumber ?? claim?.phone ?? "";
+    const userName    = stored?.userName    ?? claim?.unique_name  ?? "";
+
+    const displayName = userName
+        ? userName.charAt(0).toUpperCase() + userName.slice(1)
+        : "User";
+
+    const initials = displayName
+        .split(" ")
+        .slice(0, 2)
+        .map((w) => w[0]?.toUpperCase() ?? "")
+        .join("");
+
+    return {
+        id:          stored?.id    ?? claim?.sub ?? "",
+        userName,
+        name:        displayName,
+        email,
+        phone,
+        initials:    initials || "U",
+        roles:       stored?.roles ?? (claim?.role ? [claim.role] : []),
+        dob:         "",
+        gender:      "",
+    };
+};
+
+const USER = buildUserFromStorage();
+
 
 const ORDERS = [
     { id: "#KE-00421", item: "Wireless Headphones",  emoji: "🎧", date: "12 Mar 2025", status: "Delivered",  price: "KES 4,500"  },
@@ -33,22 +71,20 @@ const INITIAL_ADDRESSES = [
     { id: 2, tag: "Billing Address", name: USER.name, line1: "2nd Floor, Delta Corner Towers", line2: "Westlands, Nairobi", phone: USER.email, isDefault: false },
 ];
 
-const ADDRESS_FIELDS = ["Full Name", "Phone Number", "County", "Town / City", "Street Address", "Nearest Landmark"];
+const ADDRESS_FIELDS  = ["Full Name", "Phone Number", "County", "Town / City", "Street Address", "Nearest Landmark"];
 const ORDER_STATUSES  = ["All", "Delivered", "In Transit", "Cancelled"];
 const PERSONAL_FIELDS = [
-    { label: "First Name",    value: "Alex"           },
-    { label: "Last Name",     value: "Mwangi"         },
-    { label: "Email Address", value: USER.email       },
-    { label: "Phone Number",  value: USER.phone       },
-    { label: "Date of Birth", value: "1992-03-14", type: "date" },
-    { label: "Gender",        value: USER.gender,       type: "select", options: ["Male", "Female", "Prefer not to say"] },
+    { label: "Username",      value: USER.userName,  readOnly: true  },
+    { label: "Email Address", value: USER.email,     readOnly: true  },
+    { label: "Phone Number",  value: USER.phone                      },
+    { label: "Date of Birth", value: USER.dob,       type: "date"    },
+    { label: "Gender",        value: USER.gender,    type: "select", options: ["", "Male", "Female", "Prefer not to say"] },
 ];
 
 const ORANGE = "#FA6400";
 const DARK_RED = "#c62828";
 
 const st = {
-    /* layout */
     sidebar:       { background: "#fff", border: "1px solid #e8e8e8", borderRadius: 8, overflow: "hidden" },
     sidebarHeader: { background: ORANGE, padding: "20px 24px", display: "flex", alignItems: "center", gap: 14 },
     avatarCircle:  { width: 52, height: 52, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 22, color: ORANGE, flexShrink: 0 },
@@ -66,24 +102,19 @@ const st = {
     wishImg:       { width: "100%", height: 140, background: "#f9f9f9", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40 },
     wishRemove:    { position: "absolute", top: 8, right: 8, background: "#fff", border: "1px solid #eee", borderRadius: "50%", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 14, color: "#999" },
 
-    /* typography */
     sectionTitle:    { fontSize: 18, fontWeight: 700, color: "#222", marginBottom: 4 },
     sectionSubtitle: { fontSize: 13, color: "#888", marginBottom: 24 },
     labelText:       { fontSize: 13, color: "#888", marginBottom: 4, fontWeight: 500 },
     valueText:       { fontSize: 15, color: "#222", fontWeight: 500 },
 
-    /* buttons */
     btnMain:    { background: ORANGE, color: "#fff", border: "none", borderRadius: 6, padding: "10px 22px", fontWeight: 600, fontSize: 14, cursor: "pointer" },
     btnOutline: { background: "transparent", color: ORANGE, border: `1.5px solid ${ORANGE}`, borderRadius: 6, padding: "9px 20px", fontWeight: 600, fontSize: 14, cursor: "pointer" },
 
-    /* badges */
     badge: (color, bg) => ({ background: bg, color, borderRadius: 20, padding: "3px 12px", fontSize: 12, fontWeight: 600, display: "inline-block" }),
 
-    /* form */
     inputLabel: { display: "block", fontSize: 13, color: "#555", fontWeight: 600, marginBottom: 6 },
     input:      { width: "100%", border: "1px solid #ddd", borderRadius: 6, padding: "10px 14px", fontSize: 14, color: "#222", outline: "none", boxSizing: "border-box" },
 
-    /* nav */
     navItem: (active) => ({ display: "flex", alignItems: "center", gap: 12, padding: "13px 24px", cursor: "pointer", borderLeft: active ? `3px solid ${ORANGE}` : "3px solid transparent", background: active ? "#fff5ee" : "transparent", color: active ? ORANGE : "#444", fontWeight: active ? 600 : 400, fontSize: 14.5, transition: "all 0.15s", userSelect: "none" }),
     navIcon: (active) => ({ fontSize: 18, color: active ? ORANGE : "#888", width: 22, textAlign: "center" }),
     signOutBtn: (pending) => ({ display: "flex", alignItems: "center", gap: 12, padding: "13px 24px", cursor: pending ? "not-allowed" : "pointer", borderLeft: "3px solid transparent", background: "transparent", color: pending ? "#e57373" : DARK_RED, fontWeight: 400, fontSize: 14.5, transition: "all 0.15s", userSelect: "none", opacity: pending ? 0.7 : 1, width: "100%", border: "none", textAlign: "left" }),
@@ -140,7 +171,10 @@ const EmptyState = ({ emoji, message, action }) => (
 
 const SectionMyAccount = () => (
     <div>
-        <SectionTitle title="Account Overview" subtitle={`Welcome back, ${USER.name.split(" ")[0]}! Here's a summary of your account.`} />
+        <SectionTitle
+            title="Account Overview"
+            subtitle={`Welcome back, ${USER.name}! Here's a summary of your account.`}
+        />
 
         <div className="row g-3 mb-28">
             {[
@@ -163,11 +197,10 @@ const SectionMyAccount = () => (
         <p style={{ ...st.sectionTitle, fontSize: 15, marginBottom: 16 }}>Personal Information</p>
         <div className="row g-3">
             {[
-                { label: "Full Name",     value: USER.name   },
-                { label: "Email Address", value: USER.email  },
-                { label: "Phone Number",  value: USER.phone  },
-                { label: "Date of Birth", value: USER.dob    },
-                { label: "Gender",        value: USER.gender },
+                { label: "Username",      value: USER.userName || "—" },
+                { label: "Email Address", value: USER.email    || "—" },
+                { label: "Phone Number",  value: USER.phone    || "—" },
+                { label: "Role",        value: USER.roles?.join(", ") || "—" },
             ].map(({ label, value }) => (
                 <div className="col-sm-6" key={label}>
                     <p style={st.labelText}>{label}</p>
@@ -182,8 +215,8 @@ const SectionAddressBook = () => {
     const [addresses, setAddresses] = useState(INITIAL_ADDRESSES);
     const [showForm,  setShowForm]  = useState(false);
 
-    const removeAddress  = (id)  => setAddresses(prev => prev.filter(a => a.id !== id));
-    const setDefault     = (id)  => setAddresses(prev => prev.map(a => ({ ...a, isDefault: a.id === id })));
+    const removeAddress = (id) => setAddresses(prev => prev.filter(a => a.id !== id));
+    const setDefault    = (id) => setAddresses(prev => prev.map(a => ({ ...a, isDefault: a.id === id })));
 
     return (
         <div>
@@ -276,8 +309,6 @@ const SectionOrders = () => {
                         </div>
                         <div style={{ textAlign: "right" }}>
                             <p style={{ fontWeight: 700, color: ORANGE, marginBottom: 8 }}>{order.price}</p>
-                            {/* {order.status === "Delivered"  && <button style={{ ...st.btnOutline, padding: "6px 14px", fontSize: 12 }}>Leave Review</button>}
-                            {order.status === "In Transit" && <button style={{ ...st.btnMain,    padding: "6px 14px", fontSize: 12 }}>Track Order</button>} */}
                         </div>
                     </div>
                 ))
@@ -318,11 +349,10 @@ const SectionWishlist = () => {
                                 )}
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
-                                <button 
-                                    style={{ ...st.btnMain, padding: "6px 14px", fontSize: 12 }} 
-                                    onClick={(navigate('/cart'))}>
-                                        Add to Cart
-                                </button>
+                                <button
+                                    style={{ ...st.btnMain, padding: "6px 14px", fontSize: 12 }}
+                                    onClick={() => navigate("/cart")}
+                                >Add to Cart</button>
                                 <button
                                     style={{ ...st.btnOutline, padding: "6px 14px", fontSize: 12, color: DARK_RED, borderColor: DARK_RED }}
                                     onClick={() => remove(item.id)}
@@ -356,7 +386,16 @@ const SectionAccountManagement = () => {
 
             {activeTab === "personal" && (
                 <div className="row g-3">
-                    {PERSONAL_FIELDS.map(f => <FormInput key={f.label} label={f.label} type={f.type} defaultValue={f.value} options={f.options} />)}
+                    {PERSONAL_FIELDS.map(f => (
+                        <FormInput
+                            key={f.label}
+                            label={f.label}
+                            type={f.type}
+                            defaultValue={f.value}
+                            options={f.options}
+                            readOnly={f.readOnly}
+                        />
+                    ))}
                     <div className="col-12 mt-2">
                         <button style={st.btnMain}>Save Changes</button>
                     </div>
@@ -401,12 +440,13 @@ const MyProfile = () => {
     const clearTokens = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        localStorage.removeItem("user");
     };
 
     const signOutMutation = useMutation({
         mutationFn: signOutMutationFn,
         onSuccess: () => { clearTokens(); navigate("/account"); },
-        onError: () => { clearTokens(); navigate("/account"); },
+        onError:   () => { clearTokens(); navigate("/account"); },
     });
 
     return (
