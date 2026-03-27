@@ -1,14 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import Slider from 'react-slick';
 import { getCountdown } from '../helper/Countdown';
 import thumb1 from "../assets/images/thumbs/product-details-two-thumb1.png";
 import thumb2 from "../assets/images/thumbs/product-details-two-thumb2.png";
 import thumb3 from "../assets/images/thumbs/product-details-two-thumb3.png";
-import { getProductByIdQueryFn } from '../lib/api';
-
+import { getProductByIdQueryFn   } from '../lib/api';
+import {
+  addItemToCart,
+  increaseQty,
+  removeItemFromCart,
+} from "../features/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsAuthenticated, selectCustomerId, selectAccessToken } from "../features/authSlice";
+import { toast } from "../hooks/use-toast";
 const PRODUCT_IMAGES = [thumb1, thumb2, thumb3, thumb1, thumb2];
 
 const SOCIAL_LINKS = [
@@ -86,8 +93,12 @@ const ReviewCard = () => (
 
 
 const ProductDetailsTwo = () => {
+        const dispatch = useDispatch();
+           const navigate = useNavigate();
+        const {cart} = useSelector(state => state.itemCart);
     const { productId } = useParams();
-
+const isAuthenticated = useSelector(selectIsAuthenticated);
+const customerId = useSelector(selectCustomerId);
     const { data: apiProduct, isLoading } = useProductById(productId);
 
     // Use API data when a productId is in the URL, otherwise don't show any product
@@ -95,7 +106,7 @@ const ProductDetailsTwo = () => {
 
     const [timeLeft, setTimeLeft] = useState(getCountdown());
     const [quantity, setQuantity] = useState(1);
-
+      
     // Derive display values
     const productName        = product?.name        ?? 'Product Name';
     const productDescription = product?.description ?? '';
@@ -109,6 +120,21 @@ const ProductDetailsTwo = () => {
 
     const [mainImage, setMainImage] = useState(displayImages[0]);
 
+     const handleAddtoCart = (item) => {
+            dispatch(addItemToCart({ ...item }));
+              navigate("/cart");
+        };
+        
+        
+  const handleRemoveItem = () => {
+    setQuantity(quantity - 1);
+    dispatch(removeItemFromCart(product.id));
+  };
+
+  const incrementQuantity = () => {
+    setQuantity(quantity + 1);
+    dispatch(increaseQty(product.id));
+  };
     // Update main image when product data changes (e.g. API response arrives)
     useEffect(() => {
         setMainImage(displayImages[0]);
@@ -277,14 +303,19 @@ const ProductDetailsTwo = () => {
                             {/* Quantity */}
                             <div className="mb-32">
                                 <label htmlFor="stock" className="text-lg mb-8 text-heading fw-semibold d-block">Total Stock: 21</label>
-                                <div className="d-flex rounded-4 overflow-hidden">
-                                    <button onClick={() => setQuantity(q => Math.max(1, q - 1))} type="button"
+                                <div className="d-flex rounded-2 overflow-hidden">
+                                    <button                                onClick={handleRemoveItem}
+ type="button"
                                         className="quantity__minus flex-shrink-0 h-48 w-48 text-neutral-600 bg-gray-50 flex-center hover-bg-main-600 hover-text-white">
-                                        <i className="ph ph-minus" />
+                                  {quantity === 1 ? (
+                                <i className="ph ph-trash "></i>
+                              ) : (
+                                <i className="ph ph-minus" />
+                              )}
                                     </button>
-                                    <input type="number" id="stock" value={quantity} readOnly
+                                    <input type="number" id="stock"       value={quantity} readOnly
                                         className="quantity__input flex-grow-1 border border-gray-100 border-start-0 border-end-0 text-center w-32 px-16" />
-                                    <button onClick={() => setQuantity(q => q + 1)} type="button"
+                                    <button     onClick={incrementQuantity} type="button"
                                         className="quantity__plus flex-shrink-0 h-48 w-48 text-neutral-600 bg-gray-50 flex-center hover-bg-main-600 hover-text-white">
                                         <i className="ph ph-plus" />
                                     </button>
@@ -303,9 +334,14 @@ const ProductDetailsTwo = () => {
                                 </div>
                             </div>
 
-                            <Link to="#" className="btn btn-main flex-center gap-8 rounded-8 py-16 fw-normal mt-48 w-100">
-                                <i className="ph ph-shopping-cart-simple text-lg" /> Add To Cart
-                            </Link>
+                              <button
+                            tabIndex={0}
+                            // className="product-card__cart btn bg-main-50 text-main-600 hover-bg-main-600 hover-text-white py-11 px-24 rounded-pill flex-align gap-8 mt-24 w-100 justify-content-center"
+                            className="btn btn-main rounded-pill flex-align d-inline-flex gap-8 px-48"
+                         onClick={() => handleAddtoCart(product)} 
+                          >
+                            <i className="ph ph-shopping-cart" /> Add To Cart
+                          </button>
                             <Link to="#" className="btn btn-outline-main rounded-8 py-16 fw-normal mt-16 w-100">Buy Now</Link>
 
                             {/* Shipping info */}

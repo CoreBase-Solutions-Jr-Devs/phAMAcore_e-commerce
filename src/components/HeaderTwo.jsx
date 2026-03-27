@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoriesHierarchyQueryFn } from "@/lib/api";
+import { useSelector } from "react-redux";
 
 const LANGUAGES = [
   { label: "English", flag: "flag1.png" },
@@ -120,6 +121,10 @@ const HeaderTwo = ({ category }) => {
   const [activeSearch, setActiveSearch] = useState(false);
   const [activeCategory, setActiveCategory] = useState(false);
   const [activeIndexCat, setActiveIndexCat] = useState(null);
+
+   const { cart = [] } = useSelector((state) => state.itemCart);
+
+  const cartLength = cart.length ?? [];
 
   useEffect(() => {
     const handleScroll = () => setScroll(window.pageYOffset > 150);
@@ -311,7 +316,7 @@ const HeaderTwo = ({ category }) => {
                   { to: "/account", icon: "ph ph-user", badge: null, label: "Profile" },
                   { to: "/wishlist", icon: "ph ph-heart", badge: "2", label: "Wishlist" },
                   // { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
-                  { to: "/cart", icon: "ph ph-shopping-cart-simple", badge: "2", label: "Cart" },
+                  { to: "/cart", icon: "ph ph-shopping-cart-simple", badge:cartLength, label: "Cart" },
                 ].map(({ to, icon, badge, label }) => (
                   <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
                     <span className="text-2xl text-black d-flex position-relative me-6 mt-6 item-hover__text">

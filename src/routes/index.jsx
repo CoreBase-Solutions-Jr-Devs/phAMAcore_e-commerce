@@ -14,7 +14,10 @@ import ContactPage from "../pages/ContactPage";
 import BecomeSellerPage from "../pages/BecomeSellerPage";
 import WishlistPage from "../pages/WishlistPage";
 import MyProfilePage from "@/pages/Myprofilepage";
+import Confirm from "../components/Checkout/confirm";
 
+import LogIn from "../components/Checkout/login";
+import PayNow from "@/components/Checkout/PayNow";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -28,6 +31,9 @@ const AppRoutes = () => {
       <Route path="/become-seller" element={<BecomeSellerPage />} />
       <Route path="/wishlist" element={<WishlistPage />} />
       <Route path="/account" element={<AccountPage />} />
+       <Route path="/login" element={<LogIn/>} />
+         <Route path="/confirm" element={<Confirm/>} />
+          <Route path="/paynow" element={<PayNow/>} />
       <Route path="/profile" element={<MyProfilePage />} />
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog-details" element={<BlogDetailsPage />} />
