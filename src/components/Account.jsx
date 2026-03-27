@@ -27,6 +27,13 @@ const Account = () => {
         digit: /[0-9]/.test(registerPassword),
         special: /[!@#$%^&*(),.?":{}|<>]/.test(registerPassword),
     };
+    const loginPasswordChecks = {
+        length: loginPassword.length >= 6,
+        uppercase: /[A-Z]/.test(loginPassword),
+        lowercase: /[a-z]/.test(loginPassword),
+        digit: /[0-9]/.test(loginPassword),
+        special: /[!@#$%^&*(),.?":{}|<>]/.test(loginPassword),
+    };
     const phoneRegex = /^(?:\+254|254|0)?(7\d{8}|1\d{8})$/;
     const isPhoneValid = phoneRegex.test(phone);
     const dispatch = useDispatch();
@@ -193,19 +200,19 @@ const Account = () => {
                                         <div className="mt-12 p-16 border rounded-8 bg-light">
                                             <h6 className="mb-8">Password Requirements</h6>
                                             <ul className="text-sm mb-0">
-                                                <li className={passwordChecks.length ? "text-success" : "text-muted"}>
+                                                <li className={loginPasswordChecks.length ? "text-success" : "text-danger"}>
                                                     At least 6 characters
                                                 </li>
-                                                <li className={passwordChecks.uppercase ? "text-success" : "text-muted"}>
+                                                <li className={loginPasswordChecks.uppercase ? "text-success" : "text-danger"}>
                                                     At least one uppercase letter (A–Z)
                                                 </li>
-                                                <li className={passwordChecks.lowercase ? "text-success" : "text-muted"}>
+                                                <li className={loginPasswordChecks.lowercase ? "text-success" : "text-danger"}>
                                                     At least one lowercase letter (a–z)
                                                 </li>
-                                                <li className={passwordChecks.digit ? "text-success" : "text-muted"}>
+                                                <li className={loginPasswordChecks.digit ? "text-success" : "text-danger"}>
                                                     At least one number (0–9)
                                                 </li>
-                                                <li className={passwordChecks.special ? "text-success" : "text-muted"}>
+                                                <li className={loginPasswordChecks.special ? "text-success" : "text-danger"}>
                                                     At least one special character (!@#$...)
                                                 </li>
                                             </ul>
@@ -315,19 +322,19 @@ const Account = () => {
                                         <div className="mt-12 p-16 border rounded-8 bg-light">
                                             <h6 className="mb-8">Password Requirements</h6>
                                             <ul className="text-sm mb-0">
-                                                <li className={passwordChecks.length ? "text-success" : "text-muted"}>
+                                                <li className={passwordChecks.length ? "text-success" : "text-danger"}>
                                                     At least 6 characters
                                                 </li>
-                                                <li className={passwordChecks.uppercase ? "text-success" : "text-muted"}>
+                                                <li className={passwordChecks.uppercase ? "text-success" : "text-danger"}>
                                                     At least one uppercase letter (A–Z)
                                                 </li>
-                                                <li className={passwordChecks.lowercase ? "text-success" : "text-muted"}>
+                                                <li className={passwordChecks.lowercase ? "text-success" : "text-danger"}>
                                                     At least one lowercase letter (a–z)
                                                 </li>
-                                                <li className={passwordChecks.digit ? "text-success" : "text-muted"}>
+                                                <li className={passwordChecks.digit ? "text-success" : "text-danger"}>
                                                     At least one number (0–9)
                                                 </li>
-                                                <li className={passwordChecks.special ? "text-success" : "text-muted"}>
+                                                <li className={passwordChecks.special ? "text-success" : "text-danger"}>
                                                     At least one special character (!@#$...)
                                                 </li>
                                             </ul>
