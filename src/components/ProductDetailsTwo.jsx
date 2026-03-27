@@ -170,7 +170,7 @@ const customerId = useSelector(selectCustomerId);
                                 <div className="product-details__left">
                                     <div className="product-details__thumb-slider border border-gray-100 rounded-16">
                                         <div className="product-details__thumb flex-center h-100">
-                                            <img src={mainImage} alt={productName} />
+                                            <img src="src/assets/images/icon/Medicine.jpg" alt={productName} />
                                         </div>
                                     </div>
                                     <div className="mt-24 product-details__images-slider">
@@ -214,7 +214,7 @@ const customerId = useSelector(selectCustomerId);
                                         <span className="text-sm fw-medium text-neutral-600">4.7 Star Rating</span>
                                         <span className="text-sm fw-medium text-gray-500">(21,671)</span>
                                         <span className="text-sm fw-medium text-gray-500">|</span>
-                                        <span className="text-gray-900">
+                                        <span className="badge text-gray-900">
                                             <span className="text-gray-400">Category: </span>{productCategory}
                                         </span>
                                     </div>

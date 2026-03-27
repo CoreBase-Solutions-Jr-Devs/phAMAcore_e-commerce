@@ -269,12 +269,13 @@ const HeaderTwo = ({ category }) => {
       </div>
 
       {/* ── Middle header ── */}
-      <header className="header-middle style-two bg-color-neutral">
+      <header className="header-middle style-two bg-neutral-100">
         <div className="container container-lg">
           <nav className="header-inner flex-between">
             <div className="logo">
-              <Link to="/home" className="link">
-                <img src="assets/images/logo/logo-two.png" alt="Logo" />
+              <Link to="/home" className="link text-orange-300">
+                <h4>phAMACart</h4>
+                {/* <img src="assets/images/logo/logo-two.png" alt="Logo" /> */}
               </Link>
             </div>
 
@@ -318,15 +319,15 @@ const HeaderTwo = ({ category }) => {
                   { to: "/cart", icon: "ph ph-shopping-cart-simple", badge:cartLength, label: "Cart" },
                 ].map(({ to, icon, badge, label }) => (
                   <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
-                    <span className="text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text">
+                    <span className="text-2xl text-black d-flex position-relative me-6 mt-6 item-hover__text">
                       <i className={icon} />
                       {badge && (
-                        <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4">
+                        <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-black text-xs position-absolute top-n6 end-n4">
                           {badge}
                         </span>
                       )}
                     </span>
-                    <span className="text-md text-white item-hover__text d-none d-lg-flex">{label}</span>
+                    <span className="text-md text-black item-hover__text d-none d-lg-flex">{label}</span>
                   </Link>
                 ))}
               </div>
