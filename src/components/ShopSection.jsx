@@ -8,7 +8,8 @@ import { getProductsWithPaginationQueryFn, getProductByCategoryQueryFn, getCateg
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from '@/features/cartSlice';
-import { selectIsAuthenticated, selectCustomerId } from '@/features/authSlice';
+import { selectIsAuthenticated, selectCustomerId, selectAccessToken } from '@/features/authSlice';
+import { toast } from "../hooks/use-toast";
 
 const PAGE_SIZE = 20;
 
@@ -56,13 +57,13 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
                                 Ksh{product.price.toFixed(2)} <span className="text-gray-500 fw-normal">/Qty</span>
                             </span>
                         </div>
-                        <button
-                            className="product-card__cart btn bg-gray-50 text-heading hover-bg-main-600 hover-text-white py-11 px-24 rounded-8 flex-center gap-8 fw-medium"
-                            tabIndex={0}
-                            onClick={() => handleAddtoCart(product)}
-                        >
-                            Add To Cart <i className="ph ph-shopping-cart" />
-                        </button>
+                   <button
+  className="product-card__cart btn bg-gray-50 text-heading hover-bg-main-600 hover-text-white py-11 px-24 rounded-8 flex-center gap-8 fw-medium"
+  tabIndex={0}
+  onClick={() => handleAddtoCart(product)} 
+>
+  Add To Cart <i className="ph ph-shopping-cart" />
+</button>
                     </div>
                 </div>
             )}
@@ -77,7 +78,6 @@ const ShopSection = () => {
     const {cart} = useSelector(state => state.itemCart);
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const customerId = useSelector(selectCustomerId);
-
     console.log(cart);
     console.log("Login info: ", isAuthenticated, customerId);
     const [grid, setGrid] = useState(false);
@@ -149,8 +149,14 @@ const ShopSection = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
+//   const handleAddtoCart = (item) => {
+//     dispatch(addItemToCart({ ...item }));
+//   };
+
+
     const handleAddtoCart = (item) => {
         dispatch(addItemToCart({ ...item }));
+          navigate("/cart");
     };
 
     function getPaginationRange(current, total, siblings = 1) {

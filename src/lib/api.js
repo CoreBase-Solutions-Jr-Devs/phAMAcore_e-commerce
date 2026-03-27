@@ -1,4 +1,4 @@
-import API from "./axios-client";
+import API, { ConfirmAPI } from "./axios-client";
 
 
 // Identity ************
@@ -24,6 +24,36 @@ export const refreshTokenMutationFn = async (data) => {
   const response = await API.post("/identity/refresh-token", data, {
     withCredentials: false,
   });
+  return response.data;
+};
+
+// export const signInMutationFn = async (data) => {
+//   const response = await API.post("/identity/sign-in", data);
+//   return response.data;
+// };
+
+export const GetCartQueryFn = async (data) => {
+  const response = await API.get("/basket", data);
+  return response.data;
+};
+
+export const AddItemBasketMutationFn = async (data) => {
+  const response = await API.post("/basket/items", data);
+  return response.data;
+};
+
+export const RemoveItemBasketMutationFn = async (productId) => {
+  const response = await API.delete(`/basket/items/${productId}`);
+  return response.data;
+};
+
+export const UpdateItemQuantityMutationFn = async (data) => {
+  const response = await API.post("/basket/items", data);
+  return response.data;
+};
+
+export const CheckoutBasketMutationFn = async (data) => {
+  const response = await API.post("/basket/checkout", data);
   return response.data;
 };
 
@@ -90,3 +120,42 @@ export const getCategoriesFlatQueryFn = async () => {
   });
   return response.data;
 }
+export const DeleteBasketMutationFn = async (data) => {
+  const response = await API.delete("/basket", data);
+  return response.data;
+};
+
+export const getOrderByIdQueryFn = async (orderId) => {
+  const response = await API.get(`/orders/${orderId}`);
+  return response.data;
+};
+
+export const getOrdersByCustomerQueryFn = async ({ customerId, pageIndex = 0, pageSize = 10 }) => {
+  const response = await API.get(
+    `/orders/customer/${customerId}?PageIndex=${pageIndex}&PageSize=${pageSize}`
+  );
+  return response.data;
+};
+
+export const getCurrentLocationQueryFn = async ({ latitude, longitude }) => {
+  const response = await API.get(
+    `/locations/current?latitude=${latitude}&longitude=${longitude}`
+  );
+  return response.data;
+};
+
+export const InitiatePaymentMutationFn = async (orderId) => {
+  const response = await API.post(
+    `/orders/${orderId}/payments/initiate`,);
+  return response.data;
+};
+
+export const postConfirmMpesaPaymentMutationFn = async ({ cuscode, transid = "" }) => {
+  const response = await ConfirmAPI.post('/CashBookReceipt/AutoConfirmMpesaPayment', null, {
+    params: { cuscode, transid }, 
+     headers: { 
+        dbname: "P9999DB",
+      },
+  });
+  return response.data;
+};

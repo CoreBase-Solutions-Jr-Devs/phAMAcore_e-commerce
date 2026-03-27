@@ -18,9 +18,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import reportWebVitals from "./reportWebVitals";
-
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux"
-import { store } from "./features/store.js";
+import { store, persistor  } from "./features/store.js";
 
 const rootElement = document.getElementById("root");
 
@@ -28,7 +28,8 @@ if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
       <Provider store={store}>
-      <QueryProvider>
+          <PersistGate loading={null} persistor={persistor}>
+  <QueryProvider>
         <NuqsAdapter>
           <BrowserRouter>
             <App />
@@ -36,6 +37,7 @@ if (rootElement) {
           </BrowserRouter>
         </NuqsAdapter>
       </QueryProvider>
+          </PersistGate>
       </Provider>
     </StrictMode>
   );
