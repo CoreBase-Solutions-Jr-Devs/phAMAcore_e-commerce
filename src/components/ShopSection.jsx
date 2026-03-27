@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ReactSlider from 'react-slider'
 import { useQuery } from '@tanstack/react-query'
-import { getCategoriesHierarchyQueryFn, getCategoriesFlatQueryFn } from '@/lib/api';
-import { getProductsWithPaginationQueryFn } from '@/lib/api';
+import { getProductsWithPaginationQueryFn, getProductByCategoryQueryFn, getCategoriesFlatQueryFn } from '@/lib/api';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from '@/features/cartSlice';
@@ -23,19 +22,19 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
                         to={`/product-details-two/${product.id}`}
                         className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative"
                     >
-                        {/* // {product.badge && (
-            //     <span className={`product-card__badge ${badge.color} px-8 py-4 text-sm text-white position-absolute inset-inline-start-0 inset-block-start-0`}>
-            //         {product.badge.label}
-            //     </span>
-            // )} */}
-                        <img src={product.imageUrl} alt={product.name} className="w-auto max-w-unset" />
+                        <img src={"src/assets/images/icon/Medicine.jpg"} alt={product.name} className="w-auto max-w-unset" />
                     </Link>
                     <div className="product-card__content mt-16">
-                        <h6 className="title text-lg fw-semibold mt-12 mb-8">
-                            <Link to={`/product-details-two/${product.id}`} className="link text-line-2" tabIndex={0}>
-                                {product.name}
-                            </Link>
-                        </h6>
+                        <div className='justify-content-between'>
+                            <h6 className="title text-lg fw-semibold mt-12 mb-8">
+                                <Link to={`/product-details-two/${product.id}`} className="link text-line-2" tabIndex={0}>
+                                    {product.name}
+                                </Link>
+                            </h6>
+                            <span className="badge text-sm text-white bg-main-600 position-absolute top-0 inset-s-0 m-8 rounded-4">
+                                {product.categoryName}
+                            </span>
+                        </div>
                         <div className="flex-align mb-20 mt-16 gap-6">
                             <span className="text-xs fw-medium text-gray-500">4.8</span>
                             <span className="text-15 fw-medium text-warning-600 d-flex">
@@ -85,85 +84,62 @@ const ShopSection = () => {
     const [active, setActive] = useState(false);
     const [pageIndex, setPageIndex] = useState(0);
     const [searchParams] = useSearchParams();
-    const categorySlug = searchParams.get("category") || null;
+    const categoryName = searchParams.get("category") || null;
     const navigate = useNavigate();
 
     useEffect(() => {
         setPageIndex(0);
-    }, [categorySlug]);
+    }, [categoryName]);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["products", pageIndex],
-        queryFn: () => getProductsWithPaginationQueryFn({
-            pageIndex: categorySlug ? 0 : pageIndex,
-            pageSize: categorySlug ? 1000 : PAGE_SIZE,
-        }),
+        queryFn: () => getProductsWithPaginationQueryFn({ pageIndex, pageSize: PAGE_SIZE }),
         keepPreviousData: true,
+        enabled: !categoryName,
     });
 
     const {
-        data: categoriesData,
-        isLoading: categoriesLoading,
-        isError: categoriesError,
+        isPending: categoryPending,
+        isError: categoryIsError,
+        data: categoryData,
     } = useQuery({
-        queryKey: ['categories'],
-        queryFn: getCategoriesHierarchyQueryFn,
+        queryKey: ["category_products", categoryName, pageIndex],
+        queryFn: () => getProductByCategoryQueryFn(categoryName, pageIndex, PAGE_SIZE),
+        enabled: !!categoryName,
     });
 
-    const { data: flatCategoriesData, isLoading: flatCategoriesLoading, isError: flatCategoriesError } = useQuery({
-        queryKey: ['categories-flat'],
+    const {
+        isPending: categoriesLoading,
+        isError: categoriesError,
+        data: categoriesResponse,
+    } = useQuery({
+        queryKey: ["categories"],
         queryFn: getCategoriesFlatQueryFn,
     });
 
-    const getCategoryNameFromSlug = () => {
-        if (!categorySlug || !categoriesData?.categories) return null;
-
-        for (const parent of categoriesData.categories) {
-            for (const child of parent.children || []) {
-                if (child.slug === categorySlug) {
-                    return child.name;
-                }
-            }
-
-            if (parent.slug === categorySlug) {
-                return parent.name;
-            }
-        }
-
-        return null;
-    };
-
-    const selectedCategoryName = getCategoryNameFromSlug();
-
-    const allProducts = data?.products?.data ?? [];
-
-    const filteredProducts = selectedCategoryName
-        ? allProducts.filter(p => p.categoryName === selectedCategoryName)
-        : allProducts;
+    const categoryList = categoriesResponse?.categories ?? [];
 
     let products = [];
     let total = 0;
-    let totalPages = Math.max(
-        1,
-        selectedCategoryName
-            ? Math.ceil(total / PAGE_SIZE)
-            : Math.ceil(total / PAGE_SIZE)
-    );
+    let totalPages = 1;
+    let loading = false;
+    let error = false;
 
-    if (selectedCategoryName) {
-        total = filteredProducts.length;
-        totalPages = Math.ceil(total / PAGE_SIZE);
-
+    if (categoryName) {
+        loading = categoryPending;
+        error = categoryIsError;
+        const raw = categoryData?.products?.data ?? [];
+        total = raw.length;
+        totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
         const start = pageIndex * PAGE_SIZE;
-        const end = start + PAGE_SIZE;
-
-        products = filteredProducts.slice(start, end);
+        products = raw.slice(start, start + PAGE_SIZE);
     } else {
-        products = filteredProducts;
+        loading = isLoading;
+        error = isError;
+        products = data?.products?.data ?? [];
         total = data?.products?.count ?? 0;
-        totalPages = Math.ceil(total / PAGE_SIZE);
+        totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
     }
-    const flatCategories = flatCategoriesData?.categories ?? [];
 
     const sidebarController = () => setActive(v => !v);
 
@@ -179,13 +155,11 @@ const ShopSection = () => {
 
     function getPaginationRange(current, total, siblings = 1) {
         const range = new Set();
-
         for (let i = 0; i < Math.min(3, total); i++) range.add(i);
         for (let i = Math.max(0, total - 1); i < total; i++) range.add(i);
         for (let i = Math.max(0, current - siblings); i <= Math.min(total - 1, current + siblings); i++) {
             range.add(i);
         }
-
         const sorted = [...range].sort((a, b) => a - b);
         const result = [];
         for (let i = 0; i < sorted.length; i++) {
@@ -209,33 +183,27 @@ const ShopSection = () => {
                                 <i className="ph ph-x" />
                             </button>
 
-                            {/* Categories */}
-                            {/* <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
-                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Product Category</h6>
+                            {/* Product Categories */}
+                            <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
+                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Product Categories</h6>
+                                {categoriesError && (
+                                    <div className="container text-center">
+                                        <h6 className="mt-20 text-danger-600">Error getting categories</h6>
+                                    </div>
+                                )}
                                 <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                    {categoriesLoading ? (
-                                        <li>Loading categories...</li>
-                                    ) : categoriesError ? (
-                                        <li className="text-danger">Failed to load categories</li>
-                                    ) : (
-                                        categoriesData?.categories?.map((cat, i) => (
-                                            <li
-                                                key={cat.id}
-                                                className={
-                                                    i === categoriesData.categories.length - 1 ? "mb-0" : "mb-24"
-                                                }
+                                    {!categoriesError && categoryList.map((category) => (
+                                        <li className="mb-24" key={category.id}>
+                                            <Link
+                                                to={`/shop?category=${category.name}`}
+                                                className={`text-gray-900 hover-text-main-600 ${categoryName === category.name ? "text-main-600 fw-semibold" : ""}`}
                                             >
-                                                <Link
-                                                    to={`/shop?category=${cat.slug}`}
-                                                    className="text-gray-900 hover-text-main-600"
-                                                >
-                                                    {cat.name} ({cat.children?.length ?? 0})
-                                                </Link>
-                                            </li>
-                                        ))
-                                    )}
+                                                {category.name}
+                                            </Link>
+                                        </li>
+                                    ))}
                                 </ul>
-                            </div> */}
+                            </div>
 
                             {/* Price */}
                             <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
@@ -262,37 +230,6 @@ const ShopSection = () => {
                                 </div>
                             </div>
 
-                            {/* Prescription */}
-                            <div className="shop-sidebar__box border border-gray-100 rounded-8 p-32 mb-32">
-                                <h6 className="text-xl border-bottom border-gray-100 pb-24 mb-24">Filter by Category</h6>
-                                <ul className="max-h-540 overflow-y-auto scroll-sm">
-                                    {flatCategoriesLoading ? (
-                                        <li>Loading...</li>
-                                    ) : flatCategoriesError ? (
-                                        <li className="text-danger">Failed to load prescriptions</li>
-                                    ) : (
-                                        flatCategories.map((category, i) => (
-                                            <li key={category.id} className={i === flatCategories.length - 1 ? "mb-0" : "mb-24"}>
-                                                <div className="form-check common-check common-radio">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="radio"
-                                                        name="prescription"
-                                                        id={`prescription-${category.id}`}
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`prescription-${category.id}`}>
-                                                        {category.name}
-                                                    </label>
-                                                </div>
-                                            </li>
-                                        ))
-                                    )}
-                                </ul>
-                            </div>
-
-                            {/* <div className="shop-sidebar__box rounded-8">
-                                <img src="src/assets/images/thumbs/advertise-img1.png" alt="" />
-                            </div> */}
                         </div>
                     </div>
 
@@ -301,9 +238,9 @@ const ShopSection = () => {
                         {/* Top bar */}
                         <div className="flex-between gap-16 flex-wrap mb-40">
                             <span className="text-gray-900">
-                                {isLoading
+                                {loading
                                     ? "Loading..."
-                                    : isError
+                                    : error
                                         ? "Failed to load products"
                                         : `Showing ${Math.min((pageIndex + 1) * PAGE_SIZE, total)} of ${total} results`}
                             </span>
@@ -337,24 +274,23 @@ const ShopSection = () => {
                         </div>
 
                         {/* Product grid */}
-                        {isLoading ? (
+                        {loading ? (
                             <div className="flex-center py-80">
                                 <span className="text-gray-500">Loading products...</span>
                             </div>
-                        ) : isError ? (
+                        ) : error ? (
                             <div className="flex-center py-80">
                                 <span className="text-danger">Failed to load products. Please try again.</span>
                             </div>
                         ) : (
                             <div className={`list-grid-wrapper ${grid && "list-view"}`}>
-                                <ProductCard products={products} handleAddtoCart={handleAddtoCart}/>
+                                <ProductCard products={products} handleAddtoCart={handleAddtoCart} />
                             </div>
                         )}
 
                         {/* Pagination */}
-                        {!isLoading && !isError && (
+                        {!loading && !error && (
                             <ul className="pagination flex-center flex-wrap gap-16 mt-40">
-                                {/* Prev */}
                                 <li className={`page-item ${pageIndex === 0 ? "disabled" : ""}`}>
                                     <button
                                         className="page-link h-64 w-64 flex-center text-xxl rounded-8 fw-medium text-neutral-600 border border-gray-100"
@@ -365,13 +301,10 @@ const ShopSection = () => {
                                     </button>
                                 </li>
 
-                                {/* Page number buttons (windowed) */}
                                 {getPaginationRange(pageIndex, totalPages).map((item, idx) =>
                                     item === "..." ? (
                                         <li key={`ellipsis-${idx}`} className="page-item disabled">
-                                            <span className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-400 border border-gray-100">
-                                                …
-                                            </span>
+                                            <span className="page-link h-64 w-64 flex-center text-md rounded-8 fw-medium text-neutral-400 border border-gray-100">…</span>
                                         </li>
                                     ) : (
                                         <li key={item} className={`page-item ${pageIndex === item ? "active" : ""}`}>
@@ -385,7 +318,6 @@ const ShopSection = () => {
                                     )
                                 )}
 
-                                {/* Next */}
                                 <li className={`page-item ${pageIndex === totalPages - 1 ? "disabled" : ""}`}>
                                     <button
                                         className="page-link h-64 w-64 flex-center text-xxl rounded-8 fw-medium text-neutral-600 border border-gray-100"
