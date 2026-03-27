@@ -28,9 +28,17 @@ export const refreshTokenMutationFn = async (data) => {
 };
 
 export const getCurrentUserQueryFn = async () => {
-  const response = await API.get("/identity/current-client");
+  const response = await API.get("/identity/current-user");
   return response.data;
 };
+
+export const updateCurrentUserMutationFn = async (data) => {
+  const response = await API.put("/identity/current-user", data);
+
+  return response.data;
+}
+
+// Catalog ************
 
 export const getProductByCategoryQueryFn = async (
   categoryName,
