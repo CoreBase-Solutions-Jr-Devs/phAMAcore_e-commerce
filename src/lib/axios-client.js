@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
-
+const confirmBaseURL = import.meta.env.VITE_API_BASE_URL_CONFIRM;
 const options = {
 	baseURL,
 	// withCredentials: true,
@@ -9,7 +9,7 @@ const options = {
 };
 
 const API = axios.create(options);
-
+const ConfirmAPI = axios.create({ ...options, baseURL: confirmBaseURL });
 API.interceptors.request.use(
 	(config) => {
 		const token = localStorage.getItem('accessToken');
@@ -59,4 +59,55 @@ API.interceptors.response.use(
 	}
 );
 
+
+ConfirmAPI.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers = config.headers || {};
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
+
+ConfirmAPI.interceptors.request.use(
+  (config) => {
+
+    const accessKey = import.meta.env.VITE_AUTH_ACCESS_KEY;
+
+    if (accessKey) {
+      config.headers["accesskey"] = accessKey;
+    }
+
+
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
+
+ConfirmAPI.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const { response } = error;
+
+    if (response) {
+      const { data, status } = response;
+
+      if (data === "Unauthorized" && status === 401) {
+        window.location.href = "/";
+      }
+
+      return Promise.reject({ ...data });
+    }
+
+    return Promise.reject({
+      message: "Network error or server did not respond.",
+      originalError: error,
+    });
+  },
+);
+
 export default API;
+export { ConfirmAPI };

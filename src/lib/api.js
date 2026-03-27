@@ -1,4 +1,4 @@
-import API from "./axios-client";
+import API, { ConfirmAPI } from "./axios-client";
 
 
 // Identity ************
@@ -32,7 +32,7 @@ export const refreshTokenMutationFn = async (data) => {
 //   return response.data;
 // };
 
-export const GetBasketQueryFn = async (data) => {
+export const GetCartQueryFn = async (data) => {
   const response = await API.get("/basket", data);
   return response.data;
 };
@@ -48,7 +48,7 @@ export const RemoveItemBasketMutationFn = async (productId) => {
 };
 
 export const UpdateItemQuantityMutationFn = async (data) => {
-  const response = await API.put("/basket/items", data);
+  const response = await API.post("/basket/items", data);
   return response.data;
 };
 
@@ -125,5 +125,28 @@ export const getOrdersByCustomerQueryFn = async ({ customerId, pageIndex = 0, pa
   const response = await API.get(
     `/orders/customer/${customerId}?PageIndex=${pageIndex}&PageSize=${pageSize}`
   );
+  return response.data;
+};
+
+export const getCurrentLocationQueryFn = async ({ latitude, longitude }) => {
+  const response = await API.get(
+    `/locations/current?latitude=${latitude}&longitude=${longitude}`
+  );
+  return response.data;
+};
+
+export const InitiatePaymentMutationFn = async (orderId) => {
+  const response = await API.post(
+    `/orders/${orderId}/payments/initiate`,);
+  return response.data;
+};
+
+export const postConfirmMpesaPaymentMutationFn = async ({ cuscode, transid = "" }) => {
+  const response = await ConfirmAPI.post('/CashBookReceipt/AutoConfirmMpesaPayment', null, {
+    params: { cuscode, transid }, 
+     headers: { 
+        dbname: "P9999DB",
+      },
+  });
   return response.data;
 };
