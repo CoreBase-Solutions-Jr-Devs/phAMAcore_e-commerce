@@ -1,6 +1,11 @@
-export const AUTH_ROUTES = {};
+export const AUTH_ROUTES = {
+	ACCOUNT: "/account",
+};
 
-export const PROTECTED_ROUTES = {};
+export const PROTECTED_ROUTES = {
+	CHECKOUT: "/checkout",
+	PROFILE: "/profile",
+};
 
 export const isAuthRoute = (pathname) => {
 	return Object.values(AUTH_ROUTES).some((routePattern) => {

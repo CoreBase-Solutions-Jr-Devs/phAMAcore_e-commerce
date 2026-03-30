@@ -40,13 +40,35 @@ API.interceptors.request.use(
 API.interceptors.response.use(
 	(response) => response,
 	async (error) => {
-		const { response } = error;
+		const { response, config } = error;
 
 		if (response) {
 			const { data, status } = response;
 
-			if (data === 'Unauthorized' && status === 401) {
-				window.location.href = '/';
+			if (status === 401 && !config._retry) {
+				config._retry = true;
+
+				try {
+					const refreshResponse = await API.post('/identity/refresh-token', {
+						refreshToken: localStorage.getItem('refreshToken'),
+					});
+
+					const { accessToken, refreshToken: newRefreshToken } = refreshResponse.data;
+
+					localStorage.setItem('accessToken', accessToken);
+					if (newRefreshToken) {
+						localStorage.setItem('refreshToken', newRefreshToken);
+					}
+
+					config.headers.Authorization = `Bearer ${accessToken}`;
+					return API(config);
+				} catch (refreshError) {
+					localStorage.removeItem('accessToken');
+					localStorage.removeItem('refreshToken');
+					console.error('Token refresh failed:', refreshError);
+					window.location.href = '/account';
+					return Promise.reject(refreshError);
+				}
 			}
 
 			return Promise.reject({ ...data });
