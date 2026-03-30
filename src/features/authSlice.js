@@ -73,6 +73,7 @@ export const authSlice = createSlice({
             state.isAuthenticated = false;
 
             localStorage.removeItem("auth");
+            console.log("Auth after removal:", localStorage.getItem("auth"));
         },
     },
 });
