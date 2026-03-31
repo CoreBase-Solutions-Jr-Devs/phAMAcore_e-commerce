@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import { ShoppingCart, Star } from 'lucide-react';
 
 const TopSellingOne = () => {
     function SampleNextArrow(props) {
@@ -65,44 +66,42 @@ const TopSellingOne = () => {
         ],
     };
     return (
-        <section className="top-selling-products pt-80">
+        <section className="top-selling-products py-30">
             <div className="container container-lg">
                 <div className="border border-gray-100 p-24 rounded-16">
-                    <div className="section-heading mb-24">
-                        <div className="flex-between flex-wrap gap-8">
-                            <h5 className="mb-0">Top Selling Products</h5>
-                            <div className="flex-align mr-point gap-16">
-                                <Link
-                                    to="/shop"
-                                    className="text-sm fw-medium text-gray-700 hover-text-main-600 hover-text-decoration-underline"
-                                >
-                                    View All Deals
-                                </Link>
-
-                            </div>
-                        </div>
-                    </div>
+                     <div className="section-header text-center mb-16">
+                                         <h5 className="section-header__title text-lg fw-semibold">
+Best Sellers
+                                         </h5>
+                                         <Link to="/shop" className="section-header__link text-xs text-main-600">
+                                             View All Deals
+                                         </Link>
+                                     </div>
                     <div className="row g-12">
                         <div className="col-md-4">
-                            <div className="position-relative rounded-16 overflow-hidden p-28 z-1 text-center">
+                           <div className="position-relative rounded-16 overflow-hidden p-28 z-1 text-center">
                                 <img
-                                    src="assets/images/bg/deal-bg.png"
+                                    src="src/assets/images/bg/deal-bg.png"
                                     alt=""
-                                    className="position-absolute inset-block-start-0 inset-inline-start-0 z-n1 w-100 h-100"
+                                    className="position-absolute inset-0 z-n1 w-100 h-100"
                                 />
-                                <div className="py-xl-4">
-                                    <h6 className="mb-4 fw-semibold">Polaroid Now+ Gen 2 - White</h6>
-                                    <h5 className="mb-40 fw-semibold">Fresh Vegetables</h5>
+                                {/* Slider Title*/}
+                                <div className="p-2">
+                                    <h6 className="text-sm mb-1 fw-semibold">
+                                        Earth's creation cranberry concentrate gels
+                                    </h6>
+                                    <h5 className="text-base mb-3 fw-semibold">Best Sellers</h5>
+
                                     <Link
                                         to="/cart"
-                                        className="btn text-heading border-neutral-600 hover-bg-neutral-600 hover-text-white py-16 px-24 flex-center d-inline-flex rounded-pill gap-8 fw-medium"
-                                        tabIndex={0}
+                                        className="btn text-heading border-neutral-600 hover-bg-neutral-600 hover-text-white py-1 px-3 flex-center d-inline-flex rounded-pill gap-1 fw-medium text-xs"
                                     >
-                                        Shop Now <i className="ph ph-shopping-cart text-xl d-flex" />
+                                        Shop Now <ShoppingCart size={20} />
                                     </Link>
                                 </div>
+
                                 <div className="d-md-block d-none mt-36">
-                                    <img src="assets/images/thumbs/deal-img.png" alt="" />
+                                    <img src="src/assets/images/thumbs/deal-img.png" alt="" />
                                 </div>
                             </div>
                         </div>

@@ -1,13 +1,14 @@
-// LoginModal.jsx
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { signInMutationFn } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "@/features/authSlice";
-
-const Login = ({ show, onClose, onSuccessRedirect }) => {
-  const { toast } = useToast();
+import Modal from "react-bootstrap/Modal";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "../../assets/images/logo/phamacart.png";
+const LoginModal = ({ show, onClose, onSuccessRedirect, onOpenRegister }) => {
+    const { toast } = useToast();
   const dispatch = useDispatch();
 
   const [identifier, setIdentifier] = useState("");
@@ -16,14 +17,18 @@ const Login = ({ show, onClose, onSuccessRedirect }) => {
 
   const loginMutation = useMutation({
     mutationFn: signInMutationFn,
-    onSuccess: (data) => {
-      if (data.isSuccess) {
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
-        dispatch(setCredentials(data));
+ onSuccess: (data) => {
+  if (data.isSuccess) {
+ 
+   localStorage.setItem("accessToken", data.accessToken);
+                localStorage.setItem("refreshToken", data.refreshToken);
+    // Dispatch with correct shape
+                  dispatch(setCredentials(data));
+  
+      
         toast({ title: "Login Successful", variant: "success" });
-        onClose(); // close the modal
-        if (onSuccessRedirect) onSuccessRedirect(); // optional redirect
+        onClose();
+        if (onSuccessRedirect) onSuccessRedirect();
       } else {
         toast({ title: "Login Failed", variant: "destructive" });
       }
@@ -42,79 +47,98 @@ const Login = ({ show, onClose, onSuccessRedirect }) => {
     loginMutation.mutate({ user: { identifier, password } });
   };
 
-  if (!show) return null; // only render if modal is visible
-
   return (
-<div
-  className="modal fade show d-block"
-  tabIndex="-1"
-  style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-  aria-modal="true"
+   <Modal
+  show={show}
+  onHide={onClose}
+  centered
+  size="md" // smaller width
+  dialogClassName="custom-login-modal"
 >
-  <div className="modal-dialog modal-dialog-centered max-w-md" >
-    <div className="modal-content p-4">
-      <form onSubmit={handleLoginSubmit}>
-        {/* Centered Title */}
-       <div className="modal-header border-0 pb-0 flex-column text-center">
-  <h5 className="modal-title w-100">Welcome Back!</h5>
-  <h6 className="modal-title w-100 text-muted">Sign in to continue</h6>
-  <button
-    type="button"
-    className="btn-close position-absolute end-0 top-0"
-    onClick={onClose}
-  ></button>
-</div>
+  <Modal.Header closeButton className="border-0"></Modal.Header>
 
-        <div className="modal-body pt-0">
-          <div className="mb-3">
-            <label className="form-label">Username / Email</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter username or email"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-3 position-relative">
-            <label className="form-label">Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              className="form-control"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <span
-              style={{
-                position: "absolute",
-                top: "50%",
-                right: "10px",
-                cursor: "pointer",
-                transform: "translateY(-50%)",
-              }}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "🙈" : "👁️"}
-            </span>
-          </div>
-        </div>
-
-        <div className="modal-footer border-0 pt-0">
-          <button
-            type="submit"
-            className="btn btn-main w-100"
-            disabled={loginMutation.isPending}
-          >
-            {loginMutation.isPending ? "Logging in..." : "Login"}
-          </button>
-        </div>
-      </form>
+  <Modal.Body className="text-center">
+    {/* Centered logo */}
+    <div className="mb-3">
+      <img
+        src={logo}
+        alt="Logo"
+        height="50"
+        className="d-block mx-auto"
+      />
     </div>
-  </div>
-</div>
+
+    {/* Title below the image */}
+    <h5 className="mb-4">Welcome Back!</h5>
+
+    <div className="mb-3 text-start">
+      <label className="form-label">Username / Email</label>
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Enter username or email"
+        value={identifier}
+        onChange={(e) => setIdentifier(e.target.value)}
+        required
+      />
+    </div>
+
+    <div className="mb-3 position-relative text-start">
+      <label className="form-label">Password</label>
+      <input
+        type={showPassword ? "text" : "password"}
+        className="form-control"
+        placeholder="Enter password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <span
+        // style={{
+        //   position: "absolute",
+        //   top: "50%",
+        //   right: "10px",
+        //   cursor: "pointer",
+        //   transform: "translateY(-50%)",
+        // }}
+          className="position-absolute top-50 end-0 translate-middle-y me-3"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+         <i className={showPassword ? "ph ph-eye-slash" : "ph ph-eye"} />
+      </span>
+    </div>
+
+    <button
+      type="button"
+      className="btn btn-main w-100 mt-8"
+      onClick={handleLoginSubmit}
+      disabled={loginMutation.isPending}
+    >
+{loginMutation.isPending ? (
+    <>
+      <span
+        className="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      Logging in...
+    </>
+  ) : (
+    "Login"
+  )}    </button>
+<p
+  className="text-main text-start mt-3 mb-0 text-sm"
+  style={{ cursor: "pointer" }}
+  onClick={() => {
+    onClose();
+    onOpenRegister();
+  }}
+>
+  Don’t have an account? Sign Up
+</p>
+  </Modal.Body>
+</Modal>
   );
 };
 
-export default Login;
+export default LoginModal;

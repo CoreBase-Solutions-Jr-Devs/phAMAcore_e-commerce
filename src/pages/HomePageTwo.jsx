@@ -8,10 +8,17 @@ import BottomFooter from "../components/BottomFooter";
 import ColorInit from "../helper/ColorInit";
 import ScrollToTop from "react-scroll-to-top";
 import BeautyOne from "../components/BeautyOne";
+import NewArrivaltwo from "../components/NewArrivalTwo";
+import PopularProductsThree from "../components/PopularProductsThree";
+import TrendingThree from "../components/TrendingThree";
+import TopSellingTwo from "../components/TopSellingTwo";
+import BrandThree from "../components/BrandThree";
+
 import VitaminOne from "@/components/VitaminOne";
 import BlogHome from "@/components/BlogHome";
 import Slogan from "@/components/Slogan";
 import FaqSection from "@/components/FaqSection";
+import TopSellingOne from "@/components/TopSellingOne";
 
 const HomePageTwo = () => {
 
@@ -33,6 +40,20 @@ const HomePageTwo = () => {
 
       {/* BannerTwo */}
       <BannerTwo />
+
+   {/* PopularProductsThree */}
+      <PopularProductsThree />
+
+ {/* TrendingThree */}
+      <TrendingThree />
+
+   <NewArrivaltwo />
+
+    <TopSellingOne/>
+
+
+      {/* BrandThree */}
+      <BrandThree />
 
       {/* Beauty Products */}
       <BeautyOne />

@@ -14,61 +14,17 @@ const TrendingThree = () => {
   }, []);
 
   return (
-    <section className='trending-products-three py-120 overflow-hidden'>
+    <section className='trending-products-three py-30 overflow-hidden'>
       <div className='container container-lg'>
-        <div className='section-heading mb-24'>
-          <div className='flex-between flex-wrap gap-8'>
-            <h5 className='mb-0 text-uppercase'>Trending Products</h5>
-            <ul
-              className='nav common-tab style-two nav-pills'
-              id='pills-tab'
-              role='tablist'
-            >
-              <li className='nav-item' role='presentation'>
-                <button
-                  className='nav-link active'
-                  id='pills-sale-tab'
-                  data-bs-toggle='pill'
-                  data-bs-target='#pills-sale'
-                  type='button'
-                  role='tab'
-                  aria-controls='pills-sale'
-                  aria-selected='true'
-                >
-                  On Sale
-                </button>
-              </li>
-              <li className='nav-item' role='presentation'>
-                <button
-                  className='nav-link'
-                  id='pills-featured-tab'
-                  data-bs-toggle='pill'
-                  data-bs-target='#pills-featured'
-                  type='button'
-                  role='tab'
-                  aria-controls='pills-featured'
-                  aria-selected='false'
-                >
-                  Featured Products
-                </button>
-              </li>
-              <li className='nav-item' role='presentation'>
-                <button
-                  className='nav-link'
-                  id='pills-rated-tab'
-                  data-bs-toggle='pill'
-                  data-bs-target='#pills-rated'
-                  type='button'
-                  role='tab'
-                  aria-controls='pills-rated'
-                  aria-selected='false'
-                >
-                  Best Rated
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+         <div className="border border-gray-100 p-24 rounded-16">
+                           <div className="section-header text-center mb-16">
+                                               <h5 className="section-header__title text-lg fw-semibold">
+Trending Products
+                                               </h5>
+                                               <Link to="/shop" className="section-header__link text-xs text-main-600">
+                                                   View All Deals
+                                               </Link>
+                                           </div>>
         <div className='tab-content' id='pills-tabContent'>
           <div
             className='tab-pane fade show active'
@@ -1768,6 +1724,7 @@ const TrendingThree = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

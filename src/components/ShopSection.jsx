@@ -23,12 +23,12 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
                         to={`/product-details-two/${product.id}`}
                         className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative"
                     >
-                        <img src={"src/assets/images/icon/Medicine.jpg"} alt={product.name} className="w-auto max-w-unset" />
+                        <img src={"src/assets/images/icon/Medicine.jpg"} alt={product.name} className="w-auto " />
                     </Link>
                     <div className="product-card__content mt-16">
                         <div className='justify-content-between'>
-                            <h6 className="title text-lg fw-semibold mt-12 mb-8">
-                                <Link to={`/product-details-two/${product.id}`} className="link text-line-2" tabIndex={0}>
+                            <h6 className="title text-md fw-semibold mt-12 mb-8">
+                                <Link to={`/product-details-two/${product.id}`} className="link  text-line-2" tabIndex={0}>
                                     {product.name}
                                 </Link>
                             </h6>
@@ -156,7 +156,12 @@ const ShopSection = () => {
 
     const handleAddtoCart = (item) => {
         dispatch(addItemToCart({ ...item }));
-          navigate("/cart");
+        toast({
+    title: "Added to Cart ",
+    description: `${item.name} has been added successfully.`,
+    variant: "success", // optional (depends on your toast setup)
+  });
+        //   navigate("/cart");
     };
 
     function getPaginationRange(current, total, siblings = 1) {
@@ -176,7 +181,7 @@ const ShopSection = () => {
     }
 
     return (
-        <section className="shop py-80">
+        <section className="shop py-40">
             <div className={`side-overlay ${active && "show"}`}></div>
             <div className="container container-lg">
                 <div className="row">
@@ -197,12 +202,12 @@ const ShopSection = () => {
                                         <h6 className="mt-20 text-danger-600">Error getting categories</h6>
                                     </div>
                                 )}
-                                <ul className="max-h-540 overflow-y-auto scroll-sm">
+                                <ul className="max-h-540  overflow-y-auto scroll-sm">
                                     {!categoriesError && categoryList.map((category) => (
-                                        <li className="mb-24" key={category.id}>
+                                        <li className="mb-24 text-sm" key={category.id}>
                                             <Link
                                                 to={`/shop?category=${category.name}`}
-                                                className={`text-gray-900 hover-text-main-600 ${categoryName === category.name ? "text-main-600 fw-semibold" : ""}`}
+                                                className={`text-gray-900 text-sm hover-text-main-600 ${categoryName === category.name ? "text-main-600 fw-semibold" : ""}`}
                                             >
                                                 {category.name}
                                             </Link>

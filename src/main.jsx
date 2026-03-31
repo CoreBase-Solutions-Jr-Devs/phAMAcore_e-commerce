@@ -7,11 +7,13 @@ import App from "./app.jsx";
 import QueryProvider from "./context/query-provider.jsx";
 import { Toaster } from "./components/ui/toaster";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import "./index.css";
 import "./index.scss";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 import "animate.css";
 import "slick-carousel/slick/slick.css";

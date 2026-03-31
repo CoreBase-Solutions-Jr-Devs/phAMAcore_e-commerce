@@ -39,6 +39,7 @@ export const checkoutSlice = createSlice({
       state.deliveryDistanceKm = payload.deliveryDistanceKm || 0;
       state.chargeableDistanceKm = payload.chargeableDistanceKm || 0;
       state.createdAt = payload.createdAt || null;
+        state.items = payload.items || [];
     },
 
     setCheckoutPayload: (state, action) => {
@@ -65,6 +66,7 @@ export const { setCheckoutResponse, clearCheckout, setCheckoutPayload, setCardIn
 
 // Selectors
 export const selectCheckoutResponse = (state) => state.checkout;
+export const selectCheckoutItems = (state) => state.checkout.items;
 export const selectCheckoutPayload = (state) => state.checkout.checkoutPayload;
 export const selectCardInfo = (state) => state.checkout.cardInfo;
 

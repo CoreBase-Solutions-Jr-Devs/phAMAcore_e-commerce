@@ -10,17 +10,18 @@ import SectionOrders from "./sections/SectionOrders";
 import SectionWishlist from "./sections/SectionWishlist";
 import SectionAddressBook from "./sections/SectionAddressBook";
 import SectionAccountManagement from "./sections/SectionAccountManagement";
-
 import { useUser } from "./hooks/useUser";
 import { st } from "./constants/styles";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch } from "react-redux";
 import { logout } from "@/features/authSlice";
+import SectionOrderDetails from "./sections/SectionOrderDetails";
 
 const SECTION_MAP = {
     account: SectionMyAccount,
     orders: SectionOrders,
     wishlist: SectionWishlist,
+    orderdetails: SectionOrderDetails,
     addresses: SectionAddressBook,
     management: SectionAccountManagement,
 };
@@ -31,6 +32,8 @@ const MyProfile = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { toast } = useToast();
+const [selectedOrderId, setSelectedOrderId] = useState(null);
+
 
     const signOutMutation = useMutation({
         mutationFn: signOutMutationFn,
@@ -92,11 +95,19 @@ const MyProfile = () => {
                         />
                     </div>
 
-                    <div className="col-lg-9">
-                        <div style={st.card}>
-                            <ActiveSection user={user} />
-                        </div>
-                    </div>
+       <div className="col-lg-9">
+  <div style={st.card}>
+    <ActiveSection
+      user={user}
+      orderId={selectedOrderId}   // pass selected order
+      onSelectOrder={(orderId) => {
+        setSelectedOrderId(orderId);
+        setActive("orderdetails");
+      }}
+      onBack={() => setActive("orders")} // back button
+    />
+  </div>
+</div>
                 </div>
             </div>
         </section>
