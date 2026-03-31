@@ -230,14 +230,14 @@ const Account = () => {
                                     </button>
                                 </div>
 
-                                <div className="mt-24">
+                                {/* <div className="mt-24">
                                     <Link
                                         to="#"
                                         className="text-danger-600 text-sm fw-semibold"
                                     >
                                         Forgot your password?
                                     </Link>
-                                </div>
+                                </div> */}
                             </div>
                         </form>
                     </div>

@@ -7,7 +7,7 @@ import { DARK_RED, ORANGE, st } from "../constants/styles";
 import EmptyState from "../components/EmptyState";
 
 const SectionWishlist = () => {
-    const [items, setItems] = useState(INITIAL_WISHLIST);
+    const [items, setItems] = useState("");
     const remove = (id) => setItems(prev => prev.filter(i => i.id !== id));
     const navigate = useNavigate();
 
