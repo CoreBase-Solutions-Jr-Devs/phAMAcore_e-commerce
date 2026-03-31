@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SectionTitle from "../components/SectionTitle";
-import { getPersonalFields, getAddressFields } from "../constants/profileData";
+import { getPersonalFields, getAddressFields, getPasswordFields } from "../constants/profileData";
 import { ORANGE, st } from "../constants/styles";
 import FormInput from "../components/FormInput";
 import { useCurrentUser } from "../hooks/useCurrentUser";
@@ -34,6 +34,12 @@ const SectionAccountManagement = () => {
         county: useRef(null),
         postalCode: useRef(null),
         country: useRef(null),
+    };
+
+    const passwordRefs = {
+        currentPassword: useRef(null),
+        newPassword: useRef(null),
+        confirmPassword: useRef(null),
     };
 
     const updateMutation = useMutation({
@@ -94,6 +100,25 @@ const SectionAccountManagement = () => {
                     country: addressRefs.country.current?.value || null,
                 },
             },
+        });
+    };
+
+    const handlePasswordSave = () => {
+        const currentPassword = passwordRefs.currentPassword.current?.value;
+        const newPassword = passwordRefs.newPassword.current?.value;
+        const confirmPassword = passwordRefs.confirmPassword.current?.value;
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            toast({ title: "All password fields are required.", variant: "destructive", className: "text-white [&_*]:text-white" });
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            toast({ title: "Passwords don't match", description: "New password and confirmation must match.", variant: "destructive", className: "text-white [&_*]:text-white" });
+            return;
+        }
+
+        updateMutation.mutate({
+            user: { currentPassword, newPassword },
         });
     };
 
@@ -172,14 +197,24 @@ const SectionAccountManagement = () => {
             )}
 
             {activeTab === "password" && (
-                <div>
-                    {["Current Password", "New Password", "Confirm New Password"].map(f => (
-                        <div key={f} style={{ marginBottom: 20 }}>
-                            <label style={st.inputLabel}>{f}</label>
-                            <input style={st.input} type="password" placeholder={f} />
-                        </div>
+                <div className="row g-3" style={{ paddingRight: 12 }}>
+                    {getPasswordFields().map(f => (
+                        <FormInput
+                            key={f.key}
+                            label={f.label}
+                            type={f.type}
+                            inputRef={passwordRefs[f.key]}
+                        />
                     ))}
-                    <button style={st.btnGreen}>Update Password</button>
+                    <div className="col-12 mt-3 mb-2">
+                        <button
+                            style={st.btnGreen}
+                            onClick={handlePasswordSave}
+                            disabled={updateMutation.isPending}
+                        >
+                            {updateMutation.isPending ? "Saving..." : "Update Password"}
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
