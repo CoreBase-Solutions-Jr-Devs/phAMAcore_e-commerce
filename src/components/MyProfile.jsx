@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { signOutMutationFn, getOrdersByCustomerQueryFn, getOrderByIdQueryFn } from "@/lib/api";
-import { useSelector } from "react-redux";
-import { selectCustomerId, selectCurrentUser } from "../features/authSlice";
-
+import { useSelector, useDispatch } from "react-redux";
+import { selectCustomerId, selectCurrentUser, logout } from "../features/authSlice";
+import { clearCart } from "../features/cartSlice";
 
 const decodeJwt = (token) => {
     try {
@@ -648,19 +648,28 @@ const SECTION_MAP = {
 
 const MyProfile = () => {
     const navigate = useNavigate();
+     const dispatch = useDispatch();
     const [active, setActive] = useState("account");
 
-    const clearTokens = () => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("user");
-    };
+    // const clearTokens = () => {
+    //     localStorage.removeItem("accessToken");
+    //     localStorage.removeItem("refreshToken");
+    //     localStorage.removeItem("user");
+    // };
 
-    const signOutMutation = useMutation({
+const signOutMutation = useMutation({
         mutationFn: signOutMutationFn,
-        onSuccess: () => { clearTokens(); navigate("/account"); },
-        onError:   () => { clearTokens(); navigate("/account"); },
+        onSuccess: () => {
+            dispatch(logout());
+             dispatch(clearCart());  // ✅ clear auth from Redux and localStorage
+            navigate("/shop");
+        },
+        onError: () => {
+            dispatch(logout());  // ✅ same on error
+            navigate("/account");
+        },
     });
+
 
     return (
         <section className="py-60">
@@ -690,8 +699,8 @@ const MyProfile = () => {
 
                                 <button
                                     style={st.signOutBtn(signOutMutation.isPending)}
-                                    onClick={() => signOutMutation.mutate()}
-                                    disabled={signOutMutation.isPending}
+    onClick={() => signOutMutation.mutate()}
+                                        disabled={signOutMutation.isPending}
                                 >
                                     <span style={{ fontSize: 18, width: 22, textAlign: "center" }}>
                                         {signOutMutation.isPending ? "⏳" : "🚪"}
