@@ -499,49 +499,68 @@ const HeaderTwo = ({ category }) => {
             </div>
 
             {/* Header right */}
-            <div className="header-right flex-align">
-              <div className="select-dropdown-for-home-two d-lg-block d-none">
-                <LocaleSelectors
-                  language={selectedLanguage} onLanguage={setSelectedLanguage}
-                  currency={selectedCurrency} onCurrency={setSelectedCurrency}
-                />
-              </div>
+           <div className="header-right flex-align">
 
-              {/* Mobile icon row */}
-              <div className="me-8 d-lg-none d-block">
-                c
-                <div className="header-two-activities flex-align flex-wrap gap-32">
-                  
-                  <button onClick={() => setActiveSearch(v => !v)} type="button" className="flex-align search-icon d-lg-none d-flex gap-4 item-hover-two">
-                    <span className="text-2xl text-white d-flex position-relative item-hover__text">
-                      <i className="ph ph-magnifying-glass" />
-                    </span>
-                  </button>
-                  {[
-                    { to: "/account", icon: "ph ph-user", badge: null, label: "Profile" },
-                    { to: "/wishlist", icon: "ph ph-heart", badge: "2", label: "Wishlist" },
-                    // { to: "/cart", icon: "ph-fill ph-shuffle", badge: "2", label: "Compare" },
-                    { to: "/cart", icon: "ph ph-shopping-cart-simple", badge: "2", label: "Cart" },
-                  ].map(({ to, icon, badge, label }) => (
-                    <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
-                      <span className="text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text">
-                        <i className={icon} />
-                        {badge && (
-                          <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4">
-                            {badge}
-                          </span>
-                        )}
-                      </span>
-                      <span className="text-md text-white item-hover__text d-none d-lg-flex">{label}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+  {/* Prescription Button */}
+  <button
+    className="btn btn-sm btn-secondary py-8 me-8 d-none d-md-block"
+    type="button"
+  >
+    <i className="ph ph-file-arrow-up me-5"></i>
+    Prescription
+  </button>
 
-              <button onClick={handleMenuToggle} type="button" className="toggle-mobileMenu d-lg-none ms-3n text-gray-800 text-4xl d-flex">
-                <i className="ph ph-list" />
-              </button>
-            </div>
+  {/* Language & Currency Selector */}
+  <div className="select-dropdown-for-home-two d-lg-block d-none">
+    <LocaleSelectors
+      language={selectedLanguage} 
+      onLanguage={setSelectedLanguage}
+      currency={selectedCurrency} 
+      onCurrency={setSelectedCurrency}
+    />
+  </div>
+
+  {/* Mobile icon row */}
+  <div className="me-8 d-lg-none d-block">
+    <div className="header-two-activities flex-align flex-wrap gap-32">
+      <button 
+        onClick={() => setActiveSearch(v => !v)} 
+        type="button" 
+        className="flex-align search-icon d-lg-none d-flex gap-4 item-hover-two"
+      >
+        <span className="text-2xl text-white d-flex position-relative item-hover__text">
+          <i className="ph ph-magnifying-glass" />
+        </span>
+      </button>
+
+      {[ 
+        { to: "/account", icon: "ph ph-user", badge: null, label: "Profile" },
+        { to: "/wishlist", icon: "ph ph-heart", badge: "2", label: "Wishlist" },
+        { to: "/cart", icon: "ph ph-shopping-cart-simple", badge: "2", label: "Cart" },
+      ].map(({ to, icon, badge, label }) => (
+        <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
+          <span className="text-2xl text-white d-flex position-relative me-6 mt-6 item-hover__text">
+            <i className={icon} />
+            {badge && (
+              <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4">
+                {badge}
+              </span>
+            )}
+          </span>
+          <span className="text-md text-white item-hover__text d-none d-lg-flex">{label}</span>
+        </Link>
+      ))}
+    </div>
+  </div>
+
+  <button 
+    onClick={handleMenuToggle} 
+    type="button" 
+    className="toggle-mobileMenu d-lg-none ms-3n text-gray-800 text-4xl d-flex"
+  >
+    <i className="ph ph-list" />
+  </button>
+</div>
           </nav>
         </div>
       </header>
