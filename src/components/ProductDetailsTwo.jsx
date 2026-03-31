@@ -122,7 +122,7 @@ const customerId = useSelector(selectCustomerId);
 
      const handleAddtoCart = (item) => {
             dispatch(addItemToCart({ ...item }));
-              navigate("/cart");
+            //   navigate("/cart");
         };
         
         
