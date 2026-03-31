@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCategoriesHierarchyQueryFn } from "@/lib/api";
 import { useSelector } from "react-redux";
+import logo from "../assets/images/logo/phamacart.png";
 
 const LANGUAGES = [
   { label: "English", flag: "flag1.png" },
@@ -164,7 +165,7 @@ const HeaderTwo = ({ category }) => {
           <div className="position-relative">
             <input
               type="text"
-              className="form-control py-16 px-24 text-xl rounded-pill pe-64"
+              className="form-control py-16 px-24 text-xl rounded-pill pe-64 w-100" 
               placeholder="Search for a product or brand"
             />
             <button
@@ -188,7 +189,7 @@ const HeaderTwo = ({ category }) => {
         </button>
         <div className="mobile-menu__inner">
           <Link to="/home" className="mobile-menu__logo">
-            <img src="assets/images/logo/logo.png" alt="Logo" />
+            <img src={logo} alt="Logo" />
           </Link>
           <div className="mobile-menu__menu">
             <ul className="nav-menu flex-align nav-menu--mobile">
@@ -268,14 +269,14 @@ const HeaderTwo = ({ category }) => {
         </div>
       </div>
 
+
       {/* ── Middle header ── */}
-      <header className="header-middle style-two bg-neutral-100">
+      <header className={`header style-two bg-white py-10  ${scroll && "fixed-header "}`}>
         <div className="container container-lg">
           <nav className="header-inner flex-between">
             <div className="logo">
               <Link to="/home" className="link text-orange-300">
-                <h4>phAMACart</h4>
-                {/* <img src="assets/images/logo/logo-two.png" alt="Logo" /> */}
+                <img src={logo} alt="Logo" />
               </Link>
             </div>
 
@@ -298,7 +299,7 @@ const HeaderTwo = ({ category }) => {
                   <div className="search-form__wrapper position-relative">
                     <input
                       type="text"
-                      className="search-form__input common-input py-13 ps-16 pe-18 rounded-0 border-0"
+                      className="search-form__input common-input py-13 ps-16 pe-18 rounded border border-gray-200 border-end-0 w-100"
                       placeholder="Search for a product or brand"
                     />
                   </div>
@@ -321,11 +322,11 @@ const HeaderTwo = ({ category }) => {
                   <Link key={label} to={to} className="flex-align flex-column gap-8 item-hover-two">
                     <span className="text-2xl text-black d-flex position-relative me-6 mt-6 item-hover__text">
                       <i className={icon} />
-                      {badge && (
-                        <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-black text-xs position-absolute top-n6 end-n4">
-                          {badge}
-                        </span>
-                      )}
+                   {badge != null && (
+  <span className="w-16 h-16 flex-center rounded-circle bg-main-two-600 text-white text-xs position-absolute top-n6 end-n4">
+    {badge}
+  </span>
+)}
                     </span>
                     <span className="text-md text-black item-hover__text d-none d-lg-flex">{label}</span>
                   </Link>
@@ -336,9 +337,10 @@ const HeaderTwo = ({ category }) => {
         </div>
       </header>
 
+
       {/* ── Main sticky header ── */}
-      <header className={`header bg-white border-bottom border-gray-100 ${scroll && "fixed-header"}`}>
-        <div className="container container-lg">
+      <header className="header-middle  bg-white  border-gray-100">
+        <div className="container container-lg border">
           <nav className="header-inner d-flex justify-content-between gap-8">
             <div className="flex-align menu-category-wrapper">
 
@@ -491,7 +493,9 @@ const HeaderTwo = ({ category }) => {
                     </NavLink>
                   </li>
                 </ul>
+                
               </div>
+               
             </div>
 
             {/* Header right */}
@@ -505,7 +509,9 @@ const HeaderTwo = ({ category }) => {
 
               {/* Mobile icon row */}
               <div className="me-8 d-lg-none d-block">
+                c
                 <div className="header-two-activities flex-align flex-wrap gap-32">
+                  
                   <button onClick={() => setActiveSearch(v => !v)} type="button" className="flex-align search-icon d-lg-none d-flex gap-4 item-hover-two">
                     <span className="text-2xl text-white d-flex position-relative item-hover__text">
                       <i className="ph ph-magnifying-glass" />
