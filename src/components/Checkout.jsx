@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "../hooks/use-toast";
 import { useMutation,useQuery } from "@tanstack/react-query";
-import { CheckoutBasketMutationFn, GetCartQueryFn, getCurrentLocationQueryFn } from "../lib/api";
+import { CheckoutBasketMutationFn, getCurrentLocationQueryFn } from "../lib/api";
 import { useSelector, useDispatch } from "react-redux";
 import PayMethod from "../components/Checkout/PayMethod";
 import Login from "../components/Checkout/login";
+import RegisterModal from "../components/Checkout/Register";
 import { fetchLocation, selectCurrentLocation } from "../features/locationSlice";
 import { clearCart } from "../features/cartSlice";
 import { selectCustomerId, selectIsAuthenticated } from "../features/authSlice";
 import ShippingMethod from "./Checkout/shippingmethod";
-
+import LogoutModal from "./Checkout/logout";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -54,6 +55,7 @@ const Checkout = () => {
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const customerId = useSelector(selectCustomerId);
   const { cart } = useSelector((state) => state.itemCart);
+
 const currentLocation = useSelector(selectCurrentLocation);
 const { latitude, longitude } = useSelector((state) => state.location);
   const [selectedPayment, setSelectedPayment] = useState("payment1");
@@ -69,7 +71,8 @@ const { latitude, longitude } = useSelector((state) => state.location);
     name: "",
   });
   const [showLoginModal, setShowLoginModal] = useState(false);
-
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+const [showLogoutModal, setShowLogoutModal] = useState(false);
   const emptyAddress = {
     firstName: "",
     lastName: "",
@@ -159,9 +162,9 @@ useEffect(() => {
         variant: "success",
       });
       setTimeout(() => {
-        navigate("/paynow");
+        navigate("/payment");
       }, 5000);
-       dispatch(clearCart());
+      //  dispatch(clearCart());
     },
     onError: (err) => {
       toast({
@@ -254,36 +257,65 @@ console.log("DISPATCHING:", payload.basketCheckout);
 
   // ------------------ JSX ------------------
   return (
-    <section className="checkout py-80">
+    <section className="checkout py-40">
       <div className="container container-lg">
         {/* Login / Account */}
-        <div className="border border-gray-100 rounded-8 px-30 py-20 mb-40">
-          {isAuthenticated ? (
-            <span>
-              You are logged in.{" "}
-              <Link
-                onClick={() => console.log("Go to profile or logout flow")}
-                className="fw-semibold text-main-600 hover-text-decoration-underline hover-text-main-600"
-              >
-                Log out
-              </Link>
-            </span>
-          ) : (
-            <span>
-              Have an account?{" "}
-              <Link
-                onClick={() => setShowLoginModal(true)}
-                className="fw-semibold text-main-600 hover-text-decoration-underline hover-text-main-600"
-              >
-                Log in
-              </Link>
-              <Login
-                show={showLoginModal}
-                onClose={() => setShowLoginModal(false)}
-              />
-            </span>
-          )}
-        </div>
+      <div className="border border-gray-100 rounded-8 px-30 py-20 mb-20">
+  {isAuthenticated ? (
+    <span>
+      You are logged in.{" "}
+   <Link
+  onClick={() => setShowLogoutModal(true)}
+  className="fw-semibold text-main-600 hover-text-decoration-underline"
+>
+  Log out
+</Link>
+<LogoutModal
+  show={showLogoutModal}
+  onClose={() => setShowLogoutModal(false)}
+/>
+    </span>
+  ) : (
+    <span>
+      Have an account?{" "}
+      <Link
+        onClick={() => setShowLoginModal(true)}
+        className="fw-semibold text-main-600 hover-text-decoration-underline hover-text-main-600"
+      >
+        Log in
+      </Link>
+
+      {/* {" | "}
+
+      <Link
+        onClick={() => setShowRegisterModal(true)}
+        className="fw-semibold text-main-600 hover-text-decoration-underline hover-text-main-600"
+      >
+        Sign up
+      </Link> */}
+
+      {/* Login Modal */}
+      <Login
+        show={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onOpenRegister={() => {
+          setShowLoginModal(false);
+          setShowRegisterModal(true);
+        }}
+      />
+
+      {/* Register Modal */}
+      <RegisterModal
+        show={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        onOpenLogin={() => {
+          setShowRegisterModal(false);
+          setShowLoginModal(true);
+        }}
+      />
+    </span>
+  )}
+</div>
 <form className="pe-xl-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
           {/* Shipping / Billing Form */}
