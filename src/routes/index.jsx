@@ -17,7 +17,8 @@ import MyProfilePage from "@/pages/Myprofilepage";
 import Confirm from "../components/Checkout/confirm";
 
 import LogIn from "../components/Checkout/login";
-import PayNow from "@/components/Checkout/PayNow";
+import PayNow from "../components/Checkout/PayNow";
+import Payment from "../pages/Payment";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -34,6 +35,8 @@ const AppRoutes = () => {
        <Route path="/login" element={<LogIn/>} />
          <Route path="/confirm" element={<Confirm/>} />
           <Route path="/paynow" element={<PayNow/>} />
+                    <Route path="/payment" element={<Payment/>} />
+
       <Route path="/profile" element={<MyProfilePage />} />
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blog-details" element={<BlogDetailsPage />} />
