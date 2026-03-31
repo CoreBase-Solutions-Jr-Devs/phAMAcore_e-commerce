@@ -77,14 +77,10 @@ export const authSlice = createSlice({
       state.customerId = null;
       state.isAuthenticated = false;
 
-      localStorage.removeItem("auth");
-            localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-            localStorage.removeItem("user");
-
-
+            localStorage.removeItem("auth");
+            console.log("Auth after removal:", localStorage.getItem("auth"));
+        },
     },
-  },
 });
 
 // ------------------ Exports ------------------

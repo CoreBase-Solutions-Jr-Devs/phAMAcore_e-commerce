@@ -20,12 +20,23 @@ export const signOutMutationFn = async (data) => {
   return response.data;
 };
 
-export const refreshTokenMutationFn = async (data) => {
-  const response = await API.post("/identity/refresh-token", data, {
-    withCredentials: false,
+export const refreshTokenMutationFn = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  const response = await API.post("/identity/refresh-token", {
+    refreshToken,
   });
+
   return response.data;
 };
+
+export const confirmEmailQueryFn = async ({ userId, token }) => {
+  const response = await API.get("/auth/confirm-email", {
+    params: { userId, token },
+  }
+  );
+  return response.data;
+}
 
 // export const signInMutationFn = async (data) => {
 //   const response = await API.post("/identity/sign-in", data);
@@ -58,9 +69,17 @@ export const CheckoutBasketMutationFn = async (data) => {
 };
 
 export const getCurrentUserQueryFn = async () => {
-  const response = await API.get("/identity/current-client");
+  const response = await API.get("/identity/current-user");
   return response.data;
 };
+
+export const updateCurrentUserMutationFn = async (data) => {
+  const response = await API.put("/identity/current-user", data);
+
+  return response.data;
+}
+
+// Catalog ************
 
 export const getProductByCategoryQueryFn = async (
   categoryName,

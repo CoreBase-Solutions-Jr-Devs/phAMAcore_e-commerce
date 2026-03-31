@@ -17,6 +17,9 @@ import MyProfilePage from "@/pages/Myprofilepage";
 import Confirm from "../components/Checkout/confirm";
 
 import LogIn from "../components/Checkout/login";
+import PayNow from "@/components/Checkout/PayNow";
+import ConfirmEmailPage from "@/pages/ConfirmEmailPage";
+
 import PayNow from "../components/Checkout/PayNow";
 import Payment from "../pages/Payment";
 const AppRoutes = () => {
@@ -29,6 +32,7 @@ const AppRoutes = () => {
       <Route path="/product-details-two/:productId" element={<ProductDetailsPageTwo />} />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/confirm-email" element={<ConfirmEmailPage />} />
       <Route path="/become-seller" element={<BecomeSellerPage />} />
       <Route path="/wishlist" element={<WishlistPage />} />
       <Route path="/account" element={<AccountPage />} />

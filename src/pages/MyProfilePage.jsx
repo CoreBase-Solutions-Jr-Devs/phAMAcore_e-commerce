@@ -6,7 +6,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import FooterTwo from "../components/FooterTwo";
 import BottomFooter from "../components/BottomFooter";
 import ShippingOne from "../components/ShippingOne";
-import MyProfile from "@/components/MyProfile";
+import MyProfile from "@/components/MyProfile/MyProfile";
 import ScrollToTop from "react-scroll-to-top";
 import ColorInit from "../helper/ColorInit";
 
