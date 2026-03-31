@@ -60,3 +60,9 @@ export const getAddressFields = (user) => {
         { key: "country", label: "Country", value: a.country ?? "" },
     ];
 };
+
+export const getPasswordFields = () => [
+    { key: "currentPassword", label: "Current Password", type: "password" },
+    { key: "newPassword",     label: "New Password",     type: "password" },
+    { key: "confirmPassword", label: "Confirm New Password", type: "password" },
+];

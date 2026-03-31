@@ -21,10 +21,10 @@ const SectionMyAccount = () => {
             {/* content */}
             <div className="row g-3 mb-28">
                 {[
-                    { num: ORDERS.length, label: "Total Orders" },
-                    { num: ORDERS.filter(o => o.status === "Delivered").length, label: "Delivered" },
-                    { num: INITIAL_WISHLIST.length, label: "Wishlist Items" },
-                    { num: INITIAL_ADDRESSES.length, label: "Saved Addresses" },
+                    { num: 0, label: "Total Orders" },
+                    { num: 0, label: "Delivered" },
+                    { num: 0, label: "Wishlist Items" },
+                    { num: 0, label: "Saved Addresses" },
                 ].map(({ num, label }) => (
                     <div className="col-6 col-md-3" key={label}>
                         <div style={st.summaryBox}>
