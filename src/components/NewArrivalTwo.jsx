@@ -78,20 +78,18 @@ const NewArrivalTwo = () => {
         ],
     };
     return (
-        <section className="new-arrival pb-80">
+        <section className="new-arrival py-30">
             <div className="container container-lg">
-                <div className="section-heading">
-                    <div className="flex-between flex-wrap gap-8">
-                        <h5 className="mb-0">You Might Also Like</h5>
-                        <div className="flex-align mr-point gap-16">
-                            <Link
-                                to="/shop"
-                                className="text-sm fw-medium text-gray-700 hover-text-main-600 hover-text-decoration-underline"
-                            >
-                                All Products
-                            </Link>
-
-                        </div>
+                  <div className="border border-gray-100 p-12 rounded-16">
+  <div className="section-heading">
+                         <div className="section-header text-center mb-16">
+                        <h5 className="section-header__title text-lg fw-semibold">New Arrivals</h5>
+                           <Link
+                                                   to="/shop"
+                                                   className="section-header__link text-xs text-main-600"
+                                               >
+                                                   View All Deals
+                                               </Link>
                     </div>
                 </div>
                 <div className="new-arrival__slider arrow-style-two">
@@ -449,6 +447,8 @@ const NewArrivalTwo = () => {
                         </div>
                     </Slider>
                 </div>
+                  </div>
+              
             </div>
         </section>
 

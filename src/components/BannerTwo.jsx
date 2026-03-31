@@ -24,7 +24,7 @@ const BannerTwo = () => {
 
     };
     return (
-        <div className="banner-two">
+        <div className="banner-two pb-60">
             <div className="container container-lg">
                 <div className="banner-two-wrapper d-flex align-items-start">
                     <div className="w-265 d-lg-block d-none flex-shrink-0">
