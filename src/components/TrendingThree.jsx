@@ -17,14 +17,14 @@ const TrendingThree = () => {
     <section className='trending-products-three py-30 overflow-hidden'>
       <div className='container container-lg'>
          <div className="border border-gray-100 p-24 rounded-16">
-                           <div className="section-header text-center mb-16">
-                                               <h5 className="section-header__title text-lg fw-semibold">
-Trending Products
-                                               </h5>
-                                               <Link to="/shop" className="section-header__link text-xs text-main-600">
-                                                   View All Deals
-                                               </Link>
-                                           </div>>
+          <div className="section-header text-center mb-16">
+            <h5 className="section-header__title text-lg fw-semibold">
+              Trending Products
+            </h5>
+            <Link to="/shop" className="section-header__link text-xs text-main-600">
+              View All Deals
+            </Link>
+          </div>
         <div className='tab-content' id='pills-tabContent'>
           <div
             className='tab-pane fade show active'

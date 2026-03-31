@@ -82,12 +82,13 @@ export const updateCurrentUserMutationFn = async (data) => {
 // Catalog ************
 
 export const getProductByCategoryQueryFn = async (
-  categoryName,
+  category,
+  descending = false,
   pageIndex = 0,
-  pageSize = 20
+  pageSize = 10
 ) => {
-  const response = await API.get(`/products/category/${categoryName}`, {
-    params: { pageIndex, pageSize },
+  const response = await API.get(`/products`, {
+    params: { category, descending, pageIndex, pageSize },
     withCredentials: false,
   });
 
@@ -104,11 +105,15 @@ export const getProductByIdQueryFn = async (productId) => {
 };
 
 export const getProductsWithPaginationQueryFn = async ({
+  category,
+  decsending = false,
   pageIndex = 0,
   pageSize = 20,
 }) => {
   const response = await API.get(`/products`, {
     params: {
+      category,
+      decsending,
       pageIndex,
       pageSize,
     },
