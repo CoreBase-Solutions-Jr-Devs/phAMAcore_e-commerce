@@ -170,7 +170,7 @@ const customerId = useSelector(selectCustomerId);
                                 <div className="product-details__left">
                                     <div className="product-details__thumb-slider border border-gray-100 rounded-16">
                                         <div className="product-details__thumb flex-center h-100">
-                                            <img src="src/assets/images/icon/Medicine.jpg" alt={productName} />
+                                            <img src={displayImages} alt={productName} />
                                         </div>
                                     </div>
                                     <div className="mt-24 product-details__images-slider">
@@ -215,7 +215,7 @@ const customerId = useSelector(selectCustomerId);
                                         <span className="text-sm fw-medium text-gray-500">(21,671)</span>
                                         <span className="text-sm fw-medium text-gray-500">|</span>
                                         <span className="badge text-gray-900">
-                                            <span className="text-gray-400">Category: </span>{productCategory}
+                                            <span className="text-gray-400">Category: </span>{" "}{productCategory}
                                         </span>
                                     </div>
 
@@ -250,11 +250,11 @@ const customerId = useSelector(selectCustomerId);
                                                 <div className="color-list flex-align gap-8">
                                                     {["bg-info-600", "bg-warning-600", "bg-tertiary-600", "bg-main-600", "bg-gray-100"].map((bg) => (
                                                         <button key={bg} type="button"
-                                                            className={`color-list__button w-20 h-20 border border-2 border-gray-50 rounded-circle ${bg}`} />
+                                                            className={`color-list__button w-20 h-20 border-2 border-gray-50 rounded-circle ${bg}`} />
                                                     ))}
                                                 </div>
                                             </div>
-                                            <div>
+                                            {/* <div>
                                                 <span className="text-gray-900 d-block mb-12">Pattern Name: <span className="fw-medium">with offer</span></span>
                                                 <div className="flex-align gap-8 flex-wrap">
                                                     {["with offer", "12th Gen Laptop", "without offer"].map((p) => (
@@ -264,7 +264,7 @@ const customerId = useSelector(selectCustomerId);
                                                         </Link>
                                                     ))}
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
 
@@ -288,17 +288,17 @@ const customerId = useSelector(selectCustomerId);
                         <div className="product-details__sidebar py-40 px-32 border border-gray-100 rounded-16">
 
                             {/* Delivery */}
-                            <div className="mb-32">
+                            {/* <div className="mb-32">
                                 <label htmlFor="delivery" className="h6 activePage mb-8 text-heading fw-semibold d-block">Delivery</label>
                                 <div className="flex-align border border-gray-100 rounded-4 px-16">
                                     <span className="text-xl d-flex text-main-600"><i className="ph ph-map-pin" /></span>
                                     <select defaultValue={1} className="common-input border-0 px-8 rounded-4" id="delivery">
-                                        {["Maymansign", "Khulna", "Rajshahi", "Rangpur"].map((city) => (
+                                        {["South B", "South C", "Nairobi West", "Madaraka"].map((city) => (
                                             <option key={city} value={city}>{city}</option>
                                         ))}
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* Quantity */}
                             <div className="mb-32">
@@ -328,27 +328,27 @@ const customerId = useSelector(selectCustomerId);
                                     <span className="text-gray-500">Price</span>
                                     <h6 className="text-lg mb-0">KES {productPrice.toFixed(2)}</h6>
                                 </div>
-                                <div className="flex-between flex-wrap gap-8">
+                                {/* <div className="flex-between flex-wrap gap-8">
                                     <span className="text-gray-500">Shipping</span>
                                     <h6 className="text-lg mb-0">From $10.00</h6>
-                                </div>
+                                </div> */}
                             </div>
 
-                              <button
-                            tabIndex={0}
-                            // className="product-card__cart btn bg-main-50 text-main-600 hover-bg-main-600 hover-text-white py-11 px-24 rounded-pill flex-align gap-8 mt-24 w-100 justify-content-center"
-                            className="btn btn-main rounded-pill flex-align d-inline-flex gap-8 px-48"
-                         onClick={() => handleAddtoCart(product)} 
-                          >
-                            <i className="ph ph-shopping-cart" /> Add To Cart
-                          </button>
+                            <button
+                                tabIndex={0}
+                                // className="product-card__cart btn bg-main-50 text-main-600 hover-bg-main-600 hover-text-white py-11 px-24 rounded-pill flex-align gap-8 mt-24 w-100 justify-content-center"
+                                className="btn btn-main flex-align d-inline-flex justify-center gap-8 px-48 py-16 w-100"
+                                onClick={() => handleAddtoCart(product)}
+                            >
+                                <i className="ph ph-shopping-cart" /> Add To Cart
+                            </button>
                             <Link to="#" className="btn btn-outline-main rounded-8 py-16 fw-normal mt-16 w-100">Buy Now</Link>
 
                             {/* Shipping info */}
                             <div className="mt-32">
                                 {[
-                                    { icon: "ph-fill ph-truck", text: <><span className="fw-semibold">MarketPro</span></>, label: "Ship from" },
-                                    { icon: "ph-fill ph-storefront", text: <><span className="fw-semibold">MR Distribution LLC</span></>, label: "Sold by:" },
+                                    { icon: "ph-fill ph-truck", text: <><span className="fw-semibold">CoreBase Solutions</span></>, label: "Ship from" },
+                                    { icon: "ph-fill ph-storefront", text: <><span className="fw-semibold">phAMACart</span></>, label: "Sold by:" },
                                 ].map(({ icon, text, label }) => (
                                     <div key={label} className="px-16 py-8 bg-main-50 rounded-8 flex-between gap-24 mb-14">
                                         <span className="w-32 h-32 bg-white text-main-600 rounded-circle flex-center text-xl flex-shrink-0">

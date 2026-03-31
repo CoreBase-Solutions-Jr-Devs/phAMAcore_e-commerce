@@ -11,7 +11,7 @@ import { addItemToCart } from '@/features/cartSlice';
 import { selectIsAuthenticated, selectCustomerId, selectAccessToken } from '@/features/authSlice';
 import { toast } from "../hooks/use-toast";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 
 const ProductCard = ({ products = [], handleAddtoCart }) => {
@@ -23,7 +23,7 @@ const ProductCard = ({ products = [], handleAddtoCart }) => {
                         to={`/product-details-two/${product.id}`}
                         className="product-card__thumb flex-center rounded-8 bg-gray-50 position-relative"
                     >
-                        <img src={"src/assets/images/icon/Medicine.jpg"} alt={product.name} className="w-auto " />
+                        <img src={product.imageUrl} alt={product.name} className="w-auto " />
                     </Link>
                     <div className="product-card__content mt-16">
                         <div className='justify-content-between'>
@@ -85,6 +85,7 @@ const ShopSection = () => {
     const [pageIndex, setPageIndex] = useState(0);
     const [searchParams] = useSearchParams();
     const categoryName = searchParams.get("category") || null;
+    const [descending, setDescending] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -103,8 +104,8 @@ const ShopSection = () => {
         isError: categoryIsError,
         data: categoryData,
     } = useQuery({
-        queryKey: ["category_products", categoryName, pageIndex],
-        queryFn: () => getProductByCategoryQueryFn(categoryName, pageIndex, PAGE_SIZE),
+        queryKey: ["category_products", categoryName, descending, pageIndex],
+        queryFn: () => getProductByCategoryQueryFn(categoryName, descending, pageIndex, PAGE_SIZE),
         enabled: !!categoryName,
     });
 
