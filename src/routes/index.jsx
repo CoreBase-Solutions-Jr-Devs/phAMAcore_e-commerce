@@ -17,7 +17,7 @@ import MyProfilePage from "@/pages/Myprofilepage";
 import Confirm from "../components/Checkout/confirm";
 
 import LogIn from "../components/Checkout/login";
-import PayNow from "@/components/Checkout/PayNow";
+// import PayNow from "@/components/Checkout/PayNow";
 import ConfirmEmailPage from "@/pages/ConfirmEmailPage";
 
 import PayNow from "../components/Checkout/PayNow";
